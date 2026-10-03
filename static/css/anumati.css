@@ -1,0 +1,246 @@
+/* ============================================================
+   ANUMATISETU — SIH26130 Design System
+   Color Tokens, Glassmorphism, Micro-interactions & Animations
+   ============================================================ */
+
+:root {
+  --color-navy: #0B1F3A;
+  --color-navy-dark: #071527;
+  --color-navy-light: #162E52;
+  --color-blue-royal: #155EEF;
+  --color-blue-bright: #2563EB;
+  --color-teal: #0F9D8A;
+  --color-teal-light: #14B8A6;
+  --color-cyan: #22C7D6;
+  --color-violet: #7C5CFC;
+  --color-amber: #F59E0B;
+  --color-bg-light: #F7FAFC;
+  --color-text-main: #0F172A;
+  --color-text-sub: #64748B;
+  --color-success: #16A34A;
+  --color-danger: #EF4444;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-light);
+  overflow-x: hidden;
+}
+
+/* Glassmorphism styling */
+.glass-nav {
+  background: rgba(11, 31, 58, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 25px -5px rgba(11, 31, 58, 0.05), 0 8px 10px -6px rgba(11, 31, 58, 0.03);
+}
+
+.glass-card-dark {
+  background: rgba(11, 31, 58, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, #0B1F3A 0%, #155EEF 100%);
+}
+
+.gradient-teal {
+  background: linear-gradient(135deg, #0F9D8A 0%, #22C7D6 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #155EEF 0%, #22C7D6 50%, #0F9D8A 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #155EEF 0%, #0F9D8A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2.5s infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Responsive sidebar layout */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-sidebar {
+  width: 280px;
+  background-color: var(--color-navy);
+  color: #FFFFFF;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: 280px;
+  background-color: #F8FAFC;
+  min-height: 100vh;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapsed sidebar state */
+body.sidebar-collapsed .dashboard-sidebar {
+  width: 80px;
+}
+body.sidebar-collapsed .dashboard-sidebar .sidebar-text,
+body.sidebar-collapsed .dashboard-sidebar .sidebar-badge,
+body.sidebar-collapsed .dashboard-sidebar .user-info {
+  display: none;
+}
+body.sidebar-collapsed .dashboard-sidebar .nav-item {
+  justify-content: center;
+  padding: 0.75rem 0;
+}
+body.sidebar-collapsed .dashboard-main {
+  margin-left: 80px;
+}
+
+/* Mobile Sidebar */
+@media (max-width: 1024px) {
+  .dashboard-sidebar {
+    transform: translateX(-100%);
+  }
+  .dashboard-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  .dashboard-main {
+    margin-left: 0 !important;
+  }
+}
+
+/* Badges */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.badge-submitted { background-color: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.badge-review { background-color: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+.badge-clarification { background-color: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
+.badge-inspection { background-color: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
+.badge-approved { background-color: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+.badge-rejected { background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+
+/* Image Containers - strictly preserving aspect ratio and preventing distortion */
+.project-asset-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 1rem;
+  box-shadow: 0 20px 30px -10px rgba(11, 31, 58, 0.15);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.project-asset-img:hover {
+  transform: scale(1.015);
+  box-shadow: 0 25px 40px -10px rgba(11, 31, 58, 0.25);
+}
+
+/* Stepper Timeline */
+.step-circle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+.step-completed {
+  background-color: #10B981;
+  color: #FFFFFF;
+}
+.step-active {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+}
+.step-pending {
+  background-color: #E2E8F0;
+  color: #64748B;
+}
+
+/* Quick switch demo bar */
+.demo-switcher-bar {
+  background: linear-gradient(90deg, #0B1F3A 0%, #155EEF 50%, #0F9D8A 100%);
+  color: #FFFFFF;
+  font-size: 0.825rem;
+  padding: 0.4rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 50;
+}

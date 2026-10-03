@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Initiate Application — {{ approval.name }} | AnumatiSetu{% endblock %}
+{% block header_title %}Create Industrial Application{% endblock %}
+{% block header_subtitle %}Single-Window Submission to {{ approval.department }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+  
+  <div class="flex items-center justify-between">
+    <a href="{% url 'approvals:detail' code=approval.code %}" class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 transition-colors">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      <span>Back to Approval Details</span>
+    </a>
+    <span class="text-xs font-mono font-bold text-slate-400">RTS SLA: {{ approval.sla_max_days }} Days Maximum</span>
+  </div>
+
+  <div class="p-8 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-6">
+    <div class="border-b border-slate-100 pb-5">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-600">{{ approval.category }}</span>
+      <h1 class="text-2xl font-black text-slate-900 mt-1">{{ approval.name }}</h1>
+      <p class="text-xs text-slate-500 mt-0.5">{{ approval.department }} • Marathi: {{ approval.name_mr }}</p>
+    </div>
+
+    <!-- Enterprise Verification Card -->
+    <div class="p-4 rounded-2xl bg-blue-50/60 border border-blue-200 text-xs space-y-2">
+      <span class="font-bold text-blue-900 block">Applying Enterprise:</span>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-slate-700">
+        <div><strong>Entity:</strong> {{ business.company_name }}</div>
+        <div><strong>Location:</strong> {{ business.location }}</div>
+        <div><strong>Investment:</strong> ₹{{ business.investment_cr }} Cr</div>
+      </div>
+    </div>
+
+    <!-- Required Pre-checked Documents List -->
+    <div class="space-y-3">
+      <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">
+        Attached Pre-validated Documents
+      </h2>
+      <p class="text-xs text-slate-500">The following documents from your repository will be automatically attached to this departmental dossier:</p>
+
+      <div class="space-y-2">
+        {% for req in requirements %}
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2.5">
+            {% if req.doc_type_code in valid_doc_types %}
+            <i data-lucide="file-check" class="w-4 h-4 text-emerald-600"></i>
+            {% else %}
+            <i data-lucide="file-clock" class="w-4 h-4 text-amber-500"></i>
+            {% endif %}
+            <span class="font-bold text-slate-900">{{ req.title }}</span>
+          </div>
+          {% if req.doc_type_code in valid_doc_types %}
+          <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded">
+            Pre-validated & Attached ✓
+          </span>
+          {% else %}
+          <span class="text-[11px] font-semibold text-amber-800 bg-amber-100/60 px-2 py-0.5 rounded">
+            Pending Upload (Submit now or provide during scrutiny)
+          </span>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Application Form -->
+    <form method="POST" class="space-y-6 pt-4 border-t border-slate-100">
+      {% csrf_token %}
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Processing Priority</label>
+        <select name="priority" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <option value="Normal" selected>Standard Industrial Scrutiny</option>
+          <option value="High">High Priority (Greenfield Unit)</option>
+          <option value="Urgent">Fast-track / Mega Project</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Applicant Remarks / Special Technical Notes</label>
+        <textarea name="remarks" rows="3" placeholder="Specify any technical clarifications, installed horsepower, or civil contractor details..."
+                  class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1">
+        <strong class="font-bold block">Statutory Undertaking:</strong>
+        <p class="text-[11px] leading-relaxed">
+          I hereby certify that all technical layout plans and business information submitted are true and in compliance with the Maharashtra Factories Act 1948, Water Act 1974, and local building by-laws.
+        </p>
+      </div>
+
+      <div class="pt-4 flex items-center justify-end gap-3">
+        <a href="{% url 'approvals:detail' code=approval.code %}" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs transition-colors">
+          Cancel
+        </a>
+        <button type="submit" class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-500/25 transition-all flex items-center gap-2">
+          <span>Submit Application to {{ approval.department }}</span>
+          <i data-lucide="send" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+{% endblock %}

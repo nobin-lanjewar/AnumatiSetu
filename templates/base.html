@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}AnumatiSetu — Intelligent Industrial Approvals Orchestration{% endblock %} | Govt. of Maharashtra</title>
+  <meta name="description" content="AnumatiSetu streamlines industrial approvals, document pre-checks, SLA monitoring, and government schemes for Maharashtra entrepreneurs. SIH26130.">
+
+  <!-- Fonts: Inter & Manrope -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            anumati: {
+              navy: '#0B1F3A',
+              navydark: '#071527',
+              navylight: '#162E52',
+              blue: '#155EEF',
+              brightblue: '#2563EB',
+              teal: '#0F9D8A',
+              cyan: '#22C7D6',
+              violet: '#7C5CFC',
+              amber: '#F59E0B',
+              bg: '#F7FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Manrope', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Design Tokens & Animations -->
+  <link rel="stylesheet" href="{% static 'css/anumati.css' %}">
+  
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="h-full flex flex-col antialiased selection:bg-cyan-500 selection:text-white">
+
+
+  <!-- Layout Selection: Dashboard Sidebar vs Public Navbar -->
+  {% if is_dashboard and user.is_authenticated %}
+    
+    <!-- DASHBOARD LAYOUT (Left Sidebar) -->
+    <div class="dashboard-wrapper">
+      
+      {% include 'components/sidebar.html' %}
+
+      <div class="dashboard-main">
+        
+        <!-- Dashboard Top Header Bar -->
+        <header class="h-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200 flex items-center justify-between sticky top-0 z-20 shadow-xs">
+          
+          <div class="flex items-center gap-3">
+            <!-- Mobile Toggle -->
+            <button id="mobile-menu-btn" type="button" class="lg:hidden p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100">
+              <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="hidden sm:block">
+              <h1 class="text-base font-bold text-slate-900 leading-tight">{% block header_title %}Overview{% endblock %}</h1>
+              <p class="text-xs text-slate-500">{% block header_subtitle %}Maharashtra Single-Window Industrial Orchestration{% endblock %}</p>
+            </div>
+          </div>
+
+          <!-- Top Right Controls: Assistant Quick Button, Notifications, User Badge -->
+          <div class="flex items-center gap-2 sm:gap-4">
+            
+            <!-- Quick Assistant Trigger -->
+            <a href="{% url 'assistant:chat' %}" class="px-3 py-1.5 rounded-lg bg-cyan-50 border border-cyan-200 text-cyan-800 text-xs font-semibold hover:bg-cyan-100 flex items-center gap-1.5 transition-colors">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-600"></i>
+              <span class="hidden md:inline">Anumati AI</span>
+            </a>
+
+            <!-- Notifications Dropdown -->
+            <div class="relative">
+              <button id="notif-menu-btn" type="button" class="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 relative">
+                <i data-lucide="bell" class="w-5 h-5"></i>
+                {% if unread_notifications_count > 0 %}
+                <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white animate-pulse"></span>
+                {% endif %}
+              </button>
+
+              <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-100 py-3 z-50">
+                <div class="px-4 py-2 border-b border-slate-100 flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Department Alerts</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-semibold">Active</span>
+                </div>
+                <div class="max-h-64 overflow-y-auto divide-y divide-slate-100 text-xs">
+                  <div class="p-3 hover:bg-slate-50 transition-colors">
+                    <p class="font-semibold text-slate-900">Clarification on MPCB Consent (ANM-2026-00124)</p>
+                    <p class="text-slate-500 text-[11px] mt-0.5">Please review query on ETP capacity specifications.</p>
+                  </div>
+                  <div class="p-3 hover:bg-slate-50 transition-colors">
+                    <p class="font-semibold text-slate-900">Inspection Scheduled (ANM-2026-00388)</p>
+                    <p class="text-slate-500 text-[11px] mt-0.5">MIDC Fire Services site visit scheduled on 12 May 2026.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Role Badge -->
+            <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-tr {% if is_officer %}from-blue-600 to-indigo-600{% else %}from-emerald-500 to-teal-500{% endif %} flex items-center justify-center text-white font-bold text-xs shadow-xs">
+                {% if user_profile.full_name %}{{ user_profile.full_name|slice:":1"|upper }}{% elif user.first_name %}{{ user.first_name|slice:":1"|upper }}{% else %}{{ user.username|slice:":1"|upper }}{% endif %}
+              </div>
+              <div class="hidden sm:block text-left">
+                <div class="text-xs font-bold text-slate-800">
+                  {% if user_profile.full_name %}{{ user_profile.full_name }}{% elif user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}
+                </div>
+                <div class="text-[10px] text-slate-500 font-medium">
+                  {% if is_officer %}{{ user_profile.designation|default:"Reviewing Officer" }}{% elif active_business %}{{ active_business.company_name }}{% else %}Industrial Entrepreneur{% endif %}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </header>
+
+        <!-- Main Dashboard Viewport -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8">
+          
+          <!-- Django Toast Messages -->
+          {% if messages %}
+          <div class="mb-6 space-y-2">
+            {% for message in messages %}
+            <div class="anumati-toast p-4 rounded-xl flex items-center justify-between text-sm shadow-sm border {% if message.tags == 'success' %}bg-emerald-50 border-emerald-200 text-emerald-800{% elif message.tags == 'warning' %}bg-amber-50 border-amber-200 text-amber-800{% elif message.tags == 'error' %}bg-red-50 border-red-200 text-red-800{% else %}bg-blue-50 border-blue-200 text-blue-800{% endif %}">
+              <div class="flex items-center gap-3">
+                <i data-lucide="{% if message.tags == 'success' %}check-circle{% elif message.tags == 'warning' %}alert-triangle{% elif message.tags == 'error' %}alert-octagon{% else %}info{% endif %}" class="w-5 h-5"></i>
+                <span>{{ message }}</span>
+              </div>
+              <button type="button" onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-700">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          {% block content %}{% endblock %}
+
+        </main>
+
+        <!-- Footer inside Dashboard -->
+        <footer class="py-4 px-6 bg-white border-t border-slate-200 text-center text-xs text-slate-400">
+          AnumatiSetu Prototype • SIH26130 • Maharashtra State Innovation Society • Final decisions reside with Government Authorities.
+        </footer>
+
+      </div>
+
+    </div>
+
+  {% else %}
+
+    <!-- PUBLIC LAYOUT (Top Navbar + Page Body + Institutional Footer) -->
+    {% include 'components/navbar.html' %}
+
+    <main class="flex-1">
+      
+      <!-- Messages -->
+      {% if messages %}
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        {% for message in messages %}
+        <div class="anumati-toast p-4 rounded-xl flex items-center justify-between text-sm shadow-md border mb-3 {% if message.tags == 'success' %}bg-emerald-50 border-emerald-200 text-emerald-800{% elif message.tags == 'warning' %}bg-amber-50 border-amber-200 text-amber-800{% elif message.tags == 'error' %}bg-red-50 border-red-200 text-red-800{% else %}bg-blue-50 border-blue-200 text-blue-800{% endif %}">
+          <div class="flex items-center gap-3">
+            <i data-lucide="check-circle" class="w-5 h-5"></i>
+            <span>{{ message }}</span>
+          </div>
+          <button type="button" onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-700">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% block public_content %}{% endblock %}
+
+    </main>
+
+    {% include 'components/footer.html' %}
+
+  {% endif %}
+
+  <!-- Core JS -->
+  <script src="{% static 'js/anumati.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

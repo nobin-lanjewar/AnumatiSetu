@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Anumati Assistant AI — Intelligent Industrial Guide{% endblock %}
+{% block header_title %}Anumati Assistant AI{% endblock %}
+{% block header_subtitle %}Regulatory Guidance • Document Gap Analysis • Statutory Inquiries{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto h-[calc(100vh-140px)] flex flex-col bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+  
+  <!-- Chat Header -->
+  <div class="p-4 sm:p-5 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20">
+        <i data-lucide="bot" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <h1 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <span>Anumati Assistant</span>
+          {% if has_groq %}
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-100 text-purple-800 flex items-center gap-1 shadow-2xs border border-purple-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
+              Groq Cloud LLM Active
+            </span>
+          {% else %}
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 flex items-center gap-1 shadow-2xs border border-emerald-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Regulatory RAG Active
+            </span>
+          {% endif %}
+        </h1>
+        <p class="text-[11px] text-slate-500">
+          {% if business %}
+            Context: <span class="font-semibold text-slate-700">{{ business.company_name }}</span> ({{ business.industry_sector }}, {{ business.district }})
+          {% else %}
+            Grounded in Maharashtra statutory catalog & single-window database
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button type="button" onclick="sendQuickMessage('What approvals do I need for my factory?')" 
+              class="hidden md:inline-flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-blue-600 hover:border-blue-300 font-medium transition-all shadow-2xs">
+        <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+        <span>Need Guidance?</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages Container -->
+  <div id="chatMessages" class="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-slate-50/40">
+    
+    <!-- Welcome Bot Message -->
+    <div class="flex items-start gap-3 max-w-2xl">
+      <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+        AI
+      </div>
+      <div class="bg-white p-4 rounded-2xl rounded-tl-xs border border-slate-200 text-xs sm:text-sm text-slate-800 shadow-xs leading-relaxed space-y-2">
+        <p>
+          Namaskar! I am <strong>Anumati Assistant</strong>, your intelligent AI co-pilot for industrial approvals, compliance, and government schemes in Maharashtra.
+        </p>
+        <p class="text-xs text-slate-500">
+          {% if business %}
+            I have direct real-time access to records for <strong>{{ business.company_name }}</strong>, including your uploaded vault documents, active applications, inspection dates, and eligible incentives.
+          {% else %}
+            I can answer questions regarding statutory permissions (MPCB, DISH, Fire, MSEDCL), missing paperwork, and subsidies under Maharashtra PSI 2019.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <!-- Suggested Question Chips -->
+    <div class="pt-1 pb-2">
+      <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">Frequently Asked Inquiries:</span>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="sendQuickMessage('What approvals do I need?')" 
+                class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-blue-500 text-xs text-slate-700 hover:text-blue-700 font-medium transition-all shadow-2xs">
+          📋 What approvals do I need?
+        </button>
+        <button type="button" onclick="sendQuickMessage('What documents are missing from my vault?')" 
+                class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-amber-500 text-xs text-slate-700 hover:text-amber-700 font-medium transition-all shadow-2xs">
+          ⚠️ What documents are missing?
+        </button>
+        <button type="button" onclick="sendQuickMessage('When is my inspection scheduled?')" 
+                class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-teal-500 text-xs text-slate-700 hover:text-teal-700 font-medium transition-all shadow-2xs">
+          🔍 When is my inspection?
+        </button>
+        <button type="button" onclick="sendQuickMessage('Which government schemes may apply to my business?')" 
+                class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-yellow-500 text-xs text-slate-700 hover:text-yellow-800 font-medium transition-all shadow-2xs">
+          💰 Which schemes apply?
+        </button>
+        <button type="button" onclick="sendQuickMessage('Tell me about MPCB Consent to Establish')" 
+                class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 text-xs text-slate-700 hover:text-emerald-700 font-medium transition-all shadow-2xs">
+          🌿 MPCB Pollution CTE details
+        </button>
+      </div>
+    </div>
+
+    <!-- Render Previous Messages from History if any -->
+    {% for msg in messages_history %}
+      {% if msg.role == 'user' %}
+        <div class="flex items-start justify-end gap-3">
+          <div class="bg-blue-600 text-white p-3.5 rounded-2xl rounded-tr-xs text-xs sm:text-sm shadow-xs max-w-xl leading-relaxed">
+            {{ msg.content }}
+          </div>
+          <div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-xs shrink-0">
+            You
+          </div>
+        </div>
+      {% else %}
+        <div class="flex items-start gap-3 max-w-2xl">
+          <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+            AI
+          </div>
+          <div class="bg-white p-4 rounded-2xl rounded-tl-xs border border-slate-200 text-xs sm:text-sm text-slate-800 shadow-xs leading-relaxed space-y-2">
+            <div class="chat-markdown">{{ msg.content|linebreaksbr }}</div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Dynamic Typing / Loading Indicator -->
+    <div id="typingIndicator" class="hidden flex items-start gap-3 max-w-2xl">
+      <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+        AI
+      </div>
+      <div class="bg-white p-4 rounded-2xl rounded-tl-xs border border-slate-200 text-xs text-slate-500 shadow-xs flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-500 animate-bounce"></span>
+        <span class="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.2s]"></span>
+        <span class="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.4s]"></span>
+        <span class="ml-1 text-slate-400">Analyzing statutory databases...</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Chat Input Bar -->
+  <div class="p-3 sm:p-4 border-t border-slate-200 bg-white">
+    <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
+      <input type="text" id="chatInput" placeholder="Ask about approvals, missing documents, RTS SLAs, MPCB CTE, or subsidies..." required autocomplete="off"
+             class="flex-1 px-4 py-3 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+      <button type="submit" id="sendBtn" 
+              class="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all flex items-center gap-1.5 shrink-0">
+        <span>Send</span>
+        <i data-lucide="send" class="w-4 h-4"></i>
+      </button>
+    </form>
+    <div class="text-[10px] text-slate-400 mt-2 text-center">
+      * Anumati Assistant is grounded in official acts (Factories Act 1948, Water Act 1974, RTS 2015). Final decisions remain with Government Authorities.
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function formatMarkdown(text) {
+    let html = text
+      .replace(/### (.*?)\n/g, '<h3 class="text-sm font-bold text-slate-900 mt-2 mb-1">$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>')
+      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-blue-600 font-bold underline hover:text-blue-800">$1</a>');
+    return html;
+  }
+
+  function scrollToBottom() {
+    const chat = document.getElementById('chatMessages');
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    scrollToBottom();
+    if (window.lucide) window.lucide.createIcons();
+  });
+
+  function appendUserMessage(text) {
+    const chat = document.getElementById('chatMessages');
+    const typing = document.getElementById('typingIndicator');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'flex items-start justify-end gap-3';
+    msgDiv.innerHTML = `
+      <div class="bg-blue-600 text-white p-3.5 rounded-2xl rounded-tr-xs text-xs sm:text-sm shadow-xs max-w-xl leading-relaxed">
+        ${text}
+      </div>
+      <div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-xs shrink-0">
+        You
+      </div>
+    `;
+    chat.insertBefore(msgDiv, typing);
+    scrollToBottom();
+  }
+
+  function appendBotMessage(text) {
+    const chat = document.getElementById('chatMessages');
+    const typing = document.getElementById('typingIndicator');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'flex items-start gap-3 max-w-2xl';
+    msgDiv.innerHTML = `
+      <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+        AI
+      </div>
+      <div class="bg-white p-4 rounded-2xl rounded-tl-xs border border-slate-200 text-xs sm:text-sm text-slate-800 shadow-xs leading-relaxed space-y-2">
+        <div>${formatMarkdown(text)}</div>
+      </div>
+    `;
+    chat.insertBefore(msgDiv, typing);
+    scrollToBottom();
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  function sendQuickMessage(text) {
+    const input = document.getElementById('chatInput');
+    input.value = text;
+    document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+  }
+
+  function handleChatSubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const typing = document.getElementById('typingIndicator');
+    const text = input.value.trim();
+    if (!text) return;
+
+    appendUserMessage(text);
+    input.value = '';
+    input.disabled = true;
+    sendBtn.disabled = true;
+    typing.classList.remove('hidden');
+    scrollToBottom();
+
+    fetch('{% url "assistant:api_chat" %}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: text })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Network error ' + res.status);
+      return res.json();
+    })
+    .then(data => {
+      typing.classList.add('hidden');
+      appendBotMessage(data.content);
+    })
+    .catch(err => {
+      typing.classList.add('hidden');
+      appendBotMessage("⚠️ System note: Unable to connect to retrieval engine. Please verify connection to database.");
+    })
+    .finally(() => {
+      input.disabled = false;
+      sendBtn.disabled = false;
+      input.focus();
+    });
+  }
+</script>
+{% endblock %}

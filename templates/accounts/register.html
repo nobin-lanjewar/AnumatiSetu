@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register Profile — AnumatiSetu{% endblock %}
+
+{% block public_content %}
+<section class="min-h-[85vh] py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
+  <div class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+    
+    <div class="text-center mb-8">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+        Account Onboarding
+      </span>
+      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mt-3 tracking-tight">
+        Create Your AnumatiSetu Account
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">
+        Single-window industrial approvals and statutory scrutiny portal for Maharashtra
+      </p>
+    </div>
+
+    <form class="space-y-6" method="POST" action="{% url 'accounts:register' %}">
+      {% csrf_token %}
+
+      <!-- Account Role Selection -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Select Account Type *</label>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="flex items-center gap-3 p-3.5 border-2 rounded-2xl cursor-pointer transition-all bg-blue-50/60 border-blue-600 text-slate-900" id="roleLabelEnt">
+            <input type="radio" name="role" value="entrepreneur" checked onchange="toggleRoleFields('entrepreneur')" class="text-blue-600 focus:ring-blue-500">
+            <div>
+              <div class="text-xs font-bold">Industrial Entrepreneur</div>
+              <div class="text-[10px] text-slate-500">Apply for clearances & subsidies</div>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 p-3.5 border-2 rounded-2xl cursor-pointer transition-all border-slate-200 hover:border-slate-300 text-slate-700" id="roleLabelOff">
+            <input type="radio" name="role" value="officer" onchange="toggleRoleFields('officer')" class="text-blue-600 focus:ring-blue-500">
+            <div>
+              <div class="text-xs font-bold">Reviewing Authority</div>
+              <div class="text-[10px] text-slate-500">DIC / Dept. scrutiny officer</div>
+            </div>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Section A: Primary User Info -->
+      <div class="space-y-4 pt-2">
+        <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-2">
+          <i data-lucide="user" class="w-4 h-4 text-blue-600"></i>
+          1. Personal / Official Information
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
+            <input type="text" name="full_name" required placeholder="e.g. Ramesh Deshmukh"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Official Email Address *</label>
+            <input type="email" name="email" required placeholder="e.g. user@company.in or name@gov.in"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Mobile Number *</label>
+            <input type="tel" name="phone" required placeholder="e.g. +91 98765 43210"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Password *</label>
+            <input type="password" name="password" required placeholder="Minimum 6 characters"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B: Entrepreneur Enterprise Details -->
+      <div id="entrepreneurFields" class="space-y-4 pt-2">
+        <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-2">
+          <i data-lucide="building" class="w-4 h-4 text-cyan-600"></i>
+          2. Industrial Enterprise Details
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Company / Enterprise Name *</label>
+            <input type="text" name="company_name" id="inputCompanyName" placeholder="e.g. Sahyadri Agro Tech Pvt. Ltd."
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Constitution Type</label>
+            <select name="business_type" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Pvt Ltd">Private Limited Company</option>
+              <option value="LLP">Limited Liability Partnership (LLP)</option>
+              <option value="Partnership">Registered Partnership Firm</option>
+              <option value="Proprietorship">Sole Proprietorship</option>
+              <option value="Public Ltd">Public Limited Company</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Industry Sector</label>
+            <select name="industry_sector" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Food Processing">Agro & Food Processing</option>
+              <option value="Manufacturing">Heavy Engineering & Manufacturing</option>
+              <option value="Automobile">Automobile & Auto-components</option>
+              <option value="Pharmaceuticals">Pharmaceuticals & Life Sciences</option>
+              <option value="Chemical">Chemicals & Petrochemicals</option>
+              <option value="Textile">Textile, Apparel & Technical Textiles</option>
+              <option value="IT & Electronics">IT & Electronics</option>
+              <option value="Renewable Energy">Renewable Energy</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">District in Maharashtra</label>
+            <select name="district" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Nashik">Nashik</option>
+              <option value="Pune">Pune</option>
+              <option value="Chhatrapati Sambhajinagar">Chhatrapati Sambhajinagar</option>
+              <option value="Nagpur">Nagpur</option>
+              <option value="Thane">Thane</option>
+              <option value="Kolhapur">Kolhapur</option>
+              <option value="Solapur">Solapur</option>
+              <option value="Ahmednagar">Ahmednagar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Projected Investment (₹ Crores)</label>
+            <input type="number" step="0.1" name="investment_cr" placeholder="e.g. 5.0"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Projected Workforce (Employees)</label>
+            <input type="number" name="employees_count" placeholder="e.g. 75"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Factory Location / MIDC Plot Address</label>
+          <input type="text" name="location" placeholder="e.g. Plot No. 12, Ambad MIDC, Nashik - 422010"
+                 class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Section C: Government Officer Details (Hidden by default) -->
+      <div id="officerFields" class="space-y-4 pt-2 hidden">
+        <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
+          2. Reviewing Authority Jurisdictional Details
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Department / Agency *</label>
+            <select name="department" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Directorate of Industries, Maharashtra">Directorate of Industries (DIC)</option>
+              <option value="Maharashtra Pollution Control Board (MPCB)">Maharashtra Pollution Control Board (MPCB)</option>
+              <option value="Directorate of Industrial Safety & Health (DISH)">Directorate of Industrial Safety & Health (DISH)</option>
+              <option value="MIDC Fire Services">MIDC Fire Services</option>
+              <option value="MSEDCL">Maharashtra State Electricity Distribution (MSEDCL)</option>
+              <option value="FDA Maharashtra">Food & Drug Administration (FDA)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Official Designation *</label>
+            <input type="text" name="designation" placeholder="e.g. Joint Director / Scrutiny Officer"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Office / DIC Location *</label>
+            <input type="text" name="office_location" placeholder="e.g. DIC Nashik, Trimbak Road"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Government Officer ID</label>
+            <input type="text" name="officer_id" placeholder="e.g. MAH-DIC-2026-042"
+                   class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100">
+        <button type="submit" class="w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2">
+          <span>Complete Registration & Open Dashboard</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </form>
+
+    <div class="text-center pt-4">
+      <p class="text-xs text-slate-500">
+        Already registered? <a href="{% url 'accounts:login' %}" class="font-bold text-blue-600 hover:text-blue-500">Sign In to Dashboard</a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function toggleRoleFields(role) {
+    const entFields = document.getElementById('entrepreneurFields');
+    const offFields = document.getElementById('officerFields');
+    const labelEnt = document.getElementById('roleLabelEnt');
+    const labelOff = document.getElementById('roleLabelOff');
+
+    if (role === 'officer') {
+      entFields.classList.add('hidden');
+      offFields.classList.remove('hidden');
+      labelOff.classList.add('border-blue-600', 'bg-blue-50/60');
+      labelOff.classList.remove('border-slate-200');
+      labelEnt.classList.remove('border-blue-600', 'bg-blue-50/60');
+      labelEnt.classList.add('border-slate-200');
+    } else {
+      entFields.classList.remove('hidden');
+      offFields.classList.add('hidden');
+      labelEnt.classList.add('border-blue-600', 'bg-blue-50/60');
+      labelEnt.classList.remove('border-slate-200');
+      labelOff.classList.remove('border-blue-600', 'bg-blue-50/60');
+      labelOff.classList.add('border-slate-200');
+    }
+  }
+</script>
+{% endblock %}

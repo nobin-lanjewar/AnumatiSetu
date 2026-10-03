@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Maharashtra Location Intelligence & DIC Network — AnumatiSetu{% endblock %}
+
+{% block public_content %}
+<section class="py-12 lg:py-16 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-200">
+        Spatial Regulatory Network
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 mt-3 tracking-tight">
+        Maharashtra Location Intelligence
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+        Single-window spatial connectivity across Maharashtra's 36 districts, 25 District Industries Centres (DICs), and MIDC industrial zones.
+      </p>
+    </div>
+
+    <!-- MANDATORY ATTACHED IMAGE 5 -->
+    <div class="max-w-5xl mx-auto mb-16">
+      <div class="relative rounded-3xl p-3 bg-white border border-slate-200 shadow-xl">
+        <div class="overflow-hidden rounded-2xl bg-white flex items-center justify-center">
+          <img src="{% static 'images/maharashtra-location-intelligence.jpg' %}" 
+               alt="Maharashtra Location Intelligence Map — District Clusters, OCR, Inspections, and SLA Network" 
+               class="project-asset-img max-h-[600px] w-full object-contain"
+               loading="eager">
+        </div>
+        <div class="mt-3 px-3 py-1 flex items-center justify-between text-xs text-slate-500">
+          <span class="font-medium text-slate-700">Figure 5.0 — Spatial Regulatory Overlay for Maharashtra Industrial Clusters</span>
+          <span class="text-cyan-600 font-semibold">25 District Industries Centres Facilitation Network</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spatial Pathway (Section 29) -->
+    <div class="max-w-4xl mx-auto mb-16">
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-[#0B1F3A] to-[#155EEF] text-white shadow-md">
+        <div class="text-xs font-bold uppercase tracking-wider text-cyan-300 text-center mb-3">Orchestrated Data Pipeline</div>
+        <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold text-slate-100">
+          <span class="px-2.5 py-1 rounded bg-white/10">Maharashtra</span>
+          <span>→</span>
+          <span class="px-2.5 py-1 rounded bg-white/10">Industries</span>
+          <span>→</span>
+          <span class="px-2.5 py-1 rounded bg-white/10">Departments</span>
+          <span>→</span>
+          <span class="px-2.5 py-1 rounded bg-white/10">Approvals</span>
+          <span>→</span>
+          <span class="px-2.5 py-1 rounded bg-white/10">Documents</span>
+          <span>→</span>
+          <span class="px-2.5 py-1 rounded bg-white/10">Inspections</span>
+          <span>→</span>
+          <span class="px-2.5 py-1 rounded bg-white/10">Schemes</span>
+          <span>→</span>
+          <span class="px-2.5 py-1 rounded bg-cyan-400 text-slate-950 font-bold">District Support</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 25 District Industries Centres (DIC) Directory Preview -->
+    <div class="max-w-5xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+      <div class="p-6 border-b border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">District Industries Centres (DIC) & Industrial Clusters</h2>
+          <p class="text-xs text-slate-500">Local facilitation nodes providing single-window support under Directorate of Industries</p>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
+          25 Active DIC Nodes
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-semibold">
+            <tr>
+              <th class="p-4">District</th>
+              <th class="p-4">DIC Office Location</th>
+              <th class="p-4">Lead Industrial Sectors</th>
+              <th class="p-4">Major MIDC Industrial Parks</th>
+              <th class="p-4">Policy Zone</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr class="hover:bg-blue-50/50 transition-colors bg-blue-50/20 font-medium">
+              <td class="p-4 text-slate-900 font-bold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-blue-600"></span> Nashik
+              </td>
+              <td class="p-4">Trimbak Road, Near ITI, Nashik</td>
+              <td class="p-4">Agro-Food Processing, Engineering, Auto, Wine</td>
+              <td class="p-4">Satpur MIDC, Ambad MIDC, Sinnar (Malegaon)</td>
+              <td class="p-4"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-bold">Zone C & D</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="p-4 text-slate-900 font-bold">Pune</td>
+              <td class="p-4">Agriculture College Compound, Shivajinagar</td>
+              <td class="p-4">Automobile & Auto-components, IT, Precision Eng.</td>
+              <td class="p-4">Bhosari, Chakan, Talegaon, Ranjangaon</td>
+              <td class="p-4"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold">Zone A & B</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="p-4 text-slate-900 font-bold">Chhatrapati Sambhajinagar</td>
+              <td class="p-4">Station Road, Near Railway Station</td>
+              <td class="p-4">Auto-components, Pharmaceuticals, Breweries</td>
+              <td class="p-4">Waluj MIDC, Shendra AURIC, Chikalthana</td>
+              <td class="p-4"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-bold">Zone C & D</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="p-4 text-slate-900 font-bold">Nagpur</td>
+              <td class="p-4">Civil Lines, Near High Court, Nagpur</td>
+              <td class="p-4">Aerospace & Defense, Logistics & Warehousing, Steel</td>
+              <td class="p-4">MIHAN SEZ, Butibori MIDC, Hingna MIDC</td>
+              <td class="p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">Zone D+ (Enhanced)</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="p-4 text-slate-900 font-bold">Thane</td>
+              <td class="p-4">Wagle Industrial Estate, Road No. 16</td>
+              <td class="p-4">Chemicals, Pharmaceuticals, IT Parks</td>
+              <td class="p-4">Wagle Estate, Dombivli, Badlapur MIDC</td>
+              <td class="p-4"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold">Zone A</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="p-4 text-slate-900 font-bold">Kolhapur</td>
+              <td class="p-4">Old Palace Road, Kolhapur</td>
+              <td class="p-4">Foundry & Castings, Sugar Processing, Textiles</td>
+              <td class="p-4">Shiroli MIDC, Gokul Shirgaon, Kagal-Hatkanangale</td>
+              <td class="p-4"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-bold">Zone C</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

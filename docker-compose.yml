@@ -1,0 +1,57 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-anumatisetu}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-anumati_root_secure_2026}
+      MYSQL_USER: ${DB_USER:-anumati_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-anumati_pass_secure_2026}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-anumati_root_secure_2026}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py collectstatic --noinput &&
+             gunicorn config.wsgi:application -c gunicorn.conf.py"
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-prod-key-change-this-in-production-min-50-chars-long-12345}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,web}
+      - DATABASE_URL=${DATABASE_URL:-}
+      - DB_ENGINE=django.db.backends.mysql
+      - DB_NAME=${DB_NAME:-anumatisetu}
+      - DB_USER=${DB_USER:-anumati_user}
+      - DB_PASSWORD=${DB_PASSWORD:-anumati_pass_secure_2026}
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_ALLOW_SQLITE_FALLBACK=False
+      - SECURE_SSL_REDIRECT=${SECURE_SSL_REDIRECT:-False}
+      - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE:-False}
+      - CSRF_COOKIE_SECURE=${CSRF_COOKIE_SECURE:-False}
+    ports:
+      - "8000:8000"
+    volumes:
+      - media_data:/app/media
+      - logs_data:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  media_data:
+  logs_data:

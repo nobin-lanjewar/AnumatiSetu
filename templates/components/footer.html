@@ -1,0 +1,89 @@
+{% load static %}
+<footer class="bg-[#071527] text-slate-400 text-sm border-t border-white/10 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+      
+      <!-- Column 1: Brand & SIH Positioning -->
+      <div class="lg:col-span-2 space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 p-0.5 shadow-md flex items-center justify-center">
+            <div class="w-full h-full bg-[#0B1F3A] rounded-[10px] flex items-center justify-center">
+              <i data-lucide="building-2" class="w-5 h-5 text-cyan-400"></i>
+            </div>
+          </div>
+          <span class="text-xl font-black tracking-tight text-white">
+            ANUMATI<span class="text-cyan-400">SETU</span>
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+          Intelligent Industrial Approval Assistance & Orchestration Platform.
+          Empowering entrepreneurs across Maharashtra with automated pre-checks, SLA visibility, and unified departmental tracking.
+        </p>
+        <div class="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-blue-200/90 leading-relaxed">
+          <strong class="text-white block mb-0.5 font-semibold">Important Government Positioning:</strong>
+          AnumatiSetu works synergistically alongside MAITRI / MAITRI 2.0. Final approval, rejection, or regulatory decision always remains with the concerned Government Department / Authority.
+        </div>
+      </div>
+
+      <!-- Column 2: Core Platform -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Platform Services</h3>
+        <ul class="space-y-2.5 text-xs">
+          <li><a href="{% url 'approvals:discovery' %}" class="hover:text-cyan-400 transition-colors">Smart Approval Discovery</a></li>
+          <li><a href="{% url 'documents:precheck' %}" class="hover:text-cyan-400 transition-colors">Document Pre-check Engine</a></li>
+          <li><a href="{% url 'applications:list' %}" class="hover:text-cyan-400 transition-colors">Unified SLA Tracking</a></li>
+          <li><a href="{% url 'inspections:list' %}" class="hover:text-cyan-400 transition-colors">Joint Inspection Calendar</a></li>
+          <li><a href="{% url 'compliance:calendar' %}" class="hover:text-cyan-400 transition-colors">Compliance Shield & Renewals</a></li>
+          <li><a href="{% url 'schemes:list' %}" class="hover:text-cyan-400 transition-colors">Incentive Schemes (PSI 2019)</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Participating Departments -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Key Departments</h3>
+        <ul class="space-y-2.5 text-xs">
+          <li><span class="hover:text-white">Directorate of Industries (DI)</span></li>
+          <li><span class="hover:text-white">Industrial Safety & Health (DISH)</span></li>
+          <li><span class="hover:text-white">Pollution Control Board (MPCB)</span></li>
+          <li><span class="hover:text-white">MIDC Fire Services</span></li>
+          <li><span class="hover:text-white">Electricity Distribution (MSEDCL)</span></li>
+          <li><span class="hover:text-white">Food & Drug Administration (FDA)</span></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: SIH Hackathon & Contact -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">SIH 2026 Initiative</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-3">
+          Problem Statement: <strong class="text-cyan-300">SIH26130</strong><br>
+          Efficiency in streamlining industrial approvals, compliance, and government support.
+        </p>
+        <div class="space-y-2 text-xs">
+          <div class="flex items-center gap-2 text-slate-300">
+            <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i>
+            <span>25 District Industries Centres</span>
+          </div>
+          <div class="flex items-center gap-2 text-slate-300">
+            <i data-lucide="phone-call" class="w-4 h-4 text-teal-400"></i>
+            <span>1800-120-8040 (Helpline)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom line -->
+    <div class="pt-8 mt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div class="text-slate-400">
+        © 2026 Government of Maharashtra. Maharashtra State Innovation Society. Built for Smart India Hackathon 2026.
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="{% url 'about' %}" class="hover:text-white transition-colors">Technical Architecture</a>
+        <span>•</span>
+        <a href="{% url 'location_intelligence' %}" class="hover:text-white transition-colors">Location Intelligence</a>
+        <span>•</span>
+        <span class="text-cyan-400">v2.6 Prototype</span>
+      </div>
+    </div>
+  </div>
+</footer>

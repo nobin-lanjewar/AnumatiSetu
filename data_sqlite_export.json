@@ -1,0 +1,2575 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$uTVxKCNW0MAByYujLyTFn8$ftIlwAuoQgYrQFLbQaXsGoSeCHE2Y9ZUUeBdVXnjwUc=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "System",
+    "last_name": "Administrator",
+    "email": "admin@anumatisetu.gov.in",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-09-29T17:51:04.425Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$9uHEF6YCjZro3h0gbWIdIo$mM1BoJRW/sKFd27Pe9s+x6ttraWAns1sBrH/txUxdQM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "amol_patil",
+    "first_name": "Amol",
+    "last_name": "Patil",
+    "email": "amol.patil@amolfoods.in",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-29T17:51:05.832Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$4Tw4s9RH3lLHbD4k7BpZPU$X0topuBcgwcgXgN/dSDV/Jw8NUlnihHkGrNGro5d8fs=",
+    "last_login": "2026-10-03T00:58:31.659Z",
+    "is_superuser": false,
+    "username": "rajesh_kulkarni",
+    "first_name": "Rajesh",
+    "last_name": "Kulkarni",
+    "email": "jd.nashik@maharashtra.gov.in",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-09-29T17:51:07.187Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$IP2vHSaJET7Pi7tky4s7ek$/vo2vkeRpV4e2kK4Fkfq7PtiYK9igXa9A6Fc6DBkImk=",
+    "last_login": "2026-10-03T01:09:52.331Z",
+    "is_superuser": false,
+    "username": "amul",
+    "first_name": "Amul",
+    "last_name": "Enterprise",
+    "email": "amul@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-30T05:18:59.909Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$2u6Pn0S9ahBz2wt3YkgGUU$L73JbPFYPxv6aiCn/6Yqx6mmXwaUS142njIuWiiHxts=",
+    "last_login": "2026-10-03T00:58:32.021Z",
+    "is_superuser": false,
+    "username": "kavita",
+    "first_name": "Kavita",
+    "last_name": "Joshi",
+    "email": "kavita@joshielectric.in",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-03T00:56:46.752Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$OcDXblNpSzgo3aaxYfSFMt$0EeF4LJnpEHimtamcNMZfR1hPgOTh1GJC22V7zXNcp0=",
+    "last_login": "2026-10-03T01:04:36.734Z",
+    "is_superuser": false,
+    "username": "peter",
+    "first_name": "Ramesh",
+    "last_name": "DEshmukh",
+    "email": "peter@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-03T01:04:34.590Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "role": "officer",
+    "full_name": "AnumatiSetu Administrator",
+    "phone": "",
+    "designation": "Chief Technology Officer",
+    "department": "Maharashtra State Innovation Society",
+    "office_location": "",
+    "officer_id": "",
+    "created_at": "2026-09-29T17:51:04.429Z",
+    "updated_at": "2026-09-29T17:51:05.823Z"
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "role": "entrepreneur",
+    "full_name": "Amol Patil",
+    "phone": "+91 98220 54321",
+    "designation": "",
+    "department": "",
+    "office_location": "",
+    "officer_id": "",
+    "created_at": "2026-09-29T17:51:05.834Z",
+    "updated_at": "2026-09-29T17:51:07.178Z"
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "role": "officer",
+    "full_name": "Dr. Rajesh Kulkarni",
+    "phone": "+91 253 2571234",
+    "designation": "Joint Director of Industries (Nashik Region)",
+    "department": "Directorate of Industries, Government of Maharashtra",
+    "office_location": "District Industries Centre (DIC), Trimbak Road, Nashik",
+    "officer_id": "MAH-IND-OFF-0442",
+    "created_at": "2026-09-29T17:51:07.191Z",
+    "updated_at": "2026-10-03T00:58:31.672Z"
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "role": "entrepreneur",
+    "full_name": "Amul Enterprise",
+    "phone": "",
+    "designation": "",
+    "department": "",
+    "office_location": "",
+    "officer_id": "",
+    "created_at": "2026-09-30T05:19:01.665Z",
+    "updated_at": "2026-10-03T01:09:52.342Z"
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 5,
+  "fields": {
+    "user": 5,
+    "role": "entrepreneur",
+    "full_name": "Kavita Joshi",
+    "phone": "",
+    "designation": "",
+    "department": "",
+    "office_location": "",
+    "officer_id": "",
+    "created_at": "2026-10-03T00:56:47.683Z",
+    "updated_at": "2026-10-03T00:58:32.033Z"
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 6,
+  "fields": {
+    "user": 6,
+    "role": "entrepreneur",
+    "full_name": "Ramesh DEshmukh",
+    "phone": "",
+    "designation": "",
+    "department": "",
+    "office_location": "",
+    "officer_id": "",
+    "created_at": "2026-10-03T01:04:36.655Z",
+    "updated_at": "2026-10-03T01:04:36.754Z"
+  }
+},
+{
+  "model": "business.businessprofile",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "company_name": "Amol Foods Pvt. Ltd.",
+    "business_type": "Pvt Ltd",
+    "industry_sector": "Food Processing",
+    "location": "Nashik, Maharashtra",
+    "address": "Plot B-42, Satpur MIDC Industrial Area, Nashik - 422007",
+    "district": "Nashik",
+    "investment_cr": "5.00",
+    "employees_count": 120,
+    "project_stage": "New Greenfield Unit",
+    "registration_no": "MH-NSK-2026-8942",
+    "udyam_no": "UDYAM-MH-26-0045891",
+    "pan_number": "AABCA1234F",
+    "gst_number": "27AABCA1234F1Z5",
+    "is_active": true,
+    "created_at": "2026-09-29T17:51:08.580Z",
+    "updated_at": "2026-09-29T17:51:08.580Z"
+  }
+},
+{
+  "model": "business.businessprofile",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "company_name": "Amul Agro Industries",
+    "business_type": "Pvt Ltd",
+    "industry_sector": "Food Processing",
+    "location": "Anand / Nashik Industrial Corridor",
+    "address": "Industrial Estate, Nashik - 422007",
+    "district": "Nashik",
+    "investment_cr": "5.00",
+    "employees_count": 120,
+    "project_stage": "New Greenfield Unit",
+    "registration_no": "MH-NAS-2026-0004",
+    "udyam_no": "UDYAM-MH-26-0000004",
+    "pan_number": "AABCA1234F",
+    "gst_number": "27AABCA1234F1Z5",
+    "is_active": true,
+    "created_at": "2026-09-30T05:19:01.691Z",
+    "updated_at": "2026-10-03T00:52:44.008Z"
+  }
+},
+{
+  "model": "business.businessprofile",
+  "pk": 3,
+  "fields": {
+    "user": 5,
+    "company_name": "Joshi Electric Equipments Pvt Ltd",
+    "business_type": "Pvt Ltd",
+    "industry_sector": "Manufacturing",
+    "location": "Plot 45, Bhosari MIDC, Pune - 411026",
+    "address": "Plot 45, Bhosari MIDC, Pune - 411026",
+    "district": "Pune",
+    "investment_cr": "12.50",
+    "employees_count": 180,
+    "project_stage": "New Greenfield Unit",
+    "registration_no": "MH-PUN-2026-0005",
+    "udyam_no": "UDYAM-MH-26-0000005",
+    "pan_number": "AABCA1234F",
+    "gst_number": "27AABCA1234F1Z5",
+    "is_active": true,
+    "created_at": "2026-10-03T00:56:47.710Z",
+    "updated_at": "2026-10-03T00:56:47.710Z"
+  }
+},
+{
+  "model": "business.businessprofile",
+  "pk": 4,
+  "fields": {
+    "user": 6,
+    "company_name": "Sahyadri AgroTech",
+    "business_type": "Pvt Ltd",
+    "industry_sector": "Food Processing",
+    "location": "dfdf",
+    "address": "dfdf",
+    "district": "Nagpur",
+    "investment_cr": "6.00",
+    "employees_count": 45,
+    "project_stage": "New Greenfield Unit",
+    "registration_no": "MH-NAG-2026-0006",
+    "udyam_no": "UDYAM-MH-26-0000006",
+    "pan_number": "AABCA1234F",
+    "gst_number": "27AABCA1234F1Z5",
+    "is_active": true,
+    "created_at": "2026-10-03T01:04:36.686Z",
+    "updated_at": "2026-10-03T01:04:36.686Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 1,
+  "fields": {
+    "code": "dish-factory-plan",
+    "name": "Factory Plan Approval",
+    "name_mr": "कारखाना नकाशा मंजुरी",
+    "department": "Directorate of Industrial Safety & Health (DISH)",
+    "category": "Pre-Establishment",
+    "why_required": "Mandatory under Section 6 of the Factories Act 1948 to ensure occupational safety, ventilation, emergency exits, and worker health standards prior to civil construction.",
+    "eligibility": "Any manufacturing unit employing 10 or more workers with power, or 20 or more without power.",
+    "expected_timeline_days": 15,
+    "sla_max_days": 30,
+    "fee_structure": "₹5,000 to ₹25,000 based on installed horsepower and worker strength",
+    "inspection_required": true,
+    "renewal_period": "One-time approval unless substantial expansion occurs",
+    "official_source": "https://dish.maharashtra.gov.in",
+    "applicable_sectors": "Food Processing, Manufacturing, Automobile, Chemical, Textile, Pharmaceuticals",
+    "risk_category": "High",
+    "created_at": "2026-09-29T17:51:08.589Z",
+    "updated_at": "2026-09-29T17:51:08.589Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 2,
+  "fields": {
+    "code": "mpcb-cte",
+    "name": "MPCB Consent to Establish (CTE)",
+    "name_mr": "प्रदूषण नियंत्रण संमती (CTE)",
+    "department": "Maharashtra Pollution Control Board (MPCB)",
+    "category": "Pre-Establishment",
+    "why_required": "Statutory consent under Water (Prevention & Control of Pollution) Act 1974 and Air Act 1981 before starting civil construction or equipment installation.",
+    "eligibility": "All industrial units categorized under Red, Orange or Green industrial classifications by CPCB/MPCB.",
+    "expected_timeline_days": 30,
+    "sla_max_days": 45,
+    "fee_structure": "₹15,000 to ₹1,00,000 based on Capital Investment (₹5 Cr bracket = ₹25,000)",
+    "inspection_required": true,
+    "renewal_period": "Valid for 5 years or until commercial commissioning",
+    "official_source": "https://mpcb.gov.in",
+    "applicable_sectors": "Food Processing, Chemical, Pharmaceuticals, Textile, Manufacturing",
+    "risk_category": "High",
+    "created_at": "2026-09-29T17:51:08.642Z",
+    "updated_at": "2026-09-29T17:51:08.642Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 3,
+  "fields": {
+    "code": "fire-noc",
+    "name": "Industrial Fire Safety NOC",
+    "name_mr": "अग्निशमन ना-हरकत प्रमाणपत्र (NOC)",
+    "department": "MIDC Fire Services / Maharashtra Fire Services",
+    "category": "Pre-Establishment",
+    "why_required": "Mandatory compliance with Maharashtra Fire Prevention and Life Safety Measures Act 2006 to ensure fire hydrant networks, smoke detectors, and emergency evacuation.",
+    "eligibility": "All commercial and industrial factory buildings exceeding 500 sq. meters built-up area.",
+    "expected_timeline_days": 14,
+    "sla_max_days": 21,
+    "fee_structure": "₹10 per sq. meter built-up area fire infrastructure cess",
+    "inspection_required": true,
+    "renewal_period": "Annual renewal via Form B inspection certificate",
+    "official_source": "https://midcindia.org",
+    "applicable_sectors": "Food Processing, Manufacturing, Automobile, Chemical, Warehousing",
+    "risk_category": "High",
+    "created_at": "2026-09-29T17:51:08.682Z",
+    "updated_at": "2026-09-29T17:51:08.682Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 4,
+  "fields": {
+    "code": "msedcl-power",
+    "name": "HT/LT Industrial Electricity Connection",
+    "name_mr": "औद्योगिक वीज जोडणी (MSEDCL)",
+    "department": "Maharashtra State Electricity Distribution Co. Ltd. (MSEDCL)",
+    "category": "Pre-Operation",
+    "why_required": "Sanction of dedicated HT/LT commercial power load for industrial processing machines and continuous factory operations.",
+    "eligibility": "Any registered enterprise holding valid land title or lease agreement in Maharashtra.",
+    "expected_timeline_days": 10,
+    "sla_max_days": 20,
+    "fee_structure": "Estimate quotation based on load demand (₹50,000 to ₹3,00,000)",
+    "inspection_required": true,
+    "renewal_period": "Permanent connection with monthly billing",
+    "official_source": "https://www.mahadiscom.in",
+    "applicable_sectors": "Food Processing, Manufacturing, Automobile, Chemical, Textile, IT & Electronics",
+    "risk_category": "Medium",
+    "created_at": "2026-09-29T17:51:08.715Z",
+    "updated_at": "2026-09-29T17:51:08.715Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 5,
+  "fields": {
+    "code": "fssai-license",
+    "name": "FSSAI State Manufacturing License",
+    "name_mr": "अन्न सुरक्षा व मानके परवाना (FSSAI)",
+    "department": "Food & Drugs Administration (FDA Maharashtra)",
+    "category": "Pre-Operation",
+    "why_required": "Mandatory licensing under Food Safety and Standards Act 2006 for manufacturing, packing, or storing food items.",
+    "eligibility": "Agro & Food Processing units with turnover up to ₹20 Crore (State License) or higher (Central License).",
+    "expected_timeline_days": 20,
+    "sla_max_days": 30,
+    "fee_structure": "₹3,000/year to ₹5,000/year based on production capacity",
+    "inspection_required": true,
+    "renewal_period": "1 to 5 years tenure (Annual Renewal)",
+    "official_source": "https://foscos.fssai.gov.in",
+    "applicable_sectors": "Food Processing",
+    "risk_category": "High",
+    "created_at": "2026-09-29T17:51:08.746Z",
+    "updated_at": "2026-09-29T17:51:08.746Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 6,
+  "fields": {
+    "code": "dish-factory-licence",
+    "name": "Factory Operating Licence (Form 4)",
+    "name_mr": "कारखाना चालू करण्याचा परवाना (नमुना ४)",
+    "department": "Directorate of Industrial Safety & Health (DISH)",
+    "category": "Pre-Operation",
+    "why_required": "Statutory permit under Section 6 of Factories Act 1948 to commence active manufacturing operations with workforce.",
+    "eligibility": "Units that have completed civil construction in accordance with approved Factory Plan.",
+    "expected_timeline_days": 15,
+    "sla_max_days": 25,
+    "fee_structure": "₹10,000 to ₹40,000 based on worker headcount",
+    "inspection_required": true,
+    "renewal_period": "Annual or 5-year renewal cycle",
+    "official_source": "https://dish.maharashtra.gov.in",
+    "applicable_sectors": "Food Processing, Manufacturing, Automobile, Chemical, Textile",
+    "risk_category": "Medium",
+    "created_at": "2026-09-29T17:51:08.780Z",
+    "updated_at": "2026-09-29T17:51:08.780Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 7,
+  "fields": {
+    "code": "boiler-registration",
+    "name": "Steam Boiler & Pipeline Erection Registration",
+    "name_mr": "स्टीम बॉयलर नोंदणी प्रमाणपत्र",
+    "department": "Directorate of Steam Boilers, Maharashtra",
+    "category": "Pre-Operation",
+    "why_required": "Registration under Indian Boilers Act 1923 for high-pressure steam vessels used in food sterilization and steam boiling.",
+    "eligibility": "Manufacturing units operating boilers with capacity exceeding 25 litres.",
+    "expected_timeline_days": 14,
+    "sla_max_days": 21,
+    "fee_structure": "₹8,000 to ₹35,000 based on heating surface area",
+    "inspection_required": true,
+    "renewal_period": "Annual hydraulic test renewal",
+    "official_source": "https://boiler.maharashtra.gov.in",
+    "applicable_sectors": "Food Processing, Chemical, Textile, Pharmaceuticals",
+    "risk_category": "High",
+    "created_at": "2026-09-29T17:51:08.812Z",
+    "updated_at": "2026-09-29T17:51:08.812Z"
+  }
+},
+{
+  "model": "approvals.approval",
+  "pk": 8,
+  "fields": {
+    "code": "di-stamp-duty-waiver",
+    "name": "Stamp Duty Exemption Certificate (PSI 2019)",
+    "name_mr": "मुद्रांक शुल्क माफी प्रमाणपत्र",
+    "department": "Directorate of Industries, Maharashtra",
+    "category": "Incentive",
+    "why_required": "Incentive under Maharashtra Industrial Policy 2019 granting 100% stamp duty waiver on land purchase/lease in MIDC industrial areas (Zone C, D, D+).",
+    "eligibility": "Eligible MSME and Large units establishing in designated developing talukas of Maharashtra.",
+    "expected_timeline_days": 20,
+    "sla_max_days": 30,
+    "fee_structure": "Nil (Government Promotional Scheme)",
+    "inspection_required": false,
+    "renewal_period": "One-time fiscal incentive waiver",
+    "official_source": "https://di.maharashtra.gov.in",
+    "applicable_sectors": "Food Processing, Manufacturing, Automobile, Textile, Chemical, IT & Electronics",
+    "risk_category": "Low",
+    "created_at": "2026-09-29T17:51:08.841Z",
+    "updated_at": "2026-09-29T17:51:08.841Z"
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 1,
+  "fields": {
+    "approval": 1,
+    "title": "Process Flow Chart & Technical Description",
+    "description": "Step-by-step manufacturing process and material safety balance sheet.",
+    "is_mandatory": true,
+    "doc_type_code": "process_flow",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 2,
+  "fields": {
+    "approval": 1,
+    "title": "Architectural Factory Building Plan",
+    "description": "Detailed layout blueprint certified by a registered chartered architect.",
+    "is_mandatory": true,
+    "doc_type_code": "factory_plan",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 3,
+  "fields": {
+    "approval": 1,
+    "title": "Land Ownership / MIDC Allotment Deed",
+    "description": "Title deed, registered lease agreement or MIDC formal land allotment order.",
+    "is_mandatory": true,
+    "doc_type_code": "land_deed",
+    "order": 3
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 4,
+  "fields": {
+    "approval": 1,
+    "title": "Safety Equipment Layout Diagram",
+    "description": "Positions of fire exits, ventilation blowers, and first aid stations.",
+    "is_mandatory": true,
+    "doc_type_code": "safety_plan",
+    "order": 4
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 5,
+  "fields": {
+    "approval": 1,
+    "title": "Machinery & Power Load Schedule",
+    "description": "List of heavy processing machinery with connected electrical kW.",
+    "is_mandatory": true,
+    "doc_type_code": "machinery_list",
+    "order": 5
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 6,
+  "fields": {
+    "approval": 2,
+    "title": "Effluent Treatment Plant (ETP) / STP Layout",
+    "description": "Technical drawing and flow scheme for industrial effluent neutralizer.",
+    "is_mandatory": true,
+    "doc_type_code": "environmental_noc",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 7,
+  "fields": {
+    "approval": 2,
+    "title": "Air Pollution Control System Specs",
+    "description": "Chimney stack height calculation, wet scrubbers and emission filters.",
+    "is_mandatory": true,
+    "doc_type_code": "air_specs",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 8,
+  "fields": {
+    "approval": 2,
+    "title": "MIDC Water Allotment Letter / Ground Water NOC",
+    "description": "Approved water connection sanction or CGWA NOC.",
+    "is_mandatory": true,
+    "doc_type_code": "water_noc",
+    "order": 3
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 9,
+  "fields": {
+    "approval": 2,
+    "title": "Raw Material Balance Sheet & Hazardous Waste Estimate",
+    "description": "Detailed annual consumption and solid waste disposal plan.",
+    "is_mandatory": true,
+    "doc_type_code": "waste_plan",
+    "order": 4
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 10,
+  "fields": {
+    "approval": 3,
+    "title": "Architectural Fire Tender Driveway Layout",
+    "description": "Site plan demonstrating clear 6-meter driveway for fire tenders.",
+    "is_mandatory": true,
+    "doc_type_code": "fire_layout",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 11,
+  "fields": {
+    "approval": 3,
+    "title": "Hydrant and Sprinkler Pipeline Scheme",
+    "description": "Water storage reservoir capacity calculation for firefighting.",
+    "is_mandatory": true,
+    "doc_type_code": "hydrant_spec",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 12,
+  "fields": {
+    "approval": 3,
+    "title": "Licensed Fire Agency Form A Certificate",
+    "description": "Certified execution audit by Maharashtra licensed fire agency.",
+    "is_mandatory": true,
+    "doc_type_code": "form_a",
+    "order": 3
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 13,
+  "fields": {
+    "approval": 4,
+    "title": "Electrical Single Line Diagram (SLD)",
+    "description": "Approved by Electrical Inspector, Industries Department.",
+    "is_mandatory": true,
+    "doc_type_code": "electricity_sld",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 14,
+  "fields": {
+    "approval": 4,
+    "title": "Connected Load Schedule & Test Report",
+    "description": "Certified by licensed electrical contractor.",
+    "is_mandatory": true,
+    "doc_type_code": "contractor_cert",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 15,
+  "fields": {
+    "approval": 4,
+    "title": "Ownership / MIDC Allotment Deed",
+    "description": "Proof of possession of premises.",
+    "is_mandatory": true,
+    "doc_type_code": "land_deed",
+    "order": 3
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 16,
+  "fields": {
+    "approval": 5,
+    "title": "Water Potability & Chemical Analysis Report",
+    "description": "Testing report from NABL-accredited laboratory.",
+    "is_mandatory": true,
+    "doc_type_code": "water_report",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 17,
+  "fields": {
+    "approval": 5,
+    "title": "Food Safety Management System (FSMS) Plan",
+    "description": "HACCP or standard food hygiene SOP document.",
+    "is_mandatory": true,
+    "doc_type_code": "fsms_plan",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 18,
+  "fields": {
+    "approval": 5,
+    "title": "List of Food Categories & Machinery",
+    "description": "Detailed specification of packaged food variants.",
+    "is_mandatory": true,
+    "doc_type_code": "food_spec",
+    "order": 3
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 19,
+  "fields": {
+    "approval": 6,
+    "title": "Factory Plan Approval Certificate",
+    "description": "Copy of approved plan reference number.",
+    "is_mandatory": true,
+    "doc_type_code": "factory_plan",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 20,
+  "fields": {
+    "approval": 6,
+    "title": "Stability Certificate by Chartered Structural Engineer",
+    "description": "Civil load stability certification.",
+    "is_mandatory": true,
+    "doc_type_code": "stability_cert",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 21,
+  "fields": {
+    "approval": 6,
+    "title": "List of Safety Officers / First Aid Personnel",
+    "description": "Qualified staff list with certified training.",
+    "is_mandatory": true,
+    "doc_type_code": "safety_staff",
+    "order": 3
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 22,
+  "fields": {
+    "approval": 7,
+    "title": "Boiler Manufacturer Test Certificate (Form II, III, IV)",
+    "description": "Certified metallurgical safety report.",
+    "is_mandatory": true,
+    "doc_type_code": "boiler_cert",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 23,
+  "fields": {
+    "approval": 7,
+    "title": "Erection Drawing & Steam Pipeline Layout",
+    "description": "Detailed pressure diagram.",
+    "is_mandatory": true,
+    "doc_type_code": "pipeline_layout",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 24,
+  "fields": {
+    "approval": 8,
+    "title": "Udyam Registration / EM-II",
+    "description": "Valid MSME recognition certificate.",
+    "is_mandatory": true,
+    "doc_type_code": "udyam_cert",
+    "order": 1
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 25,
+  "fields": {
+    "approval": 8,
+    "title": "Detailed Project Report (DPR)",
+    "description": "Financial projection and employment commitment.",
+    "is_mandatory": true,
+    "doc_type_code": "dpr",
+    "order": 2
+  }
+},
+{
+  "model": "approvals.approvalrequirement",
+  "pk": 26,
+  "fields": {
+    "approval": 8,
+    "title": "MIDC Land Allotment Letter",
+    "description": "Letter specifying zone classification.",
+    "is_mandatory": true,
+    "doc_type_code": "land_deed",
+    "order": 3
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "PAN Card / Tax Identity Document",
+    "doc_type": "pan",
+    "file": "",
+    "file_size_kb": 420,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "GOVERNMENT OF INDIA INCOME TAX DEPARTMENT\nPermanent Account Number: AABCA1234F\nName: AMOL FOODS PRIVATE LIMITED\nIncorporation Date: 14/02/2022",
+    "ocr_confidence_score": 98.4,
+    "validation_notes": "Verified against NSDL/CBDT Tax Master. Identity matches Business Profile.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.877Z",
+    "updated_at": "2026-09-29T17:51:08.877Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "GST Registration Certificate (Form REG-06)",
+    "doc_type": "gst",
+    "file": "",
+    "file_size_kb": 612,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "GOVERNMENT OF MAHARASHTRA STATE TAX DEPARTMENT\nGSTIN: 27AABCA1234F1Z5\nLegal Name: AMOL FOODS PRIVATE LIMITED\nTrade Name: AMOL FOODS\nPrincipal Place: Plot B-42, Satpur MIDC, Nashik - 422007",
+    "ocr_confidence_score": 99.1,
+    "validation_notes": "Active GSTIN. Nashik jurisdiction confirmed. Zero pending compliance defaults.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.882Z",
+    "updated_at": "2026-09-29T17:51:08.882Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 3,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "Certificate of Incorporation (MCA)",
+    "doc_type": "company_reg",
+    "file": "",
+    "file_size_kb": 840,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "MINISTRY OF CORPORATE AFFAIRS - ROC MUMBAI\nCIN: U15100MH2022PTC384910\nAmol Foods Private Limited\nPaid-up Capital: INR 5,00,00,000",
+    "ocr_confidence_score": 97.8,
+    "validation_notes": "Verified with Registrar of Companies (ROC Mumbai). Directors verified.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.896Z",
+    "updated_at": "2026-09-29T17:51:08.896Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 4,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "MIDC Land Possession & Lease Agreement",
+    "doc_type": "land_deed",
+    "file": "",
+    "file_size_kb": 1450,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "MAHARASHTRA INDUSTRIAL DEVELOPMENT CORPORATION (MIDC)\nPlot No. B-42, Satpur Industrial Area, Nashik\nAllotment Order Ref: MIDC/RO/NSK/2025/1109\nArea: 4,500 sq. meters",
+    "ocr_confidence_score": 96.2,
+    "validation_notes": "Possession confirmed. 95-year industrial lease deed valid and stamped.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.902Z",
+    "updated_at": "2026-09-29T17:51:08.902Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 5,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "Certified Factory Architectural Blueprint Layout",
+    "doc_type": "factory_plan",
+    "file": "",
+    "file_size_kb": 3240,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "DIRECTORATE OF INDUSTRIAL SAFETY & HEALTH - FACTORY PLAN\nAmol Foods Pvt Ltd - Food Processing Plant\nArchitect: Ar. Vilas Shinde (CA/2012/55481)\nBuilt-up Area: 2,400 sq.m, Height: 9.5m, Emergency Exits: 4",
+    "ocr_confidence_score": 95.0,
+    "validation_notes": "Meets Section 6 Factories Act specifications. Ventilation and exit ratios compliant.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.914Z",
+    "updated_at": "2026-09-29T17:51:08.914Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 6,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "Environmental Management Plan / ETP Specification",
+    "doc_type": "environmental_noc",
+    "file": "",
+    "file_size_kb": 0,
+    "mime_type": "application/pdf",
+    "status": "Action Required",
+    "is_ocr_processed": false,
+    "ocr_extracted_text": "",
+    "ocr_confidence_score": 0.0,
+    "validation_notes": "Document Missing! Required for MPCB Consent to Establish and DISH scrutiny. Upload detailed Effluent Treatment Plant flowchart to complete pre-validation.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.923Z",
+    "updated_at": "2026-09-29T17:51:08.923Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 7,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "Fire Hydrant & Emergency Evacuation Drawing",
+    "doc_type": "fire_layout",
+    "file": "",
+    "file_size_kb": 1920,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "MIDC FIRE SAFETY DIVISION - EVACUATION PLAN\nStatic water tank capacity: 1,00,000 Litres\nHydrant ring main with 6 bar pump pressure",
+    "ocr_confidence_score": 94.7,
+    "validation_notes": "Fire tender road width (6.2m) exceeds 6.0m requirement. Compliant.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.929Z",
+    "updated_at": "2026-09-29T17:51:08.929Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 8,
+  "fields": {
+    "user": 2,
+    "business": 1,
+    "title": "MSEDCL Approved Single Line Diagram (SLD)",
+    "doc_type": "electricity_sld",
+    "file": "",
+    "file_size_kb": 980,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "MSEDCL NASHIK URBAN CIRCLE - ELECTRICAL SLD\nContract Demand: 350 kVA / 11 kV HT Dedicated Feeder\nSubstation: Satpur 33/11 kV Substation",
+    "ocr_confidence_score": 98.0,
+    "validation_notes": "Feeder capacity approved by Executive Engineer MSEDCL Nashik.",
+    "expiry_date": null,
+    "created_at": "2026-09-29T17:51:08.941Z",
+    "updated_at": "2026-09-29T17:51:08.941Z"
+  }
+},
+{
+  "model": "documents.document",
+  "pk": 9,
+  "fields": {
+    "user": 5,
+    "business": 3,
+    "title": "Bhosari Factory Civil Layout Plan",
+    "doc_type": "factory_plan",
+    "file": "documents/2026/10/factory_layout_qvAh1uP.pdf",
+    "file_size_kb": 0,
+    "mime_type": "application/pdf",
+    "status": "Pre-validated",
+    "is_ocr_processed": true,
+    "ocr_extracted_text": "ANUMATISETU OCR VALIDATION LOG\nFile: factory_layout.pdf\nSize: 0 KB\nEntity: Joshi Electric Equipments Pvt Ltd\nDocument Type: factory_plan\nChecksum SHA-256 Validated.",
+    "ocr_confidence_score": 96.5,
+    "validation_notes": "Pre-validated by AnumatiSetu intelligent parser. Formats, signatures, and essential headers detected.",
+    "expiry_date": null,
+    "created_at": "2026-10-03T00:56:47.999Z",
+    "updated_at": "2026-10-03T00:58:31.113Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 1,
+  "fields": {
+    "application_id": "ANM-2026-01042",
+    "user": 2,
+    "business": 1,
+    "approval": 1,
+    "current_stage": "Under Review",
+    "current_department": "Directorate of Industrial Safety & Health (DISH)",
+    "priority": "High",
+    "assigned_officer": 3,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-09-17T17:51:08.946Z",
+    "sla_days_total": 15,
+    "sla_days_remaining": 3,
+    "is_delayed": false,
+    "progress_percent": 72,
+    "officer_remarks": "Technical scrutiny of structural blueprints in progress. Site layout verified. Single-window inspection coordinated.",
+    "created_at": "2026-09-29T17:51:08.949Z",
+    "updated_at": "2026-09-29T17:51:08.949Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 2,
+  "fields": {
+    "application_id": "ANM-2026-00124",
+    "user": 2,
+    "business": 1,
+    "approval": 2,
+    "current_stage": "Clarification Required",
+    "current_department": "Maharashtra Pollution Control Board (MPCB)",
+    "priority": "Urgent",
+    "assigned_officer": 3,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-09-07T17:51:08.957Z",
+    "sla_days_total": 30,
+    "sla_days_remaining": 8,
+    "is_delayed": false,
+    "progress_percent": 55,
+    "officer_remarks": "Clarification requested regarding daily wastewater discharge volume and proposed Zero Liquid Discharge (ZLD) system.",
+    "created_at": "2026-09-29T17:51:08.957Z",
+    "updated_at": "2026-09-29T17:51:08.957Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 3,
+  "fields": {
+    "application_id": "ANM-2026-00388",
+    "user": 2,
+    "business": 1,
+    "approval": 3,
+    "current_stage": "Inspection Scheduled",
+    "current_department": "MIDC Fire Services",
+    "priority": "Normal",
+    "assigned_officer": 3,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-09-21T17:51:08.965Z",
+    "sla_days_total": 21,
+    "sla_days_remaining": 13,
+    "is_delayed": false,
+    "progress_percent": 65,
+    "officer_remarks": "Provisional Fire NOC verified. Field hydrant simulation scheduled with Divisional Fire Officer.",
+    "created_at": "2026-09-29T17:51:08.965Z",
+    "updated_at": "2026-09-29T17:51:08.965Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 4,
+  "fields": {
+    "application_id": "ANM-2026-00055",
+    "user": 2,
+    "business": 1,
+    "approval": 4,
+    "current_stage": "Approved",
+    "current_department": "Maharashtra State Electricity Distribution Co. Ltd. (MSEDCL)",
+    "priority": "Normal",
+    "assigned_officer": 3,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-09-01T17:51:08.974Z",
+    "sla_days_total": 20,
+    "sla_days_remaining": 0,
+    "is_delayed": false,
+    "progress_percent": 100,
+    "officer_remarks": "Demand note cleared. Meter installation and 350 kVA HT energization completed successfully.",
+    "created_at": "2026-09-29T17:51:08.974Z",
+    "updated_at": "2026-09-29T17:51:08.974Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 5,
+  "fields": {
+    "application_id": "ANM-2026-3990",
+    "user": 5,
+    "business": 3,
+    "approval": 8,
+    "current_stage": "Submitted",
+    "current_department": "Directorate of Industries, Maharashtra",
+    "priority": "Normal",
+    "assigned_officer": null,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-10-03T00:57:21.684Z",
+    "sla_days_total": 30,
+    "sla_days_remaining": 30,
+    "is_delayed": false,
+    "progress_percent": 20,
+    "officer_remarks": "Application formally submitted through AnumatiSetu single-window orchestration.",
+    "created_at": "2026-10-03T00:57:21.684Z",
+    "updated_at": "2026-10-03T00:57:21.684Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 6,
+  "fields": {
+    "application_id": "ANM-2026-3890",
+    "user": 5,
+    "business": 3,
+    "approval": 8,
+    "current_stage": "Clarification Required",
+    "current_department": "Directorate of Industries, Maharashtra",
+    "priority": "Normal",
+    "assigned_officer": null,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-10-03T00:57:33.047Z",
+    "sla_days_total": 30,
+    "sla_days_remaining": 30,
+    "is_delayed": false,
+    "progress_percent": 60,
+    "officer_remarks": "Technical scrutiny initiated by Directorate team.",
+    "created_at": "2026-10-03T00:57:33.047Z",
+    "updated_at": "2026-10-03T00:57:33.381Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 7,
+  "fields": {
+    "application_id": "ANM-2026-9397",
+    "user": 5,
+    "business": 3,
+    "approval": 8,
+    "current_stage": "Inspection Scheduled",
+    "current_department": "Directorate of Industries, Maharashtra",
+    "priority": "Normal",
+    "assigned_officer": null,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-10-03T00:57:44.157Z",
+    "sla_days_total": 30,
+    "sla_days_remaining": 30,
+    "is_delayed": false,
+    "progress_percent": 75,
+    "officer_remarks": "Technical scrutiny initiated by Directorate team.",
+    "created_at": "2026-10-03T00:57:44.157Z",
+    "updated_at": "2026-10-03T00:57:44.583Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 8,
+  "fields": {
+    "application_id": "ANM-2026-1624",
+    "user": 5,
+    "business": 3,
+    "approval": 8,
+    "current_stage": "Approved",
+    "current_department": "Directorate of Industries, Maharashtra",
+    "priority": "Normal",
+    "assigned_officer": null,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-10-03T00:57:58.300Z",
+    "sla_days_total": 30,
+    "sla_days_remaining": 30,
+    "is_delayed": false,
+    "progress_percent": 100,
+    "officer_remarks": "Statutory clearance granted under Maharashtra RTS Act.",
+    "created_at": "2026-10-03T00:57:58.301Z",
+    "updated_at": "2026-10-03T00:57:58.944Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 9,
+  "fields": {
+    "application_id": "ANM-2026-3914",
+    "user": 5,
+    "business": 3,
+    "approval": 8,
+    "current_stage": "Approved",
+    "current_department": "Directorate of Industries, Maharashtra",
+    "priority": "Normal",
+    "assigned_officer": null,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-10-03T00:58:10.521Z",
+    "sla_days_total": 30,
+    "sla_days_remaining": 30,
+    "is_delayed": false,
+    "progress_percent": 100,
+    "officer_remarks": "Statutory clearance granted under Maharashtra RTS Act.",
+    "created_at": "2026-10-03T00:58:10.522Z",
+    "updated_at": "2026-10-03T00:58:11.432Z"
+  }
+},
+{
+  "model": "applications.application",
+  "pk": 10,
+  "fields": {
+    "application_id": "ANM-2026-6400",
+    "user": 5,
+    "business": 3,
+    "approval": 8,
+    "current_stage": "Approved",
+    "current_department": "Directorate of Industries, Maharashtra",
+    "priority": "Normal",
+    "assigned_officer": null,
+    "assigned_officer_name": "Dr. Rajesh Kulkarni",
+    "submission_date": "2026-10-03T00:58:31.202Z",
+    "sla_days_total": 30,
+    "sla_days_remaining": 30,
+    "is_delayed": false,
+    "progress_percent": 100,
+    "officer_remarks": "Statutory clearance granted under Maharashtra RTS Act.",
+    "created_at": "2026-10-03T00:58:31.203Z",
+    "updated_at": "2026-10-03T00:58:31.929Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 1,
+  "fields": {
+    "application": 1,
+    "document": 5,
+    "doc_name": "Architectural Factory Plan",
+    "file_type": "PDF",
+    "status": "Verified",
+    "officer_feedback": "Architect certified. Dimensions conform to building regulations.",
+    "uploaded_at": "2026-09-29T17:51:08.981Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 2,
+  "fields": {
+    "application": 1,
+    "document": 4,
+    "doc_name": "Land Ownership / MIDC Deed",
+    "file_type": "PDF",
+    "status": "Verified",
+    "officer_feedback": "Satpur MIDC plot allotment verified.",
+    "uploaded_at": "2026-09-29T17:51:08.992Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 3,
+  "fields": {
+    "application": 1,
+    "document": 1,
+    "doc_name": "PAN / Tax Identity",
+    "file_type": "PDF",
+    "status": "Verified",
+    "officer_feedback": "Corporate PAN verified.",
+    "uploaded_at": "2026-09-29T17:51:09.004Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 4,
+  "fields": {
+    "application": 2,
+    "document": 6,
+    "doc_name": "Environmental Management Plan",
+    "file_type": "PDF",
+    "status": "Action Required",
+    "officer_feedback": "Missing ETP design schematics. Please upload.",
+    "uploaded_at": "2026-09-29T17:51:09.012Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 5,
+  "fields": {
+    "application": 2,
+    "document": 3,
+    "doc_name": "Certificate of Incorporation",
+    "file_type": "PDF",
+    "status": "Verified",
+    "officer_feedback": "MCA verification complete.",
+    "uploaded_at": "2026-09-29T17:51:09.021Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 6,
+  "fields": {
+    "application": 3,
+    "document": 7,
+    "doc_name": "Fire Tender Driveway Layout",
+    "file_type": "PDF",
+    "status": "Verified",
+    "officer_feedback": "Clearance verified.",
+    "uploaded_at": "2026-09-29T17:51:09.028Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 7,
+  "fields": {
+    "application": 4,
+    "document": 8,
+    "doc_name": "Electrical Single Line Diagram (SLD)",
+    "file_type": "PDF",
+    "status": "Verified",
+    "officer_feedback": "Substation sanction received.",
+    "uploaded_at": "2026-09-29T17:51:09.041Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 8,
+  "fields": {
+    "application": 5,
+    "document": null,
+    "doc_name": "Udyam Registration / EM-II",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:21.728Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 9,
+  "fields": {
+    "application": 5,
+    "document": null,
+    "doc_name": "Detailed Project Report (DPR)",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:21.743Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 10,
+  "fields": {
+    "application": 5,
+    "document": null,
+    "doc_name": "MIDC Land Allotment Letter",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:21.757Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 11,
+  "fields": {
+    "application": 6,
+    "document": null,
+    "doc_name": "Udyam Registration / EM-II",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:33.070Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 12,
+  "fields": {
+    "application": 6,
+    "document": null,
+    "doc_name": "Detailed Project Report (DPR)",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:33.080Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 13,
+  "fields": {
+    "application": 6,
+    "document": null,
+    "doc_name": "MIDC Land Allotment Letter",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:33.093Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 14,
+  "fields": {
+    "application": 7,
+    "document": null,
+    "doc_name": "Udyam Registration / EM-II",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:44.179Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 15,
+  "fields": {
+    "application": 7,
+    "document": null,
+    "doc_name": "Detailed Project Report (DPR)",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:44.189Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 16,
+  "fields": {
+    "application": 7,
+    "document": null,
+    "doc_name": "MIDC Land Allotment Letter",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:44.201Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 17,
+  "fields": {
+    "application": 8,
+    "document": null,
+    "doc_name": "Udyam Registration / EM-II",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:58.322Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 18,
+  "fields": {
+    "application": 8,
+    "document": null,
+    "doc_name": "Detailed Project Report (DPR)",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:58.332Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 19,
+  "fields": {
+    "application": 8,
+    "document": null,
+    "doc_name": "MIDC Land Allotment Letter",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:57:58.343Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 20,
+  "fields": {
+    "application": 9,
+    "document": null,
+    "doc_name": "Udyam Registration / EM-II",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:58:10.619Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 21,
+  "fields": {
+    "application": 9,
+    "document": null,
+    "doc_name": "Detailed Project Report (DPR)",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:58:10.628Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 22,
+  "fields": {
+    "application": 9,
+    "document": null,
+    "doc_name": "MIDC Land Allotment Letter",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:58:10.637Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 23,
+  "fields": {
+    "application": 10,
+    "document": null,
+    "doc_name": "Udyam Registration / EM-II",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:58:31.252Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 24,
+  "fields": {
+    "application": 10,
+    "document": null,
+    "doc_name": "Detailed Project Report (DPR)",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:58:31.264Z"
+  }
+},
+{
+  "model": "applications.applicationdocument",
+  "pk": 25,
+  "fields": {
+    "application": 10,
+    "document": null,
+    "doc_name": "MIDC Land Allotment Letter",
+    "file_type": "PDF",
+    "status": "Pending",
+    "officer_feedback": "Pending technical scrutiny",
+    "uploaded_at": "2026-10-03T00:58:31.275Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 1,
+  "fields": {
+    "application": 1,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 2,
+    "remarks": "Online submission via AnumatiSetu single window orchestration.",
+    "timestamp": "2026-09-29T17:51:09.047Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 2,
+  "fields": {
+    "application": 1,
+    "previous_status": "Submitted",
+    "new_status": "Documents Verified",
+    "changed_by": 3,
+    "remarks": "Automated checklist pre-validation passed. Mandatory annexures verified.",
+    "timestamp": "2026-09-29T17:51:09.057Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 3,
+  "fields": {
+    "application": 1,
+    "previous_status": "Documents Verified",
+    "new_status": "Under Review",
+    "changed_by": 3,
+    "remarks": "Forwarded to Senior Safety Engineer DISH Nashik for technical blueprint scrutiny.",
+    "timestamp": "2026-09-29T17:51:09.065Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 4,
+  "fields": {
+    "application": 2,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 2,
+    "remarks": "MPCB Consent to Establish Form submitted.",
+    "timestamp": "2026-09-29T17:51:09.075Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 5,
+  "fields": {
+    "application": 2,
+    "previous_status": "Submitted",
+    "new_status": "Documents Verified",
+    "changed_by": 3,
+    "remarks": "Basic statutory documents accepted.",
+    "timestamp": "2026-09-29T17:51:09.083Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 6,
+  "fields": {
+    "application": 2,
+    "previous_status": "Documents Verified",
+    "new_status": "Clarification Required",
+    "changed_by": 3,
+    "remarks": "ETP effluent specs and chemical oxygen demand calculation missing.",
+    "timestamp": "2026-09-29T17:51:09.093Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 7,
+  "fields": {
+    "application": 3,
+    "previous_status": "Submitted",
+    "new_status": "Inspection Scheduled",
+    "changed_by": 3,
+    "remarks": "Field verification and hydrant water pressure test scheduled.",
+    "timestamp": "2026-09-29T17:51:09.103Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 8,
+  "fields": {
+    "application": 4,
+    "previous_status": "Submitted",
+    "new_status": "Approved",
+    "changed_by": 3,
+    "remarks": "Transformer installation verified. Power clearance letter issued.",
+    "timestamp": "2026-09-29T17:51:09.111Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 9,
+  "fields": {
+    "application": 5,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 5,
+    "remarks": "New manufacturing unit setup in Bhosari industrial zone.",
+    "timestamp": "2026-10-03T00:57:21.712Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 10,
+  "fields": {
+    "application": 6,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 5,
+    "remarks": "New manufacturing unit setup in Bhosari industrial zone.",
+    "timestamp": "2026-10-03T00:57:33.057Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 11,
+  "fields": {
+    "application": 6,
+    "previous_status": "Submitted",
+    "new_status": "Under Review",
+    "changed_by": 3,
+    "remarks": "Technical scrutiny initiated by Directorate team.",
+    "timestamp": "2026-10-03T00:57:33.310Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 12,
+  "fields": {
+    "application": 6,
+    "previous_status": "Under Review",
+    "new_status": "Clarification Required",
+    "changed_by": 3,
+    "remarks": "Department query raised: Factory Electrical Connected Load Clarification",
+    "timestamp": "2026-10-03T00:57:33.395Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 13,
+  "fields": {
+    "application": 7,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 5,
+    "remarks": "New manufacturing unit setup in Bhosari industrial zone.",
+    "timestamp": "2026-10-03T00:57:44.168Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 14,
+  "fields": {
+    "application": 7,
+    "previous_status": "Submitted",
+    "new_status": "Under Review",
+    "changed_by": 3,
+    "remarks": "Technical scrutiny initiated by Directorate team.",
+    "timestamp": "2026-10-03T00:57:44.343Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 15,
+  "fields": {
+    "application": 7,
+    "previous_status": "Under Review",
+    "new_status": "Clarification Required",
+    "changed_by": 3,
+    "remarks": "Department query raised: Factory Electrical Connected Load Clarification",
+    "timestamp": "2026-10-03T00:57:44.386Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 16,
+  "fields": {
+    "application": 7,
+    "previous_status": "Clarification Required",
+    "new_status": "Under Review",
+    "changed_by": 5,
+    "remarks": "Entrepreneur responded to query: 'Factory Electrical Connected Load Clarification'. Resubmitted for officer scrutiny.",
+    "timestamp": "2026-10-03T00:57:44.468Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 17,
+  "fields": {
+    "application": 7,
+    "previous_status": "Under Review",
+    "new_status": "Inspection Scheduled",
+    "changed_by": 3,
+    "remarks": "Field inspection scheduled on 2026-10-15 with Er. Sunil Pawar.",
+    "timestamp": "2026-10-03T00:57:44.597Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 18,
+  "fields": {
+    "application": 8,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 5,
+    "remarks": "New manufacturing unit setup in Bhosari industrial zone.",
+    "timestamp": "2026-10-03T00:57:58.310Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 19,
+  "fields": {
+    "application": 8,
+    "previous_status": "Submitted",
+    "new_status": "Under Review",
+    "changed_by": 3,
+    "remarks": "Technical scrutiny initiated by Directorate team.",
+    "timestamp": "2026-10-03T00:57:58.587Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 20,
+  "fields": {
+    "application": 8,
+    "previous_status": "Under Review",
+    "new_status": "Clarification Required",
+    "changed_by": 3,
+    "remarks": "Department query raised: Factory Electrical Connected Load Clarification",
+    "timestamp": "2026-10-03T00:57:58.646Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 21,
+  "fields": {
+    "application": 8,
+    "previous_status": "Clarification Required",
+    "new_status": "Under Review",
+    "changed_by": 5,
+    "remarks": "Entrepreneur responded to query: 'Factory Electrical Connected Load Clarification'. Resubmitted for officer scrutiny.",
+    "timestamp": "2026-10-03T00:57:58.748Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 22,
+  "fields": {
+    "application": 8,
+    "previous_status": "Under Review",
+    "new_status": "Inspection Scheduled",
+    "changed_by": 3,
+    "remarks": "Field inspection scheduled on 2026-10-15 with Er. Sunil Pawar.",
+    "timestamp": "2026-10-03T00:57:58.846Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 23,
+  "fields": {
+    "application": 8,
+    "previous_status": "Inspection Scheduled",
+    "new_status": "Inspection Completed",
+    "changed_by": 3,
+    "remarks": "Inspection completed with remarks: Setbacks and fire hydrant lines inspected and verified on site.",
+    "timestamp": "2026-10-03T00:57:58.906Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 24,
+  "fields": {
+    "application": 8,
+    "previous_status": "Inspection Completed",
+    "new_status": "Approved",
+    "changed_by": 3,
+    "remarks": "Statutory clearance granted under Maharashtra RTS Act.",
+    "timestamp": "2026-10-03T00:57:58.952Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 25,
+  "fields": {
+    "application": 9,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 5,
+    "remarks": "New manufacturing unit setup in Bhosari industrial zone.",
+    "timestamp": "2026-10-03T00:58:10.567Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 26,
+  "fields": {
+    "application": 9,
+    "previous_status": "Submitted",
+    "new_status": "Under Review",
+    "changed_by": 3,
+    "remarks": "Technical scrutiny initiated by Directorate team.",
+    "timestamp": "2026-10-03T00:58:10.898Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 27,
+  "fields": {
+    "application": 9,
+    "previous_status": "Under Review",
+    "new_status": "Clarification Required",
+    "changed_by": 3,
+    "remarks": "Department query raised: Factory Electrical Connected Load Clarification",
+    "timestamp": "2026-10-03T00:58:10.968Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 28,
+  "fields": {
+    "application": 9,
+    "previous_status": "Clarification Required",
+    "new_status": "Under Review",
+    "changed_by": 5,
+    "remarks": "Entrepreneur responded to query: 'Factory Electrical Connected Load Clarification'. Resubmitted for officer scrutiny.",
+    "timestamp": "2026-10-03T00:58:11.078Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 29,
+  "fields": {
+    "application": 9,
+    "previous_status": "Under Review",
+    "new_status": "Inspection Scheduled",
+    "changed_by": 3,
+    "remarks": "Field inspection scheduled on 2026-10-15 with Er. Sunil Pawar.",
+    "timestamp": "2026-10-03T00:58:11.221Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 30,
+  "fields": {
+    "application": 9,
+    "previous_status": "Inspection Scheduled",
+    "new_status": "Inspection Completed",
+    "changed_by": 3,
+    "remarks": "Inspection completed with remarks: Setbacks and fire hydrant lines inspected and verified on site.",
+    "timestamp": "2026-10-03T00:58:11.366Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 31,
+  "fields": {
+    "application": 9,
+    "previous_status": "Inspection Completed",
+    "new_status": "Approved",
+    "changed_by": 3,
+    "remarks": "Statutory clearance granted under Maharashtra RTS Act.",
+    "timestamp": "2026-10-03T00:58:11.463Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 32,
+  "fields": {
+    "application": 10,
+    "previous_status": "Draft",
+    "new_status": "Submitted",
+    "changed_by": 5,
+    "remarks": "New manufacturing unit setup in Bhosari industrial zone.",
+    "timestamp": "2026-10-03T00:58:31.235Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 33,
+  "fields": {
+    "application": 10,
+    "previous_status": "Submitted",
+    "new_status": "Under Review",
+    "changed_by": 3,
+    "remarks": "Technical scrutiny initiated by Directorate team.",
+    "timestamp": "2026-10-03T00:58:31.452Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 34,
+  "fields": {
+    "application": 10,
+    "previous_status": "Under Review",
+    "new_status": "Clarification Required",
+    "changed_by": 3,
+    "remarks": "Department query raised: Factory Electrical Connected Load Clarification",
+    "timestamp": "2026-10-03T00:58:31.505Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 35,
+  "fields": {
+    "application": 10,
+    "previous_status": "Clarification Required",
+    "new_status": "Under Review",
+    "changed_by": 5,
+    "remarks": "Entrepreneur responded to query: 'Factory Electrical Connected Load Clarification'. Resubmitted for officer scrutiny.",
+    "timestamp": "2026-10-03T00:58:31.611Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 36,
+  "fields": {
+    "application": 10,
+    "previous_status": "Under Review",
+    "new_status": "Inspection Scheduled",
+    "changed_by": 3,
+    "remarks": "Field inspection scheduled on 2026-10-15 with Er. Sunil Pawar.",
+    "timestamp": "2026-10-03T00:58:31.722Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 37,
+  "fields": {
+    "application": 10,
+    "previous_status": "Inspection Scheduled",
+    "new_status": "Inspection Completed",
+    "changed_by": 3,
+    "remarks": "Inspection completed with remarks: Setbacks and fire hydrant lines inspected and verified on site.",
+    "timestamp": "2026-10-03T00:58:31.851Z"
+  }
+},
+{
+  "model": "applications.applicationstatushistory",
+  "pk": 38,
+  "fields": {
+    "application": 10,
+    "previous_status": "Inspection Completed",
+    "new_status": "Approved",
+    "changed_by": 3,
+    "remarks": "Statutory clearance granted under Maharashtra RTS Act.",
+    "timestamp": "2026-10-03T00:58:31.960Z"
+  }
+},
+{
+  "model": "applications.departmentquery",
+  "pk": 1,
+  "fields": {
+    "application": 2,
+    "raised_by": 3,
+    "title": "Clarification on Effluent Treatment Plant (ETP) Capacity",
+    "query_text": "Kindly furnish detailed design calculations for the proposed 50 KLD Effluent Treatment Plant and clarify whether Zero Liquid Discharge (ZLD) with RO recycling will be implemented as per Red/Orange category guidelines.",
+    "response_text": "We are finalizing the detailed engineering drawings with our environmental consultant (EnviroChem Nashik) and will upload the revised ETP specifications within 48 hours.",
+    "status": "Responded",
+    "created_at": "2026-09-29T17:51:09.123Z",
+    "updated_at": "2026-09-29T17:51:09.123Z"
+  }
+},
+{
+  "model": "applications.departmentquery",
+  "pk": 2,
+  "fields": {
+    "application": 6,
+    "raised_by": 3,
+    "title": "Factory Electrical Connected Load Clarification",
+    "query_text": "Please specify the exact sanctioned contract demand in KVA from MSEDCL.",
+    "response_text": "",
+    "status": "Open",
+    "created_at": "2026-10-03T00:57:33.366Z",
+    "updated_at": "2026-10-03T00:57:33.366Z"
+  }
+},
+{
+  "model": "applications.departmentquery",
+  "pk": 3,
+  "fields": {
+    "application": 7,
+    "raised_by": 3,
+    "title": "Factory Electrical Connected Load Clarification",
+    "query_text": "Please specify the exact sanctioned contract demand in KVA from MSEDCL.",
+    "response_text": "Sanctioned contract demand is 250 KVA on 11 KV express industrial feeder.",
+    "status": "Responded",
+    "created_at": "2026-10-03T00:57:44.367Z",
+    "updated_at": "2026-10-03T00:57:44.457Z"
+  }
+},
+{
+  "model": "applications.departmentquery",
+  "pk": 4,
+  "fields": {
+    "application": 8,
+    "raised_by": 3,
+    "title": "Factory Electrical Connected Load Clarification",
+    "query_text": "Please specify the exact sanctioned contract demand in KVA from MSEDCL.",
+    "response_text": "Sanctioned contract demand is 250 KVA on 11 KV express industrial feeder.",
+    "status": "Responded",
+    "created_at": "2026-10-03T00:57:58.624Z",
+    "updated_at": "2026-10-03T00:57:58.736Z"
+  }
+},
+{
+  "model": "applications.departmentquery",
+  "pk": 5,
+  "fields": {
+    "application": 9,
+    "raised_by": 3,
+    "title": "Factory Electrical Connected Load Clarification",
+    "query_text": "Please specify the exact sanctioned contract demand in KVA from MSEDCL.",
+    "response_text": "Sanctioned contract demand is 250 KVA on 11 KV express industrial feeder.",
+    "status": "Responded",
+    "created_at": "2026-10-03T00:58:10.944Z",
+    "updated_at": "2026-10-03T00:58:11.064Z"
+  }
+},
+{
+  "model": "applications.departmentquery",
+  "pk": 6,
+  "fields": {
+    "application": 10,
+    "raised_by": 3,
+    "title": "Factory Electrical Connected Load Clarification",
+    "query_text": "Please specify the exact sanctioned contract demand in KVA from MSEDCL.",
+    "response_text": "Sanctioned contract demand is 250 KVA on 11 KV express industrial feeder.",
+    "status": "Responded",
+    "created_at": "2026-10-03T00:58:31.479Z",
+    "updated_at": "2026-10-03T00:58:31.602Z"
+  }
+},
+{
+  "model": "inspections.inspection",
+  "pk": 1,
+  "fields": {
+    "application": 3,
+    "department": "MIDC Fire Services, Nashik Division",
+    "inspector_name": "Chief Fire Officer S. V. Gaikwad",
+    "inspector_designation": "Divisional Fire Officer (Nashik & Ahmednagar)",
+    "location": "Plot B-42, Satpur MIDC Industrial Area, Nashik - 422007",
+    "scheduled_date": "2026-10-03",
+    "time_slot": "11:00 AM – 01:00 PM",
+    "inspection_type": "Fire Safety Verification",
+    "status": "Scheduled",
+    "remarks": "Field simulation of static water reservoir pump and 6.0m fire tender driveway clearance. Entrepreneur requested to keep licensed fire agency representative present.",
+    "report_file": "",
+    "created_at": "2026-09-29T17:51:09.132Z",
+    "updated_at": "2026-09-29T17:51:09.132Z"
+  }
+},
+{
+  "model": "inspections.inspection",
+  "pk": 2,
+  "fields": {
+    "application": 1,
+    "department": "Directorate of Industrial Safety & Health (DISH)",
+    "inspector_name": "Er. Sachin Deshmukh",
+    "inspector_designation": "Deputy Director of Industrial Safety & Health",
+    "location": "Plot B-42, Satpur MIDC Industrial Area, Nashik - 422007",
+    "scheduled_date": "2026-10-08",
+    "time_slot": "02:30 PM – 04:30 PM",
+    "inspection_type": "Pre-Establishment Site Visit",
+    "status": "Scheduled",
+    "remarks": "Joint site inspection to verify proposed emergency evacuation exits and machinery layout setbacks.",
+    "report_file": "",
+    "created_at": "2026-09-29T17:51:09.140Z",
+    "updated_at": "2026-09-29T17:51:09.140Z"
+  }
+},
+{
+  "model": "inspections.inspection",
+  "pk": 3,
+  "fields": {
+    "application": 7,
+    "department": "Directorate of Industries, Maharashtra",
+    "inspector_name": "Er. Sunil Pawar",
+    "inspector_designation": "Senior Industrial Safety Inspector",
+    "location": "Plot 45, Bhosari MIDC, Pune",
+    "scheduled_date": "2026-10-15",
+    "time_slot": "10:00 AM - 12:00 PM",
+    "inspection_type": "Pre-Establishment Factory Site Verification",
+    "status": "Scheduled",
+    "remarks": "Inspect perimeter setbacks, emergency exits, and electrical switchgear room.",
+    "report_file": "",
+    "created_at": "2026-10-03T00:57:44.569Z",
+    "updated_at": "2026-10-03T00:57:44.569Z"
+  }
+},
+{
+  "model": "inspections.inspection",
+  "pk": 4,
+  "fields": {
+    "application": 8,
+    "department": "Directorate of Industries, Maharashtra",
+    "inspector_name": "Er. Sunil Pawar",
+    "inspector_designation": "Senior Industrial Safety Inspector",
+    "location": "Plot 45, Bhosari MIDC, Pune",
+    "scheduled_date": "2026-10-15",
+    "time_slot": "10:00 AM - 12:00 PM",
+    "inspection_type": "Pre-Establishment Factory Site Verification",
+    "status": "Completed",
+    "remarks": "Inspect perimeter setbacks, emergency exits, and electrical switchgear room.\n[Update]: Setbacks and fire hydrant lines inspected and verified on site.",
+    "report_file": "",
+    "created_at": "2026-10-03T00:57:58.829Z",
+    "updated_at": "2026-10-03T00:57:58.887Z"
+  }
+},
+{
+  "model": "inspections.inspection",
+  "pk": 5,
+  "fields": {
+    "application": 9,
+    "department": "Directorate of Industries, Maharashtra",
+    "inspector_name": "Er. Sunil Pawar",
+    "inspector_designation": "Senior Industrial Safety Inspector",
+    "location": "Plot 45, Bhosari MIDC, Pune",
+    "scheduled_date": "2026-10-15",
+    "time_slot": "10:00 AM - 12:00 PM",
+    "inspection_type": "Pre-Establishment Factory Site Verification",
+    "status": "Completed",
+    "remarks": "Inspect perimeter setbacks, emergency exits, and electrical switchgear room.\n[Update]: Setbacks and fire hydrant lines inspected and verified on site.",
+    "report_file": "",
+    "created_at": "2026-10-03T00:58:11.196Z",
+    "updated_at": "2026-10-03T00:58:11.315Z"
+  }
+},
+{
+  "model": "inspections.inspection",
+  "pk": 6,
+  "fields": {
+    "application": 10,
+    "department": "Directorate of Industries, Maharashtra",
+    "inspector_name": "Er. Sunil Pawar",
+    "inspector_designation": "Senior Industrial Safety Inspector",
+    "location": "Plot 45, Bhosari MIDC, Pune",
+    "scheduled_date": "2026-10-15",
+    "time_slot": "10:00 AM - 12:00 PM",
+    "inspection_type": "Pre-Establishment Factory Site Verification",
+    "status": "Completed",
+    "remarks": "Inspect perimeter setbacks, emergency exits, and electrical switchgear room.\n[Update]: Setbacks and fire hydrant lines inspected and verified on site.",
+    "report_file": "",
+    "created_at": "2026-10-03T00:58:31.699Z",
+    "updated_at": "2026-10-03T00:58:31.795Z"
+  }
+},
+{
+  "model": "compliance.compliance",
+  "pk": 1,
+  "fields": {
+    "business": 1,
+    "approval": 6,
+    "title": "Factory Operating Licence Renewal (Form 4)",
+    "department": "Directorate of Industrial Safety & Health (DISH)",
+    "approval_ref": "DISH-NSK-LIC-2025-4418",
+    "due_date": "2026-11-10",
+    "status": "Approaching",
+    "annual_fee": "₹15,000",
+    "penalties": "₹500 per month late fee after statutory due date",
+    "remarks": "Annual renewal requires submitting Form 4 with updated worker register and safety audit report.",
+    "created_at": "2026-09-29T17:51:09.149Z",
+    "updated_at": "2026-09-29T17:51:09.149Z"
+  }
+},
+{
+  "model": "compliance.compliance",
+  "pk": 2,
+  "fields": {
+    "business": 1,
+    "approval": 2,
+    "title": "MPCB Consent to Operate (CTO) Renewal",
+    "department": "Maharashtra Pollution Control Board (MPCB)",
+    "approval_ref": "MPCB-RO-NSK-CTO-2024-912",
+    "due_date": "2026-10-17",
+    "status": "Urgent",
+    "annual_fee": "₹25,000",
+    "penalties": "Statutory notice under Section 33A Water Act and penalty up to ₹5,000/day",
+    "remarks": "Urgent: Environmental monitoring report from recognized laboratory must be submitted alongside application.",
+    "created_at": "2026-09-29T17:51:09.170Z",
+    "updated_at": "2026-09-29T17:51:09.170Z"
+  }
+},
+{
+  "model": "compliance.compliance",
+  "pk": 3,
+  "fields": {
+    "business": 1,
+    "approval": 3,
+    "title": "Annual Fire Safety Inspection Certificate (Form B)",
+    "department": "MIDC Fire Services",
+    "approval_ref": "MIDC-FIRE-NSK-2025-781",
+    "due_date": "2026-12-13",
+    "status": "Compliant",
+    "annual_fee": "₹8,500",
+    "penalties": "Cancellation of provisional fire safety clearance",
+    "remarks": "Annual fire drill and maintenance certificate from licensed fire contractor.",
+    "created_at": "2026-09-29T17:51:09.189Z",
+    "updated_at": "2026-09-29T17:51:09.189Z"
+  }
+},
+{
+  "model": "compliance.compliance",
+  "pk": 4,
+  "fields": {
+    "business": 3,
+    "approval": null,
+    "title": "DISH Factory Licence Annual Renewal",
+    "department": "Directorate of Industrial Safety & Health",
+    "approval_ref": "MH-DISH-2026-081",
+    "due_date": "2026-12-31",
+    "status": "Approaching",
+    "annual_fee": "₹ 12,000 / year",
+    "penalties": "₹ 2,500 / month",
+    "remarks": "",
+    "created_at": "2026-10-03T00:58:11.526Z",
+    "updated_at": "2026-10-03T00:58:11.526Z"
+  }
+},
+{
+  "model": "compliance.compliance",
+  "pk": 5,
+  "fields": {
+    "business": 3,
+    "approval": null,
+    "title": "DISH Factory Licence Annual Renewal",
+    "department": "Directorate of Industrial Safety & Health",
+    "approval_ref": "MH-DISH-2026-081",
+    "due_date": "2026-12-31",
+    "status": "Compliant",
+    "annual_fee": "₹ 12,000 / year",
+    "penalties": "₹ 2,500 / month",
+    "remarks": "",
+    "created_at": "2026-10-03T00:58:32.061Z",
+    "updated_at": "2026-10-03T00:58:32.120Z"
+  }
+},
+{
+  "model": "compliance.renewal",
+  "pk": 1,
+  "fields": {
+    "compliance": 1,
+    "renewal_due_date": "2026-11-10",
+    "renewal_submitted_date": null,
+    "renewal_fee_paid": false,
+    "status": "Upcoming",
+    "valid_until": null,
+    "remarks": "Notice generated by AnumatiSetu compliance shield.",
+    "created_at": "2026-09-29T17:51:09.160Z",
+    "updated_at": "2026-09-29T17:51:09.160Z"
+  }
+},
+{
+  "model": "compliance.renewal",
+  "pk": 2,
+  "fields": {
+    "compliance": 2,
+    "renewal_due_date": "2026-10-17",
+    "renewal_submitted_date": null,
+    "renewal_fee_paid": false,
+    "status": "Upcoming",
+    "valid_until": null,
+    "remarks": "Automated reminder alert sent to entrepreneur.",
+    "created_at": "2026-09-29T17:51:09.179Z",
+    "updated_at": "2026-09-29T17:51:09.179Z"
+  }
+},
+{
+  "model": "compliance.renewal",
+  "pk": 3,
+  "fields": {
+    "compliance": 5,
+    "renewal_due_date": "2026-12-31",
+    "renewal_submitted_date": "2026-10-03",
+    "renewal_fee_paid": true,
+    "status": "Submitted",
+    "valid_until": null,
+    "remarks": "Annual fee paid online via MahaGRAS Treasury ref GRAS-2026-98124",
+    "created_at": "2026-10-03T00:58:32.108Z",
+    "updated_at": "2026-10-03T00:58:32.108Z"
+  }
+},
+{
+  "model": "schemes.governmentscheme",
+  "pk": 1,
+  "fields": {
+    "name": "Maharashtra Package Scheme of Incentives (PSI 2019 / 2024 Policy)",
+    "department": "Directorate of Industries, Government of Maharashtra",
+    "description": "Comprehensive fiscal incentives including Capital Investment Subsidy (up to 50% for Nashik Zone C/D), 100% Stamp Duty Exemption, Electricity Duty Exemption for 7 years, and ₹1.50/unit Power Tariff Subsidy.",
+    "eligibility": "New Greenfield Units and Substantial Expansion in MSME & Large sectors set up in developing areas (Zones B, C, D, D+). Investment minimum ₹25 Lakhs.",
+    "benefits": "• Up to 50% Capital Subsidy on Gross Fixed Capital Investment\n• 100% Stamp Duty Exemption during land acquisition\n• 7-year Electricity Duty Exemption\n• Interest Subsidy @ 5% p.a. on term loan",
+    "max_subsidy": "Up to ₹1.50 Crore for MSME; higher for Mega units",
+    "deadline": "Valid under 2019-2024 Industrial Policy Extension",
+    "official_source": "https://di.maharashtra.gov.in",
+    "category_tag": "MSME",
+    "min_investment_cr": "0.25",
+    "max_investment_cr": "50.00",
+    "applicable_districts": "All Districts of Maharashtra with enhanced rates for Zone C, D, D+",
+    "is_active": true,
+    "created_at": "2026-09-29T17:51:09.199Z",
+    "updated_at": "2026-09-29T17:51:09.199Z"
+  }
+},
+{
+  "model": "schemes.governmentscheme",
+  "pk": 2,
+  "fields": {
+    "name": "Maharashtra Food Processing Policy Capital Subsidy Scheme",
+    "department": "Department of Agriculture & Industries, Maharashtra",
+    "description": "Dedicated financial assistance for setting up fruit & vegetable processing, dairy processing, and cold chain preservation facilities near farm clusters like Nashik, Pune, and Nagpur.",
+    "eligibility": "Enterprises establishing commercial food processing facilities with minimum 50 direct rural employments.",
+    "benefits": "• 35% to 50% Capital Subsidy for agro-processing machinery\n• Cold chain logistics subsidy up to ₹50 Lakhs\n• Quality certification reimbursement (ISO 22000, HACCP)",
+    "max_subsidy": "Up to ₹1.00 Crore Capital Grant",
+    "deadline": "Open Round the Year / FY 2026-27",
+    "official_source": "https://krishi.maharashtra.gov.in",
+    "category_tag": "Agro-Food",
+    "min_investment_cr": "1.00",
+    "max_investment_cr": "25.00",
+    "applicable_districts": "All Districts of Maharashtra with enhanced rates for Zone C, D, D+",
+    "is_active": true,
+    "created_at": "2026-09-29T17:51:09.206Z",
+    "updated_at": "2026-09-29T17:51:09.206Z"
+  }
+},
+{
+  "model": "schemes.governmentscheme",
+  "pk": 3,
+  "fields": {
+    "name": "Chief Minister’s Employment Generation Programme (CMEGP)",
+    "department": "Maharashtra State Khadi & Village Industries Board / Directorate of Industries",
+    "description": "Flagship government initiative to foster grassroots entrepreneurship and employment generation across semi-urban and rural Maharashtra.",
+    "eligibility": "Any Indian citizen above 18 years establishing manufacturing (up to ₹50 Lakhs) or service unit (up to ₹20 Lakhs).",
+    "benefits": "• 15% to 35% margin money government grant\n• Soft loans through nationalized and scheduled banks\n• Priority single-window licensing via DICs",
+    "max_subsidy": "Up to ₹17.50 Lakhs margin money grant",
+    "deadline": "Open Round the Year",
+    "official_source": "https://maha-cmegp.gov.in",
+    "category_tag": "MSME",
+    "min_investment_cr": "0.10",
+    "max_investment_cr": "0.50",
+    "applicable_districts": "All Districts of Maharashtra with enhanced rates for Zone C, D, D+",
+    "is_active": true,
+    "created_at": "2026-09-29T17:51:09.216Z",
+    "updated_at": "2026-09-29T17:51:09.216Z"
+  }
+},
+{
+  "model": "schemes.governmentscheme",
+  "pk": 4,
+  "fields": {
+    "name": "Dr. Babasaheb Ambedkar Special Incentive Scheme for SC/ST Entrepreneurs",
+    "department": "Social Justice & Special Assistance Department, Maharashtra",
+    "description": "Special empowerment package providing preferential land allotment in MIDC, 100% stamp duty waiver, and up to 30% capital grant for affirmative business growth.",
+    "eligibility": "Enterprises with more than 51% equity held by entrepreneurs from Scheduled Castes or Scheduled Tribes.",
+    "benefits": "• 30% Capital Investment Subsidy\n• Power tariff subsidy of ₹2.00 per unit for 5 years\n• 20% land rebate on MIDC industrial plots",
+    "max_subsidy": "Up to ₹2.00 Crore",
+    "deadline": "Open Round the Year",
+    "official_source": "https://sjsa.maharashtra.gov.in",
+    "category_tag": "Women/SC/ST",
+    "min_investment_cr": "0.10",
+    "max_investment_cr": "100.00",
+    "applicable_districts": "All Districts of Maharashtra with enhanced rates for Zone C, D, D+",
+    "is_active": true,
+    "created_at": "2026-09-29T17:51:09.223Z",
+    "updated_at": "2026-09-29T17:51:09.223Z"
+  }
+},
+{
+  "model": "schemes.governmentscheme",
+  "pk": 5,
+  "fields": {
+    "name": "Green Industrial Transition & Rooftop Solar Adoption Subsidy",
+    "department": "Maharashtra Energy Development Agency (MEDA)",
+    "description": "Promoting industrial carbon footprint reduction through subsidized rooftop solar installations and energy audit reimbursements.",
+    "eligibility": "Operational and new manufacturing units establishing captive renewable energy generation above 50 kWp.",
+    "benefits": "• Net-metering accelerated grid synchronization\n• 20% capital grant on solar installation cost\n• 50% reimbursement for BEE-certified energy audit",
+    "max_subsidy": "Up to ₹25 Lakhs per manufacturing premise",
+    "deadline": "FY 2026-27 Solar Transition Mission",
+    "official_source": "https://meda.mahaurja.com",
+    "category_tag": "Green Tech",
+    "min_investment_cr": "0.50",
+    "max_investment_cr": "200.00",
+    "applicable_districts": "All Districts of Maharashtra with enhanced rates for Zone C, D, D+",
+    "is_active": true,
+    "created_at": "2026-09-29T17:51:09.228Z",
+    "updated_at": "2026-09-29T17:51:09.228Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 1,
+  "fields": {
+    "user": 5,
+    "session_key": "",
+    "role": "user",
+    "content": "What is the status of my application?",
+    "intent": "",
+    "context_sources": "",
+    "created_at": "2026-10-03T00:58:32.170Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 2,
+  "fields": {
+    "user": 5,
+    "session_key": "",
+    "role": "assistant",
+    "content": "**Your Active Applications Status:**\n\n• **ANM-2026-6400** (Stamp Duty Exemption Certificate (PSI 2019)): **Approved** | SLA: **30 days remaining** (Directorate of Industries, Maharashtra)\n• **ANM-2026-3914** (Stamp Duty Exemption Certificate (PSI 2019)): **Approved** | SLA: **30 days remaining** (Directorate of Industries, Maharashtra)\n• **ANM-2026-1624** (Stamp Duty Exemption Certificate (PSI 2019)): **Approved** | SLA: **30 days remaining** (Directorate of Industries, Maharashtra)\n• **ANM-2026-9397** (Stamp Duty Exemption Certificate (PSI 2019)): **Inspection Scheduled** | SLA: **30 days remaining** (Directorate of Industries, Maharashtra)\n• **ANM-2026-3890** (Stamp Duty Exemption Certificate (PSI 2019)): **Clarification Required** | SLA: **30 days remaining** (Directorate of Industries, Maharashtra)\n• **ANM-2026-3990** (Stamp Duty Exemption Certificate (PSI 2019)): **Submitted** | SLA: **30 days remaining** (Directorate of Industries, Maharashtra)\n\nYou can view complete audit timelines and departmental queries on your [Applications Dashboard](/applications/).\n\n---\n*ℹ️ Note: Guidance is generated by AnumatiSetu based on available official regulatory information. Final statutory decisions and approvals remain with the concerned Government Department / Authority.*",
+    "intent": "status",
+    "context_sources": "AnumatiSetu Real-Time Application Tracking Database",
+    "created_at": "2026-10-03T00:58:32.202Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 3,
+  "fields": {
+    "user": 6,
+    "session_key": "",
+    "role": "user",
+    "content": "What documents are missing from my profile?",
+    "intent": "",
+    "context_sources": "",
+    "created_at": "2026-10-03T01:05:07.327Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 4,
+  "fields": {
+    "user": 6,
+    "session_key": "",
+    "role": "assistant",
+    "content": "**Document Pre-check Status:**\n\n✓ All primary identity and corporate documents (PAN, GST, Company Registration, MIDC Land Deed, Factory Plan) are currently pre-validated.\n\n---\n*ℹ️ Note: Guidance is generated by AnumatiSetu based on available official regulatory information. Final statutory decisions and approvals remain with the concerned Government Department / Authority.*",
+    "intent": "documents",
+    "context_sources": "AnumatiSetu Pre-check Verification Engine",
+    "created_at": "2026-10-03T01:05:07.359Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 5,
+  "fields": {
+    "user": 6,
+    "session_key": "",
+    "role": "user",
+    "content": "hii",
+    "intent": "",
+    "context_sources": "",
+    "created_at": "2026-10-03T01:05:17.975Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 6,
+  "fields": {
+    "user": 6,
+    "session_key": "",
+    "role": "assistant",
+    "content": "I am **Anumati Assistant**, your intelligent guide for industrial approvals, compliance, and government schemes in Maharashtra.\n\nHere are some examples of what you can ask me:\n• *'What approvals do I need for setting up a factory?'*\n• *'What documents are missing from my profile?'*\n• *'When is my site inspection scheduled?'*\n• *'Which government schemes or subsidies apply to my enterprise?'*\n• *'What is the current status of my application?'*\n\n---\n*ℹ️ Note: Guidance is generated by AnumatiSetu based on available official regulatory information. Final statutory decisions and approvals remain with the concerned Government Department / Authority.*",
+    "intent": "general",
+    "context_sources": "AnumatiSetu Industrial Orchestration Knowledgebase",
+    "created_at": "2026-10-03T01:05:18.001Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 7,
+  "fields": {
+    "user": 6,
+    "session_key": "",
+    "role": "user",
+    "content": "jk",
+    "intent": "",
+    "context_sources": "",
+    "created_at": "2026-10-03T01:05:25.097Z"
+  }
+},
+{
+  "model": "assistant.chatmessage",
+  "pk": 8,
+  "fields": {
+    "user": 6,
+    "session_key": "",
+    "role": "assistant",
+    "content": "I am **Anumati Assistant**, your intelligent guide for industrial approvals, compliance, and government schemes in Maharashtra.\n\nHere are some examples of what you can ask me:\n• *'What approvals do I need for setting up a factory?'*\n• *'What documents are missing from my profile?'*\n• *'When is my site inspection scheduled?'*\n• *'Which government schemes or subsidies apply to my enterprise?'*\n• *'What is the current status of my application?'*\n\n---\n*ℹ️ Note: Guidance is generated by AnumatiSetu based on available official regulatory information. Final statutory decisions and approvals remain with the concerned Government Department / Authority.*",
+    "intent": "general",
+    "context_sources": "AnumatiSetu Industrial Orchestration Knowledgebase",
+    "created_at": "2026-10-03T01:05:25.110Z"
+  }
+},
+{
+  "model": "accounts.notification",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "title": "Clarification Required on MPCB Consent (ANM-2026-00124)",
+    "message": "MPCB Sub-Regional Officer has requested clarification on ETP capacity. Please review and respond to avoid SLA delay.",
+    "notif_type": "warning",
+    "link_url": "/applications/ANM-2026-00124/",
+    "is_read": false,
+    "created_at": "2026-09-29T17:51:09.240Z"
+  }
+},
+{
+  "model": "accounts.notification",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "title": "Field Inspection Scheduled for Fire NOC (ANM-2026-00388)",
+    "message": "Divisional Fire Officer will inspect your Satpur factory site on the scheduled date. Please ensure site readiness.",
+    "notif_type": "info",
+    "link_url": "/inspections/",
+    "is_read": false,
+    "created_at": "2026-09-29T17:51:09.249Z"
+  }
+},
+{
+  "model": "accounts.notification",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "title": "New Application Pending Review (ANM-2026-01042)",
+    "message": "Amol Foods Pvt. Ltd. has submitted Factory Plan Approval. 3 days remaining before statutory SLA deadline.",
+    "notif_type": "urgent",
+    "link_url": "/officer/applications/ANM-2026-01042/",
+    "is_read": false,
+    "created_at": "2026-09-29T17:51:09.252Z"
+  }
+}
+]

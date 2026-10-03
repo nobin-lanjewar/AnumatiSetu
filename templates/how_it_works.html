@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}How It Works — 5-Step Approval Journey | AnumatiSetu{% endblock %}
+
+{% block public_content %}
+<section class="py-12 lg:py-16 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">The Approval Journey</span>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 mt-3 tracking-tight">
+        How AnumatiSetu Works
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+        A transparent, step-by-step assistance and orchestration pathway connecting Maharashtra entrepreneurs with reviewing authorities.
+      </p>
+    </div>
+
+    <!-- MANDATORY ATTACHED IMAGE 2 -->
+    <div class="max-w-5xl mx-auto mb-16">
+      <div class="relative rounded-3xl p-3 bg-white border border-slate-200 shadow-xl">
+        <div class="overflow-hidden rounded-2xl bg-slate-100 flex items-center justify-center">
+          <img src="{% static 'images/approval-journey.jpg' %}" 
+               alt="AnumatiSetu 5-Step Industrial Approval Journey Flowchart" 
+               class="project-asset-img max-h-[580px] w-full object-contain"
+               loading="eager">
+        </div>
+        <div class="mt-3 px-3 py-1 flex items-center justify-between text-xs text-slate-500">
+          <span class="font-medium text-slate-700">Figure 2.0 — Orchestrated 5-Stage Clearance Architecture</span>
+          <span class="text-blue-600 font-semibold">Smart India Hackathon 2026 (SIH26130)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed 5 Steps Breakdown -->
+    <div class="max-w-4xl mx-auto space-y-8">
+      
+      <!-- Step 1 -->
+      <div class="p-8 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 min-w-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-blue-500/30">
+          01
+        </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-slate-900">1. Business Registration & Profile Setup</h2>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold border border-blue-200">Stage 1</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            The entrepreneur registers their enterprise profile (e.g. manufacturing sector, district location, investment scale, and projected workforce). 
+            AnumatiSetu analyzes the industrial scale, sector categorization (Red/Orange/Green), and MIDC plot location to instantly establish the regulatory baseline.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="p-8 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 min-w-12 rounded-2xl bg-cyan-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-cyan-500/30">
+          02
+        </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-slate-900">2. Prepare Documents & Intelligent Pre-check</h2>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-50 text-cyan-700 font-semibold border border-cyan-200">Stage 2</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Upload blueprints, land lease deeds, PAN, and technical schematics. AnumatiSetu’s pre-validation engine performs OCR metadata extraction, size and format verification, and cross-references mandatory annexures. 
+            Any missing documents (such as ETP specifications) are flagged before submission, eliminating initial departmental rejection loops.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="p-8 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 min-w-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-indigo-500/30">
+          03
+        </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-slate-900">3. Concurrent Department Processing & Scrutiny</h2>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold border border-indigo-200">Stage 3</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Instead of sequential handoffs, applications are concurrently forwarded to relevant statutory departments — Directorate of Industrial Safety & Health (DISH), Maharashtra Pollution Control Board (MPCB), MIDC Fire Services, and MSEDCL. 
+            Real-time RTS SLA countdown timers track progress transparently.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="p-8 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 min-w-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-teal-500/30">
+          04
+        </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-slate-900">4. Coordinated Field Inspection</h2>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 font-semibold border border-teal-200">Stage 4</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Where on-site verification is statutorily mandated (such as factory layout safety audits or fire hydrant simulations), inspections are scheduled through a unified calendar with assigned divisional officers. Both entrepreneur and inspector have real-time visibility into the scheduled time slot and site expectations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="p-8 rounded-2xl bg-emerald-50 border border-emerald-200 shadow-xs flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 min-w-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-emerald-500/30">
+          05
+        </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-emerald-950">5. Final Government Decision & Ongoing Compliance</h2>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">Stage 5</span>
+          </div>
+          <p class="text-sm text-emerald-900 leading-relaxed">
+            The competent reviewing officer (e.g. Chief Inspector of Factories or Sub-Regional Officer) issues the digital approval certificate. 
+            AnumatiSetu automatically provisions an ongoing <strong>Compliance Shield</strong> with automated alerts for periodic renewal dates (Form 4, CTO renewal, Form B fire drill).
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12">
+      <a href="{% url 'approvals:discovery' %}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/25 transition-all">
+        <span>Find Applicable Approvals for Your Business</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

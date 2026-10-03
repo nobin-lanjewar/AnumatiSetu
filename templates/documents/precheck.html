@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Document Pre-check & Pre-validation — AnumatiSetu{% endblock %}
+{% block header_title %}Intelligent Document Pre-check & Verification{% endblock %}
+{% block header_subtitle %}Automated Checklist Validation • OCR Metadata Extraction • Gap Detection{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+  
+  <!-- ============================================================
+       TOP HEADER WITH READINESS STATUS
+       ============================================================ -->
+  <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#162E52] to-[#0F9D8A] text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+    <div class="space-y-2 max-w-xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-cyan-300 text-xs font-bold border border-white/15">
+        <i data-lucide="scan" class="w-3.5 h-3.5"></i>
+        <span>Pre-validation by AnumatiSetu</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
+        Fix Document Gaps Before Submission
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+        Our automated pre-check engine parses statutory blueprints, tax identities, and land deeds to flag discrepancies before applications reach reviewing authorities.
+      </p>
+    </div>
+
+    <!-- Readiness Meter -->
+    <div class="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center min-w-[200px]">
+      <span class="text-xs font-bold uppercase tracking-wider text-cyan-200 block mb-1">Dossier Readiness</span>
+      <div class="text-3xl font-black text-white">{{ readiness_percentage }}%</div>
+      <span class="text-[11px] text-emerald-300 font-semibold mt-1 block">
+        {{ total_valid }} of {{ total_required }} Mandatory Docs Ready
+      </span>
+      {% if missing_count > 0 %}
+      <span class="text-[10px] text-amber-300 font-bold block mt-1">
+        ⚠️ {{ missing_count }} Action Required
+      </span>
+      {% endif %}
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MANDATORY ATTACHED IMAGE 3 (DOCUMENT PRE-CHECK)
+       ============================================================ -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+      <div>
+        <h2 class="text-lg font-bold text-slate-900">Pre-validation Engine & Gap Detection Workflow</h2>
+        <p class="text-xs text-slate-500">Real-time automated checklist validation and statutory compliance gap detection</p>
+      </div>
+      <span class="text-xs font-semibold px-3 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
+        Section 20 Compliance • Image 3
+      </span>
+    </div>
+
+    <div class="relative rounded-2xl p-2 sm:p-3 bg-slate-50 border border-slate-200 shadow-inner">
+      <div class="overflow-hidden rounded-xl bg-white flex items-center justify-center">
+        <img src="{% static 'images/document-precheck.jpg' %}" 
+             alt="AnumatiSetu Document Pre-Check & Pre-validation Interface" 
+             class="project-asset-img max-h-[560px] w-full object-contain"
+             loading="eager">
+      </div>
+      <div class="mt-3 px-3 py-1 flex items-center justify-between text-xs text-slate-400">
+        <span class="font-medium text-slate-600">Figure 3.0 — Automated Document Pre-validation & Statutory Checklist Engine</span>
+        <span class="text-amber-600 font-bold">Alert: Environmental Document Required for MPCB CTE</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       TWO-COLUMN LAYOUT: UPLOAD ZONE & CHECKLIST
+       ============================================================ -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Left Column (4 cols): Real File Upload Form -->
+    <div class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-6">
+      <div>
+        <h2 class="text-base font-bold text-slate-900">Upload New Statutory Document</h2>
+        <p class="text-xs text-slate-500">Supported formats: PDF, JPG, PNG (Max file size: 10 MB)</p>
+      </div>
+
+      <form method="POST" action="{% url 'documents:upload' %}" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Document Classification</label>
+          <select name="doc_type" required class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option value="environmental_noc" selected>Environmental Management Plan / ETP Specs (Missing)</option>
+            <option value="factory_plan">Architectural Factory Layout Plan</option>
+            <option value="pan">PAN Card / Tax Identity</option>
+            <option value="gst">GST Registration (REG-06)</option>
+            <option value="company_reg">Certificate of Incorporation</option>
+            <option value="land_deed">MIDC Land Possession Deed</option>
+            <option value="fire_layout">Fire Hydrant & Evacuation Layout</option>
+            <option value="electricity_sld">MSEDCL Approved SLD Diagram</option>
+            <option value="other">Supporting Statutory Annexure</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Document Display Title</label>
+          <input type="text" name="title" placeholder="e.g. Revised ETP Flow Scheme 50 KLD" 
+                 class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Select File</label>
+          <div class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-6 text-center cursor-pointer transition-colors bg-slate-50/50 hover:bg-blue-50/20">
+            <input type="file" name="file" required class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <p class="text-[11px] text-slate-400 mt-2">Drag and drop blueprints or browse from computer</p>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="scan" class="w-4 h-4"></i>
+          <span>Upload & Execute Pre-validation</span>
+        </button>
+
+      </form>
+
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 text-xs text-slate-500">
+        <div class="font-bold text-slate-700 flex items-center gap-1.5">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-cyan-600"></i>
+          Statutory Pre-validation Disclaimer:
+        </div>
+        <p class="text-[11px] leading-relaxed">
+          Pre-validation is an advisory algorithmic check performed by AnumatiSetu to enhance dossier completeness. It does NOT substitute formal regulatory scrutiny by Government authorities.
+        </p>
+      </div>
+    </div>
+
+
+    <!-- Right Column (7 cols): Document Checklist & OCR Scrutiny -->
+    <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Dossier Checklist & Pre-validation Status</h2>
+          <p class="text-xs text-slate-500">Real-time status across mandatory pre-establishment documents</p>
+        </div>
+        <span class="text-xs font-mono font-bold text-slate-400">{{ active_business.company_name|default:user.username|upper }}</span>
+      </div>
+
+      <div class="space-y-3">
+        {% for item in checklist %}
+        <div class="p-4 rounded-2xl border transition-all {% if item.doc and item.doc.status == 'Pre-validated' %}bg-emerald-50/40 border-emerald-200{% else %}bg-amber-50/50 border-amber-300 ring-1 ring-amber-300/60{% endif %}">
+          
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs mt-0.5 {% if item.doc and item.doc.status == 'Pre-validated' %}bg-emerald-600 text-white{% else %}bg-amber-500 text-white animate-pulse{% endif %}">
+                {% if item.doc and item.doc.status == 'Pre-validated' %}✓{% else %}!{% endif %}
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-slate-900">{{ item.label }}</h3>
+                <p class="text-[11px] text-slate-500 mt-0.5">Required for: {{ item.required_for }}</p>
+                
+                {% if item.doc and item.doc.validation_notes %}
+                <p class="text-[11px] text-slate-600 mt-1 font-medium bg-white/70 p-2 rounded-lg border border-slate-100">
+                  <span class="font-bold text-slate-800">Scanner Note:</span> {{ item.doc.validation_notes }}
+                </p>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="text-right whitespace-nowrap">
+              {% if item.doc and item.doc.status == 'Pre-validated' %}
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                Pre-validated ✓
+              </span>
+              <span class="text-[10px] text-slate-400 block mt-1 font-mono">OCR: {{ item.doc.ocr_confidence_score }}%</span>
+              {% else %}
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 animate-pulse">
+                Document Missing ⚠
+              </span>
+              <span class="text-[10px] text-amber-700 block mt-1 font-semibold">Action Required</span>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

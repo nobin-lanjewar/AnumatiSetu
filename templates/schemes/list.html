@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Government Schemes & Incentives — AnumatiSetu{% endblock %}
+{% block header_title %}Government Support Schemes & Subsidies{% endblock %}
+{% block header_subtitle %}Maharashtra Industrial Policy Incentives & Capital Grants (Section 28){% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+  
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <h1 class="text-xl font-black text-slate-900">Government Support Schemes & Incentives</h1>
+      <p class="text-xs text-slate-500">Discover capital subsidies, stamp duty waivers, and power tariff rebates for your industrial unit</p>
+    </div>
+    
+    <div class="text-[11px] text-blue-800 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200">
+      Official Industrial Policy Data • Verify terms with concerned nodal agency
+    </div>
+  </div>
+
+  <!-- Category Filter Pills -->
+  <div class="flex flex-wrap items-center gap-2">
+    <a href="?category=all" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_category == 'all' %}bg-slate-900 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      All Schemes ({{ schemes.count }})
+    </a>
+    <a href="?category=MSME" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_category == 'MSME' %}bg-blue-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      MSME Schemes
+    </a>
+    <a href="?category=Agro-Food" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_category == 'Agro-Food' %}bg-emerald-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      Agro & Food Processing
+    </a>
+    <a href="?category=Women/SC/ST" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_category == 'Women/SC/ST' %}bg-violet-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      Women / SC / ST
+    </a>
+    <a href="?category=Green Tech" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_category == 'Green Tech' %}bg-teal-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      Green Technology
+    </a>
+  </div>
+
+  <!-- Schemes Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for s in schemes %}
+    <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+      
+      <div class="space-y-3">
+        <div class="flex items-start justify-between gap-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-yellow-100 text-yellow-800 border border-yellow-300">
+            {{ s.category_tag }}
+          </span>
+          <span class="text-xs font-bold text-emerald-600 flex items-center gap-1">
+            <i data-lucide="award" class="w-3.5 h-3.5"></i>
+            {{ s.max_subsidy }}
+          </span>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-slate-900 leading-snug">{{ s.name }}</h2>
+          <div class="text-xs text-blue-600 font-medium mt-0.5">{{ s.department }}</div>
+        </div>
+
+        <p class="text-xs text-slate-600 leading-relaxed">
+          {{ s.description }}
+        </p>
+
+        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 text-xs">
+          <div>
+            <strong class="text-slate-800 block text-[11px] mb-0.5">Eligibility Criteria:</strong>
+            <p class="text-[11px] text-slate-500 leading-relaxed">{{ s.eligibility }}</p>
+          </div>
+
+          <div>
+            <strong class="text-slate-800 block text-[11px] mb-0.5">Key Fiscal Benefits:</strong>
+            <p class="text-[11px] text-slate-500 leading-relaxed whitespace-pre-line">{{ s.benefits }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+        <a href="{{ s.official_source }}" target="_blank" rel="noopener noreferrer" 
+           class="text-xs font-bold text-slate-500 hover:text-blue-600 inline-flex items-center gap-1">
+          <span>Official Portal</span>
+          <i data-lucide="external-link" class="w-3 h-3"></i>
+        </a>
+
+        <button type="button" onclick="checkEligibility({{ s.id }})" 
+                class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-300"></i>
+          <span>Check Eligibility</span>
+        </button>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<!-- Interactive Eligibility Modal -->
+<div id="eligibilityModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-100">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+        <i data-lucide="award" class="w-5 h-5 text-yellow-500"></i>
+        <span>Eligibility Assessment</span>
+      </h3>
+      <button type="button" onclick="closeModal('eligibilityModal')" class="text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div id="modalLoading" class="p-8 text-center text-slate-400">
+      <i data-lucide="loader-2" class="w-8 h-8 mx-auto animate-spin text-blue-600 mb-2"></i>
+      <p class="text-xs">Analyzing business parameters against scheme rules...</p>
+    </div>
+
+    <div id="modalContent" class="space-y-4 hidden">
+      <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-emerald-900 block" id="eligibleTitle">High Compatibility Match!</span>
+          <span class="text-[11px] text-emerald-700" id="eligibleSubtitle">{{ business.company_name|default:"Enterprise" }} qualifies for fiscal subsidies</span>
+        </div>
+        <div class="text-2xl font-black text-emerald-700" id="eligibleScore">95%</div>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <strong class="text-slate-800 uppercase tracking-wider block text-[11px]">Evaluation Reasons:</strong>
+        <ul class="space-y-1 text-slate-600 list-disc list-inside" id="reasonsList">
+        </ul>
+      </div>
+
+      <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs">
+        <strong class="text-slate-800 block text-[11px] mb-1">Available Subsidy Cap:</strong>
+        <p class="text-slate-700 font-bold" id="subsidyCap"></p>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <a href="#" id="officialLink" target="_blank" class="text-xs font-bold text-blue-600 hover:underline">
+          View Official Policy Guidelines →
+        </a>
+        <button type="button" onclick="closeModal('eligibilityModal')" class="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function checkEligibility(schemeId) {
+    openModal('eligibilityModal');
+    document.getElementById('modalLoading').classList.remove('hidden');
+    document.getElementById('modalContent').classList.add('hidden');
+
+    fetch(`/schemes/api/check-eligibility/${schemeId}/`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('modalLoading').classList.add('hidden');
+        document.getElementById('modalContent').classList.remove('hidden');
+        
+        document.getElementById('eligibleScore').innerText = `${data.score}%`;
+        document.getElementById('eligibleSubtitle').innerText = `${data.company_name} meets criteria`;
+        document.getElementById('subsidyCap').innerText = data.max_subsidy;
+        document.getElementById('officialLink').href = data.official_source;
+
+        const list = document.getElementById('reasonsList');
+        list.innerHTML = '';
+        data.reasons.forEach(r => {
+          const li = document.createElement('li');
+          li.innerText = r;
+          list.appendChild(li);
+        });
+      })
+      .catch(err => {
+        alert('Could not fetch eligibility: ' + err);
+        closeModal('eligibilityModal');
+      });
+  }
+</script>
+{% endblock %}

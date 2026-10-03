@@ -1,0 +1,531 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AnumatiSetu — Your Bridge to Faster Industrial Approvals{% endblock %}
+
+{% block public_content %}
+<!-- ============================================================
+     HERO SECTION (Featuring Mandatory Attached Image 1)
+     Section 13: Large, premium, visually prominent
+     Headline: "Your Bridge to Faster Industrial Approvals"
+     ============================================================ -->
+<section class="relative overflow-hidden bg-gradient-to-b from-[#0B1F3A] via-[#071527] to-[#0B1F3A] text-white pt-10 pb-20 lg:pt-14 lg:pb-28">
+  
+  <!-- Subtle background glow circles -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none"></div>
+  <div class="absolute bottom-10 right-10 w-[400px] h-[300px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <!-- Top Pill Badge -->
+    <div class="flex justify-center mb-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-xs font-semibold tracking-wide text-cyan-300">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>Maharashtra State Innovation Society • SIH 2026 (SIH26130)</span>
+      </div>
+    </div>
+
+    <!-- Hero Titles -->
+    <div class="text-center max-w-4xl mx-auto space-y-5 mb-12">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+        Your Bridge to Faster <br class="hidden sm:inline">
+        <span class="gradient-text bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300">Industrial Approvals</span>
+      </h1>
+      <p class="text-base sm:text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
+        Discover applicable approvals, prepare documents, track applications, manage compliance and access government support — from one intelligent platform.
+      </p>
+
+      <!-- Primary & Secondary CTAs -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard_redirect' %}" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 font-bold text-white shadow-xl shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+          <span>Go to Dashboard</span>
+          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        </a>
+        {% else %}
+        <a href="{% url 'accounts:register' %}" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 font-bold text-white shadow-xl shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+          <span>START APPLICATION</span>
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </a>
+        {% endif %}
+        
+        <a href="#how-it-works" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/20 font-semibold text-slate-200 hover:text-white transition-all backdrop-blur-sm flex items-center justify-center gap-2">
+          <i data-lucide="play-circle" class="w-5 h-5 text-cyan-400"></i>
+          <span>EXPLORE HOW IT WORKS</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- MANDATORY ATTACHED IMAGE 1 (HERO ECOSYSTEM VISUAL) -->
+    <div class="mt-8 max-w-5xl mx-auto">
+      <div class="relative rounded-2xl sm:rounded-3xl p-2 sm:p-3 bg-gradient-to-b from-white/20 via-white/5 to-transparent border border-white/15 shadow-2xl backdrop-blur-md">
+        <div class="overflow-hidden rounded-xl sm:rounded-2xl bg-slate-900 flex items-center justify-center">
+          <img src="{% static 'images/hero-ecosystem.jpg' %}" 
+               alt="AnumatiSetu Industrial Approval Ecosystem — Entrepreneur, Government, and Digital Connectivity" 
+               class="project-asset-img max-h-[580px] w-full object-contain"
+               loading="eager">
+        </div>
+        <div class="mt-3 px-3 py-1.5 flex flex-wrap items-center justify-between text-xs text-slate-400">
+          <span class="flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i>
+            Integrated Industrial Ecosystem: Entrepreneur & Department Authority Orchestration
+          </span>
+          <span class="text-slate-400 text-[11px]">Figure 1.0 — AnumatiSetu Architecture Model</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TRUST STATISTICS (Section 14)
+     Ecosystem stats for Government of Maharashtra
+     ============================================================ -->
+<section class="py-12 bg-white border-y border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Maharashtra Regulatory Ecosystem</span>
+      <p class="text-xs text-slate-400 mt-0.5">Government single-window benchmarks under Maharashtra Right to Services (RTS) framework</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+      
+      <!-- Card 1 -->
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl sm:text-4xl font-black text-slate-900 mb-1 tracking-tight">128+</div>
+        <div class="text-xs sm:text-sm font-bold text-blue-600 mb-1">Industrial Services</div>
+        <p class="text-[11px] text-slate-400">Pre-establishment, operational & incentive clearances</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl sm:text-4xl font-black text-slate-900 mb-1 tracking-tight">14</div>
+        <div class="text-xs sm:text-sm font-bold text-teal-600 mb-1">Key Departments</div>
+        <p class="text-[11px] text-slate-400">Industries, DISH, MPCB, Fire, MSEDCL, FDA, Boilers</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl sm:text-4xl font-black text-slate-900 mb-1 tracking-tight">25</div>
+        <div class="text-xs sm:text-sm font-bold text-violet-600 mb-1">District Centres (DICs)</div>
+        <p class="text-[11px] text-slate-400">On-ground single-window facilitation across Maharashtra</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl sm:text-4xl font-black text-slate-900 mb-1 tracking-tight text-emerald-600">95.68%</div>
+        <div class="text-xs sm:text-sm font-bold text-slate-900 mb-1">Applications Disposed</div>
+        <p class="text-[11px] text-slate-400">Statutory RTS disposal rate across active districts</p>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-6">
+      <p class="text-[11px] text-slate-400 italic">
+        * Context Note: Above metrics reflect the broader Government of Maharashtra industrial clearance ecosystem.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROBLEM SECTION (Section 15)
+     "Industrial Approvals Shouldn’t Feel Fragmented"
+     Cards 01 to 06 with icons & minimal text
+     ============================================================ -->
+<section class="py-20 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-bold uppercase tracking-wider text-red-500 bg-red-50 px-3 py-1 rounded-full border border-red-200">The Problem</span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
+        Industrial Approvals Shouldn’t Feel Fragmented
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+        Entrepreneurs face a siloed regulatory landscape with uncoordinated timelines, missing documents, and opaque departmental handoffs.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- 01 Multiple Departments -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all group">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-2xl font-black text-slate-300 group-hover:text-blue-600 transition-colors">01</span>
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+            <i data-lucide="network" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Multiple Departments</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Entrepreneurs must navigate disparate portals for DISH, MPCB, Fire, and Local Authorities without unified synchronization.
+        </p>
+      </div>
+
+      <!-- 02 Different Requirements -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all group">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-2xl font-black text-slate-300 group-hover:text-teal-600 transition-colors">02</span>
+          <div class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600">
+            <i data-lucide="file-question" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Different Requirements</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Unclear guidelines on what approvals apply based on investment scale, worker count, or industrial red/orange/green zones.
+        </p>
+      </div>
+
+      <!-- 03 Incomplete Documents -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all group">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-2xl font-black text-slate-300 group-hover:text-amber-500 transition-colors">03</span>
+          <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Incomplete Documents</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Applications submitted with missing annexures result in formal rejection loops and weeks of administrative delays.
+        </p>
+      </div>
+
+      <!-- 04 Manual Follow-ups -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all group">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-2xl font-black text-slate-300 group-hover:text-violet-600 transition-colors">04</span>
+          <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center text-violet-600">
+            <i data-lucide="phone-missed" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Manual Follow-ups</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Lack of transparent SLA countdown timers forces business founders into repetitive in-person departmental inquiries.
+        </p>
+      </div>
+
+      <!-- 05 Inspection Coordination -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all group">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-2xl font-black text-slate-300 group-hover:text-emerald-600 transition-colors">05</span>
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+            <i data-lucide="calendar-x" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Inspection Coordination</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Separate site audits by multiple field officers without a coordinated schedule disrupt factory construction progress.
+        </p>
+      </div>
+
+      <!-- 06 Renewal Deadlines -->
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all group">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-2xl font-black text-slate-300 group-hover:text-red-600 transition-colors">06</span>
+          <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-600">
+            <i data-lucide="clock-alert" class="w-5 h-5"></i>
+          </div>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Renewal Deadlines</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Missed statutory licence renewal cycles trigger compounding financial penalties and risk factory operational closures.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SOLUTION SECTION (Section 16)
+     "One Intelligent Journey" (11-step visual flow)
+     ============================================================ -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-bold uppercase tracking-wider text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">The Solution</span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
+        One Intelligent Journey
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+        AnumatiSetu unifies the industrial lifecycle into a single assisted orchestration pipeline from initial concept to commercial renewals.
+      </p>
+    </div>
+
+    <!-- 11-step linear interactive progression -->
+    <div class="relative">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 text-center">
+        
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs mb-2">1</div>
+          <span class="text-xs font-bold text-slate-900">Business Profile</span>
+          <span class="text-[10px] text-slate-400 mt-1">Scale, sector & site</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-xs mb-2">2</div>
+          <span class="text-xs font-bold text-slate-900">Approval Discovery</span>
+          <span class="text-[10px] text-slate-400 mt-1">Rules & statutory mapping</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-xs mb-2">3</div>
+          <span class="text-xs font-bold text-slate-900">Document Prep</span>
+          <span class="text-[10px] text-slate-400 mt-1">Checklist guidance</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs mb-2">4</div>
+          <span class="text-xs font-bold text-emerald-900">Pre-validation</span>
+          <span class="text-[10px] text-emerald-600 font-semibold mt-1">AI / OCR gap check</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs mb-2">5</div>
+          <span class="text-xs font-bold text-slate-900">Application</span>
+          <span class="text-[10px] text-slate-400 mt-1">One-click submission</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs mb-2">6</div>
+          <span class="text-xs font-bold text-slate-900">Dept. Review</span>
+          <span class="text-[10px] text-slate-400 mt-1">Technical scrutiny</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-violet-100 text-violet-700 flex items-center justify-center font-bold text-xs mb-2">7</div>
+          <span class="text-xs font-bold text-slate-900">Inspection</span>
+          <span class="text-[10px] text-slate-400 mt-1">Joint field audit</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs mb-2">8</div>
+          <span class="text-xs font-bold text-slate-900">SLA Tracking</span>
+          <span class="text-[10px] text-slate-400 mt-1">RTS timeline radar</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 shadow-xs flex flex-col items-center col-span-2 sm:col-span-1">
+          <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs mb-2">9</div>
+          <span class="text-xs font-bold text-blue-900">Final Decision</span>
+          <span class="text-[10px] text-blue-600 font-semibold mt-1">By Govt. Authority</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-col items-center col-span-2 sm:col-span-1">
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-xs mb-2">10</div>
+          <span class="text-xs font-bold text-slate-900">Renewal Shield</span>
+          <span class="text-[10px] text-slate-400 mt-1">Annual compliance</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-yellow-50 border border-yellow-200 shadow-xs flex flex-col items-center col-span-2 sm:col-span-2 lg:col-span-2">
+          <div class="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-xs mb-2">11</div>
+          <span class="text-xs font-bold text-yellow-900">Schemes & Incentives</span>
+          <span class="text-[10px] text-yellow-700 font-semibold mt-1">PSI 2019 / CMEGP subsidies</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW IT WORKS (Featuring Mandatory Attached Image 2)
+     Section 17: 5 Steps
+     01 — Business Registration
+     02 — Prepare Documents
+     03 — Department Processing
+     04 — Inspection
+     05 — Final Decision
+     ============================================================ -->
+<section id="how-it-works" class="py-20 bg-slate-50 border-t border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">Execution Workflow</span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
+        How AnumatiSetu Works
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+        From initial business registration to joint site inspection and final statutory approval.
+      </p>
+    </div>
+
+    <!-- MANDATORY ATTACHED IMAGE 2 (APPROVAL JOURNEY) -->
+    <div class="max-w-5xl mx-auto mb-16">
+      <div class="relative rounded-2xl sm:rounded-3xl p-2 sm:p-3 bg-white border border-slate-200 shadow-xl">
+        <div class="overflow-hidden rounded-xl sm:rounded-2xl bg-slate-100 flex items-center justify-center">
+          <img src="{% static 'images/approval-journey.jpg' %}" 
+               alt="AnumatiSetu 5-Step Industrial Approval Journey Flowchart" 
+               class="project-asset-img max-h-[560px] w-full object-contain"
+               loading="lazy">
+        </div>
+        <div class="mt-3 px-3 py-1 flex flex-wrap items-center justify-between text-xs text-slate-400">
+          <span class="font-medium text-slate-600">Figure 2.0 — End-to-End Orchestrated Clearance Pathway</span>
+          <span class="text-[11px] text-slate-400">Section 17 Compliance</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 Step Detailed Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 mx-auto rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm mb-3">01</div>
+          <h3 class="font-bold text-slate-900 text-sm mb-1">Business Registration</h3>
+          <p class="text-xs text-slate-500">Register company profile, scale, investment, and DIC location.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-blue-600 font-semibold">Single-Window Setup</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 mx-auto rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-sm mb-3">02</div>
+          <h3 class="font-bold text-slate-900 text-sm mb-1">Prepare Documents</h3>
+          <p class="text-xs text-slate-500">Upload blueprints and identity deeds for automated pre-validation.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-cyan-600 font-semibold">AI / OCR Pre-Check</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 mx-auto rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm mb-3">03</div>
+          <h3 class="font-bold text-slate-900 text-sm mb-1">Dept. Processing</h3>
+          <p class="text-xs text-slate-500">Shared concurrently with DISH, MPCB, Fire, and MSEDCL.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-indigo-600 font-semibold">Concurrent Scrutiny</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 mx-auto rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-sm mb-3">04</div>
+          <h3 class="font-bold text-slate-900 text-sm mb-1">Joint Inspection</h3>
+          <p class="text-xs text-slate-500">Field visit coordinated with dedicated Divisional Inspector.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-teal-600 font-semibold">Single-Window Visit</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 shadow-xs text-center flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 mx-auto rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm mb-3">05</div>
+          <h3 class="font-bold text-emerald-950 text-sm mb-1">Final Decision</h3>
+          <p class="text-xs text-emerald-800">Clearance granted by concerned statutory authority.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-emerald-200 text-[10px] text-emerald-700 font-bold">Government Authority</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     MAHARASHTRA LOCATION INTELLIGENCE (Featuring Mandatory Attached Image 5)
+     Section 29: 25 District Industries Centres
+     ============================================================ -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="text-xs font-bold uppercase tracking-wider text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-200">Territorial Reach</span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
+        Maharashtra Location Intelligence
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+        Connecting 25 District Industries Centres, major MIDC industrial clusters, and regulatory bodies into an orchestrated digital network.
+      </p>
+    </div>
+
+    <!-- MANDATORY ATTACHED IMAGE 5 -->
+    <div class="max-w-5xl mx-auto mb-12">
+      <div class="relative rounded-2xl sm:rounded-3xl p-2 sm:p-3 bg-slate-50 border border-slate-200 shadow-xl">
+        <div class="overflow-hidden rounded-xl sm:rounded-2xl bg-white flex items-center justify-center">
+          <img src="{% static 'images/maharashtra-location-intelligence.jpg' %}" 
+               alt="Maharashtra Location Intelligence Map — District Clusters, OCR, Inspections, and SLA Network" 
+               class="project-asset-img max-h-[580px] w-full object-contain"
+               loading="lazy">
+        </div>
+        <div class="mt-3 px-3 py-1 flex flex-wrap items-center justify-between text-xs text-slate-400">
+          <span class="font-medium text-slate-600">Figure 5.0 — Spatial Regulatory Overlay for Maharashtra's 36 Districts</span>
+          <span class="text-cyan-600 font-semibold">25 District Industries Centres Facilitation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- District Facilitation Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+        <div class="flex items-center gap-3 mb-3">
+          <i data-lucide="map-pin" class="w-5 h-5 text-blue-600"></i>
+          <h3 class="font-bold text-slate-900">Nashik & North Maharashtra</h3>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed mb-3">
+          Agro-Food Processing, Engineering, and Wine Park clusters. DIC Nashik, Satpur & Ambad MIDC zones.
+        </p>
+        <span class="text-[11px] px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-semibold">Zone C & D Incentives</span>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+        <div class="flex items-center gap-3 mb-3">
+          <i data-lucide="map-pin" class="w-5 h-5 text-teal-600"></i>
+          <h3 class="font-bold text-slate-900">Pune & Chakan Corridor</h3>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed mb-3">
+          Automobile hub, Electronics, and Heavy Engineering. DIC Pune, Talegaon, and Ranjangaon MIDC parks.
+        </p>
+        <span class="text-[11px] px-2 py-0.5 rounded bg-teal-100 text-teal-700 font-semibold">Zone A & B Clusters</span>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+        <div class="flex items-center gap-3 mb-3">
+          <i data-lucide="map-pin" class="w-5 h-5 text-indigo-600"></i>
+          <h3 class="font-bold text-slate-900">Nagpur & Vidarbha Hub</h3>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed mb-3">
+          MIHAN SEZ, Logistics hubs, and Textiles. DIC Nagpur, Butibori industrial area.
+        </p>
+        <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-semibold">Zone D+ Enhanced Subsidy</span>
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="{% url 'location_intelligence' %}" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800">
+        <span>Explore Full Maharashtra District & DIC Directory</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BOTTOM CALL TO ACTION
+     ============================================================ -->
+<section class="py-20 bg-gradient-to-r from-[#0B1F3A] to-[#155EEF] text-white">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">
+      Ready to Streamline Your Industrial Clearance?
+    </h2>
+    <p class="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+      Join Maharashtra entrepreneurs across industrial sectors. Discover your applicable approvals, run automated document pre-checks, and track progress with complete transparency.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+      <a href="{% url 'accounts:register' %}" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-cyan-400 hover:bg-cyan-300 font-bold text-slate-900 shadow-xl transition-all">
+        Start Your Application Now
+      </a>
+      <a href="{% url 'approvals:discovery' %}" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 font-semibold text-white transition-all">
+        Discover Applicable Approvals
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

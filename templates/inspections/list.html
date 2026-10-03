@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Field Inspections Management — AnumatiSetu{% endblock %}
+{% block header_title %}Field Inspections & Single-Window Audits{% endblock %}
+{% block header_subtitle %}Joint Departmental Field Verification Calendar (Section 25){% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+  
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <h1 class="text-xl font-black text-slate-900">Scheduled Field Inspections</h1>
+      <p class="text-xs text-slate-500">Coordinated on-site audits for DISH safety, MPCB effluent validation, and MIDC fire hydrant tests</p>
+    </div>
+
+    {% if is_officer %}
+    <button type="button" onclick="openModal('scheduleModal')" 
+            class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-500/25 transition-all flex items-center gap-2">
+      <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+      <span>Schedule Field Inspection</span>
+    </button>
+    {% endif %}
+  </div>
+
+  <!-- Inspections Grid Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for insp in inspections %}
+    <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+      
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider {% if insp.status == 'Completed' %}bg-emerald-100 text-emerald-800 border border-emerald-300{% elif insp.status == 'Scheduled' %}bg-teal-100 text-teal-800 border border-teal-300{% else %}bg-amber-100 text-amber-800 border border-amber-300{% endif %}">
+            {{ insp.status }}
+          </span>
+          <span class="text-xs font-mono font-bold text-blue-700">
+            Case: {{ insp.application.application_id }}
+          </span>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-slate-900">{{ insp.inspection_type }}</h2>
+          <div class="text-xs text-teal-700 font-semibold">{{ insp.department }}</div>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 text-xs">
+          <div class="flex items-center gap-2 text-slate-700">
+            <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+            <span><strong>Inspector:</strong> {{ insp.inspector_name }} ({{ insp.inspector_designation }})</span>
+          </div>
+
+          <div class="flex items-center gap-2 text-slate-700">
+            <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+            <span><strong>Date & Slot:</strong> {{ insp.scheduled_date|date:"l, d F Y" }} • {{ insp.time_slot }}</span>
+          </div>
+
+          <div class="flex items-start gap-2 text-slate-700">
+            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 mt-0.5"></i>
+            <span><strong>Site Location:</strong> {{ insp.location }}</span>
+          </div>
+        </div>
+
+        {% if insp.remarks %}
+        <div class="text-[11px] text-slate-600 bg-amber-50/60 p-2.5 rounded-xl border border-amber-200">
+          <strong class="text-amber-900">Field Instructions:</strong> {{ insp.remarks }}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Action -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <a href="{% url 'applications:track' app_id=insp.application.application_id %}" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+          <span>View Application Timeline</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        </a>
+
+        {% if is_officer and insp.status == 'Scheduled' %}
+        <form method="POST" action="{% url 'inspections:update_status' inspection_id=insp.id %}" class="inline">
+          {% csrf_token %}
+          <input type="hidden" name="status" value="Completed">
+          <input type="hidden" name="remarks" value="Field inspection completed satisfactorily. All setbacks and fire safety norms verified on site.">
+          <button type="submit" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors">
+            Mark Completed ✓
+          </button>
+        </form>
+        {% endif %}
+      </div>
+
+    </div>
+    {% empty %}
+    <div class="col-span-2 p-12 text-center bg-white rounded-3xl border border-slate-200 text-slate-400">
+      <i data-lucide="calendar-check" class="w-12 h-12 mx-auto text-slate-300 mb-3"></i>
+      <h3 class="text-sm font-bold text-slate-700">No field inspections scheduled currently</h3>
+      <p class="text-xs text-slate-400 mt-1">Inspections are triggered when applications transition through technical document scrutiny.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<!-- Schedule Modal for Officers -->
+{% if is_officer %}
+<div id="scheduleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-100">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <h3 class="text-base font-bold text-slate-900">Schedule Field Inspection</h3>
+      <button type="button" onclick="closeModal('scheduleModal')" class="text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <form method="POST" action="{% url 'inspections:schedule' %}" class="space-y-4">
+      {% csrf_token %}
+      
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Target Application</label>
+        <select name="application_id" required class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs bg-white">
+          {% for a in applications_for_schedule %}
+          <option value="{{ a.application_id }}">{{ a.application_id }} — {{ a.approval.name }} ({{ a.business.company_name }})</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Inspection Type</label>
+        <select name="inspection_type" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs bg-white">
+          <option value="Pre-Establishment Site Visit">Pre-Establishment Site Visit</option>
+          <option value="Pollution Compliance Audit">Pollution Compliance Audit</option>
+          <option value="Fire Safety Verification">Fire Safety Verification</option>
+          <option value="Factory Layout Inspection">Factory Layout Inspection</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Inspection Date</label>
+          <input type="date" name="scheduled_date" required value="2026-10-15" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Time Slot</label>
+          <input type="text" name="time_slot" value="11:00 AM – 01:00 PM" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Assigned Inspector Name</label>
+        <input type="text" name="inspector_name" value="Er. Sachin Deshmukh" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs">
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Field Audit Instructions</label>
+        <textarea name="remarks" rows="2" placeholder="Specify requirements for factory layout inspection or water hydrant pressure test..." class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs"></textarea>
+      </div>
+
+      <div class="pt-3 flex justify-end gap-3">
+        <button type="button" onclick="closeModal('scheduleModal')" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600">Cancel</button>
+        <button type="submit" class="px-5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-xs">Schedule Audit</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Scrutinize Dossier {{ application.application_id }} — Officer Portal{% endblock %}
+{% block header_title %}Statutory Application Scrutiny{% endblock %}
+{% block header_subtitle %}Case Ref: {{ application.application_id }} • {{ application.business.company_name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+  
+  <!-- Back Link & Header -->
+  <div class="flex items-center justify-between">
+    <a href="{% url 'officer_dashboard' %}" class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 transition-colors">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      <span>Back to Scrutiny Queue</span>
+    </a>
+    <span class="text-xs font-mono font-bold text-slate-400">Reviewing Authority: {{ user.profile.full_name }}</span>
+  </div>
+
+  <!-- Primary Application Scrutiny Card -->
+  <div class="p-8 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-6">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2.5 py-1 rounded-md text-xs font-bold font-mono bg-blue-100 text-blue-800">
+            {{ application.application_id }}
+          </span>
+          <span class="badge-status {% if application.current_stage == 'Approved' %}badge-approved{% elif application.current_stage == 'Under Review' %}badge-review{% elif application.current_stage == 'Clarification Required' %}badge-clarification{% elif application.current_stage == 'Inspection Scheduled' %}badge-inspection{% else %}badge-submitted{% endif %}">
+            {{ application.current_stage }}
+          </span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 text-slate-700">
+            Priority: {{ application.priority }}
+          </span>
+        </div>
+        <h1 class="text-2xl font-black text-slate-900">{{ application.approval.name }}</h1>
+        <p class="text-xs text-slate-500 mt-1">
+          Applicant Enterprise: <strong class="text-slate-900">{{ application.business.company_name }}</strong> • {{ application.business.address }}
+        </p>
+      </div>
+
+      <!-- SLA Monitor Box -->
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 min-w-[220px]">
+        <div class="flex items-center justify-between text-xs font-bold mb-1">
+          <span class="text-slate-500 uppercase tracking-wider">RTS SLA Clock</span>
+          <span class="{% if application.sla_days_remaining <= 3 %}text-red-600 font-bold{% else %}text-slate-800{% endif %}">
+            {{ application.sla_days_remaining }} Days Remaining
+          </span>
+        </div>
+        <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden mt-1.5">
+          <div class="h-full {% if application.sla_days_remaining <= 3 %}bg-red-500{% else %}bg-blue-600{% endif %}" style="width: {{ application.progress_percent }}%"></div>
+        </div>
+        <div class="flex justify-between text-[10px] text-slate-400 mt-1.5">
+          <span>Target SLA: {{ application.sla_days_total }} Days</span>
+          <span>Progress: {{ application.progress_percent }}%</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         OFFICER ACTIONS PANEL (Section 24)
+         Update Status, Request Clarification, Schedule Inspection
+         ============================================================ -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Action 1: Update Status (Directly writes to Application & ApplicationStatusHistory in MySQL) -->
+      <div class="p-5 rounded-2xl bg-blue-50/50 border border-blue-200 space-y-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="edit-3" class="w-4 h-4 text-blue-600"></i>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-blue-900">Update Regulatory Status</h2>
+        </div>
+
+        <form method="POST" action="{% url 'applications:officer_update_status' app_id=application.application_id %}" class="space-y-3">
+          {% csrf_token %}
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Transition To Status:</label>
+            <select name="status" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="Under Review" {% if application.current_stage == 'Under Review' %}selected{% endif %}>Under Review / Scrutiny</option>
+              <option value="Documents Verified" {% if application.current_stage == 'Documents Verified' %}selected{% endif %}>Documents Verified</option>
+              <option value="Clarification Required" {% if application.current_stage == 'Clarification Required' %}selected{% endif %}>Clarification Required</option>
+              <option value="Inspection Scheduled" {% if application.current_stage == 'Inspection Scheduled' %}selected{% endif %}>Inspection Scheduled</option>
+              <option value="Inspection Completed" {% if application.current_stage == 'Inspection Completed' %}selected{% endif %}>Inspection Completed</option>
+              <option value="Approved" {% if application.current_stage == 'Approved' %}selected{% endif %}>Approve & Issue Clearance</option>
+              <option value="Rejected" {% if application.current_stage == 'Rejected' %}selected{% endif %}>Reject Application</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Audit Remarks (Mandatory):</label>
+            <textarea name="remarks" rows="2" required placeholder="Reason for status change..."
+                      class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors">
+            Confirm & Log Status Change
+          </button>
+        </form>
+      </div>
+
+      <!-- Action 2: Raise Clarification Query -->
+      <div class="p-5 rounded-2xl bg-amber-50/50 border border-amber-200 space-y-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="help-circle" class="w-4 h-4 text-amber-600"></i>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-amber-900">Request Clarification</h2>
+        </div>
+
+        <form method="POST" action="{% url 'applications:officer_raise_query' app_id=application.application_id %}" class="space-y-3">
+          {% csrf_token %}
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Query Subject:</label>
+            <input type="text" name="title" required placeholder="e.g. Missing ETP specifications..."
+                   class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Query Details for Entrepreneur:</label>
+            <textarea name="query_text" rows="2" required placeholder="Detail the exact missing technical calculations or revised drawings needed..."
+                      class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-xs transition-colors">
+            Issue Clarification Notice
+          </button>
+        </form>
+      </div>
+
+      <!-- Action 3: Schedule Field Inspection -->
+      <div class="p-5 rounded-2xl bg-teal-50/50 border border-teal-200 space-y-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="calendar" class="w-4 h-4 text-teal-600"></i>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-teal-900">Schedule Field Inspection</h2>
+        </div>
+
+        <form method="POST" action="{% url 'inspections:schedule' %}" class="space-y-3">
+          {% csrf_token %}
+          <input type="hidden" name="application_id" value="{{ application.application_id }}">
+          
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Inspection Type:</label>
+            <select name="inspection_type" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-teal-500">
+              <option value="Pre-Establishment Site Visit">Pre-Establishment Site Visit</option>
+              <option value="Pollution Compliance Audit">Pollution & ETP Verification</option>
+              <option value="Fire Safety Verification">Fire Safety & Hydrant Test</option>
+              <option value="Joint Departmental Inspection">Joint Single-Window Inspection</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Proposed Inspection Date:</label>
+            <input type="date" name="scheduled_date" required value="2026-10-15"
+                   class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-teal-500">
+          </div>
+
+          <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-xs transition-colors">
+            Schedule Field Audit
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================
+       ATTACHED STATUTORY DOCUMENTS DOSSIER
+       ============================================================ -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <h2 class="text-base font-bold text-slate-900">Applicant Submitted Documents & Scrutiny Checklist</h2>
+      <span class="text-xs text-slate-500">Verified through AnumatiSetu OCR Pre-check</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% for d in documents %}
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start justify-between text-xs">
+        <div class="space-y-1">
+          <div class="font-bold text-slate-900">{{ d.doc_name }}</div>
+          <div class="text-[11px] text-slate-500">Format: {{ d.file_type }} • Remarks: {{ d.officer_feedback }}</div>
+          {% if d.document %}
+          <div class="text-[10px] text-teal-700 font-medium">Pre-validation: Active & Verified</div>
+          {% endif %}
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap {% if d.status == 'Verified' %}bg-emerald-100 text-emerald-800{% elif d.status == 'Action Required' %}bg-amber-100 text-amber-800{% else %}bg-slate-200 text-slate-700{% endif %}">
+          {{ d.status }}
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       COMPLETE AUDIT TRAIL LOG (Section 23)
+       ============================================================ -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div>
+        <h2 class="text-base font-bold text-slate-900">Historical Scrutiny & Status Transition Log</h2>
+        <p class="text-xs text-slate-500">Chronological timestamped records preserved in MySQL (Section 23)</p>
+      </div>
+      <span class="text-xs font-mono font-bold text-slate-400">{{ history.count }} Log Records</span>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-semibold">
+          <tr>
+            <th class="p-3">Timestamp</th>
+            <th class="p-3">Previous Stage</th>
+            <th class="p-3">Transitioned Stage</th>
+            <th class="p-3">Authorizing Officer</th>
+            <th class="p-3">Officer Remarks</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-slate-700">
+          {% for h in history %}
+          <tr class="hover:bg-slate-50/70 transition-colors">
+            <td class="p-3 text-slate-500 font-mono whitespace-nowrap">{{ h.timestamp|date:"d M Y, H:i" }}</td>
+            <td class="p-3 text-slate-600 font-semibold">{{ h.previous_status }}</td>
+            <td class="p-3 text-blue-700 font-bold">{{ h.new_status }}</td>
+            <td class="p-3 text-slate-900 font-medium">{{ h.changed_by.get_full_name|default:h.changed_by.username|default:"System" }}</td>
+            <td class="p-3 text-slate-600">{{ h.remarks }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

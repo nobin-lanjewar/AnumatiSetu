@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Industrial Applications Portfolio — AnumatiSetu{% endblock %}
+{% block header_title %}Applications Portfolio{% endblock %}
+{% block header_subtitle %}Single-Window Clearance Registry & Real-Time SLA Monitor{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+  
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <h1 class="text-xl font-black text-slate-900">Track Clearance Applications</h1>
+      <p class="text-xs text-slate-500">Monitor multi-department progress, inspections, and RTS SLA countdown timers</p>
+    </div>
+
+    {% if is_entrepreneur %}
+    <a href="{% url 'approvals:discovery' %}" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/25 transition-all flex items-center gap-2">
+      <i data-lucide="plus" class="w-4 h-4"></i>
+      <span>New Application</span>
+    </a>
+    {% endif %}
+  </div>
+
+  <!-- Stage Filters -->
+  <div class="flex flex-wrap items-center gap-2">
+    <a href="?stage=all" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_stage == 'all' %}bg-slate-900 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      All Applications ({{ applications.count }})
+    </a>
+    <a href="?stage=Under Review" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_stage == 'Under Review' %}bg-blue-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      Under Review
+    </a>
+    <a href="?stage=Clarification Required" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_stage == 'Clarification Required' %}bg-amber-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      Clarification Required
+    </a>
+    <a href="?stage=Inspection Scheduled" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_stage == 'Inspection Scheduled' %}bg-teal-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      Inspection Scheduled
+    </a>
+    <a href="?stage=Approved" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_stage == 'Approved' %}bg-emerald-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
+      Approved
+    </a>
+  </div>
+
+  <!-- Applications Table -->
+  <div class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase font-semibold">
+          <tr>
+            <th class="p-4">Application ID</th>
+            <th class="p-4">Statutory Clearance</th>
+            <th class="p-4">Department Authority</th>
+            <th class="p-4">Current Stage</th>
+            <th class="p-4">SLA Days Remaining</th>
+            <th class="p-4">Submitted Date</th>
+            <th class="p-4 text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% for app in applications %}
+          <tr class="hover:bg-slate-50/70 transition-colors">
+            
+            <td class="p-4 font-mono font-bold text-slate-900">
+              <span class="px-2 py-1 rounded bg-slate-100 text-blue-700 border border-slate-200">
+                {{ app.application_id }}
+              </span>
+            </td>
+
+            <td class="p-4">
+              <div class="font-bold text-slate-900">{{ app.approval.name }}</div>
+              <div class="text-[11px] text-slate-400">{{ app.approval.name_mr }}</div>
+            </td>
+
+            <td class="p-4 text-slate-600 font-medium">
+              {{ app.current_department }}
+            </td>
+
+            <td class="p-4">
+              <span class="badge-status {% if app.current_stage == 'Approved' %}badge-approved{% elif app.current_stage == 'Under Review' %}badge-review{% elif app.current_stage == 'Clarification Required' %}badge-clarification{% elif app.current_stage == 'Inspection Scheduled' %}badge-inspection{% else %}badge-submitted{% endif %}">
+                {{ app.current_stage }}
+              </span>
+            </td>
+
+            <td class="p-4">
+              <div class="w-36">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="font-bold {% if app.sla_days_remaining <= 3 %}text-amber-600{% else %}text-slate-700{% endif %}">
+                    {{ app.sla_days_remaining }} days left
+                  </span>
+                  <span class="text-slate-400 font-medium">{{ app.progress_percent }}%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full {% if app.current_stage == 'Approved' %}bg-emerald-500{% elif app.sla_days_remaining <= 3 %}bg-amber-500{% else %}bg-blue-600{% endif %}" style="width: {{ app.progress_percent }}%"></div>
+                </div>
+              </div>
+            </td>
+
+            <td class="p-4 text-slate-500">
+              {{ app.submission_date|date:"d M Y" }}
+            </td>
+
+            <td class="p-4 text-right">
+              {% if is_officer %}
+              <a href="{% url 'applications:officer_review' app_id=app.application_id %}" 
+                 class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors inline-flex items-center gap-1 text-[11px]">
+                <span>Review</span>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+              </a>
+              {% else %}
+              <a href="{% url 'applications:track' app_id=app.application_id %}" 
+                 class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold transition-colors inline-flex items-center gap-1 text-[11px]">
+                <span>Track</span>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+              </a>
+              {% endif %}
+            </td>
+
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7" class="p-8 text-center text-slate-400">
+              No applications match the current filter.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

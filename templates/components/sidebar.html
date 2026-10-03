@@ -1,0 +1,166 @@
+{% load static %}
+<!-- Collapsible Left Sidebar for Logged-In Portals -->
+<aside class="dashboard-sidebar flex flex-col justify-between select-none">
+  
+  <!-- Top: Logo & Collapse Trigger -->
+  <div>
+    <div class="h-20 px-5 flex items-center justify-between border-b border-white/10 bg-[#071527]">
+      <a href="{% url 'home' %}" class="flex items-center gap-3 overflow-hidden">
+        <div class="w-10 h-10 min-w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 p-0.5 shadow-md flex items-center justify-center">
+          <div class="w-full h-full bg-[#0B1F3A] rounded-[10px] flex items-center justify-center">
+            <i data-lucide="building-2" class="w-5 h-5 text-cyan-400"></i>
+          </div>
+        </div>
+        <div class="sidebar-text flex flex-col transition-opacity duration-200">
+          <span class="text-lg font-black tracking-tight text-white leading-tight">
+            ANUMATI<span class="text-cyan-400">SETU</span>
+          </span>
+          <span class="text-[9px] uppercase tracking-wider text-blue-300 font-semibold">
+            {% if is_officer %}Officer Portal{% else %}Enterprise Portal{% endif %}
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Toggle Button -->
+      <button id="sidebar-collapse-btn" type="button" class="hidden lg:flex p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Toggle Sidebar">
+        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- User Persona Badge -->
+    <div class="px-4 py-3 border-b border-white/5 bg-white/[0.02]">
+      <div class="sidebar-text flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full {% if is_officer %}bg-blue-400 animate-pulse{% else %}bg-emerald-400{% endif %}"></span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-300">
+            {% if is_officer %}Department Authority{% else %}Registered Enterprise{% endif %}
+          </span>
+        </div>
+        <span class="text-[10px] px-1.5 py-0.5 rounded font-mono bg-white/10 text-cyan-300">
+          {% if is_officer %}MAH-DIC{% else %}UDYAM{% endif %}
+        </span>
+      </div>
+    </div>
+
+    <!-- Navigation Menu Items -->
+    <nav class="p-3 space-y-1.5 overflow-y-auto max-h-[calc(100vh-230px)]">
+      
+      <!-- 🏠 Dashboard -->
+      <a href="{% if is_officer %}{% url 'officer_dashboard' %}{% else %}{% url 'entrepreneur_dashboard' %}{% endif %}" 
+         class="nav-item flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if 'dashboard' in request.path %}bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+        <i data-lucide="layout-dashboard" class="w-5 h-5 min-w-5 {% if 'dashboard' in request.path %}text-white{% else %}text-blue-400{% endif %}"></i>
+        <span class="sidebar-text">Dashboard</span>
+      </a>
+
+      <!-- 📋 Approvals -->
+      <a href="{% url 'approvals:discovery' %}" 
+         class="nav-item flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if '/approvals' in request.path %}bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+        <i data-lucide="clipboard-check" class="w-5 h-5 min-w-5 {% if '/approvals' in request.path %}text-white{% else %}text-cyan-400{% endif %}"></i>
+        <span class="sidebar-text">Approvals</span>
+      </a>
+
+      <!-- 📄 Documents -->
+      <a href="{% url 'documents:precheck' %}" 
+         class="nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if '/documents' in request.path %}bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+        <div class="flex items-center gap-3.5">
+          <i data-lucide="file-check-2" class="w-5 h-5 min-w-5 {% if '/documents' in request.path %}text-white{% else %}text-teal-400{% endif %}"></i>
+          <span class="sidebar-text">Documents</span>
+        </div>
+        {% if is_entrepreneur %}
+        <span class="sidebar-badge px-1.5 py-0.5 text-[10px] font-bold rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">Pre-check</span>
+        {% endif %}
+      </a>
+
+      <!-- 📊 Applications -->
+      <a href="{% url 'applications:list' %}" 
+         class="nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if '/applications' in request.path and not '/officer/applications' in request.path %}bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+        <div class="flex items-center gap-3.5">
+          <i data-lucide="layers" class="w-5 h-5 min-w-5 {% if '/applications' in request.path %}text-white{% else %}text-violet-400{% endif %}"></i>
+          <span class="sidebar-text">Applications</span>
+        </div>
+        <span class="sidebar-badge px-2 py-0.5 text-[11px] font-bold rounded-full bg-blue-500/30 text-blue-200">
+          {% if is_officer %}14{% else %}4{% endif %}
+        </span>
+      </a>
+
+      <!-- 🔍 Inspections -->
+      <a href="{% url 'inspections:list' %}" 
+         class="nav-item flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if '/inspections' in request.path %}bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+        <i data-lucide="search-check" class="w-5 h-5 min-w-5 {% if '/inspections' in request.path %}text-white{% else %}text-emerald-400{% endif %}"></i>
+        <span class="sidebar-text">Inspections</span>
+      </a>
+
+      <!-- ⏱ Compliance -->
+      <a href="{% url 'compliance:calendar' %}" 
+         class="nav-item flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if '/compliance' in request.path %}bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+        <i data-lucide="clock-alert" class="w-5 h-5 min-w-5 {% if '/compliance' in request.path %}text-white{% else %}text-amber-400{% endif %}"></i>
+        <span class="sidebar-text">Compliance & Renewals</span>
+      </a>
+
+      <!-- 💰 Schemes -->
+      <a href="{% url 'schemes:list' %}" 
+         class="nav-item flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if '/schemes' in request.path %}bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+        <i data-lucide="coins" class="w-5 h-5 min-w-5 {% if '/schemes' in request.path %}text-white{% else %}text-yellow-400{% endif %}"></i>
+        <span class="sidebar-text">Schemes & Incentives</span>
+      </a>
+
+      <!-- 🤖 Anumati Assistant -->
+      <a href="{% url 'assistant:chat' %}" 
+         class="nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 {% if '/assistant' in request.path %}bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-600/30{% else %}text-cyan-300 bg-cyan-950/40 border border-cyan-800/40 hover:bg-cyan-900/40{% endif %}">
+        <div class="flex items-center gap-3.5">
+          <i data-lucide="bot" class="w-5 h-5 min-w-5 text-cyan-300"></i>
+          <span class="sidebar-text font-semibold">Anumati Assistant</span>
+        </div>
+        <span class="sidebar-badge px-1.5 py-0.5 text-[9px] font-extrabold uppercase rounded bg-cyan-400 text-slate-900">AI</span>
+      </a>
+
+      <div class="pt-3 pb-1">
+        <div class="border-t border-white/10"></div>
+      </div>
+
+      <!-- ℹ️ About & Positioning -->
+      <a href="{% url 'about' %}" 
+         class="nav-item flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors">
+        <i data-lucide="info" class="w-4 h-4 min-w-4 text-slate-400"></i>
+        <span class="sidebar-text">About & Architecture</span>
+      </a>
+
+      <!-- 📍 Location Intelligence -->
+      <a href="{% url 'location_intelligence' %}" 
+         class="nav-item flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors">
+        <i data-lucide="map-pin" class="w-4 h-4 min-w-4 text-slate-400"></i>
+        <span class="sidebar-text">Maharashtra Intelligence</span>
+      </a>
+
+    </nav>
+  </div>
+
+  <!-- Bottom: Profile Card & Logout -->
+  <div class="p-3 border-t border-white/10 bg-[#071527]">
+    <div class="flex items-center justify-between p-2 rounded-xl bg-white/5 border border-white/5">
+      
+      <div class="flex items-center gap-3 overflow-hidden">
+        <div class="w-9 h-9 min-w-9 rounded-full bg-gradient-to-tr {% if is_officer %}from-blue-600 to-indigo-600{% else %}from-emerald-500 to-teal-500{% endif %} flex items-center justify-center text-white font-bold text-sm shadow-md">
+          {% if user_profile.full_name %}{{ user_profile.full_name|slice:":1"|upper }}{% elif user.first_name %}{{ user.first_name|slice:":1"|upper }}{% else %}{{ user.username|slice:":1"|upper }}{% endif %}
+        </div>
+        <div class="user-info truncate">
+          <div class="text-xs font-semibold text-white truncate">
+            {% if user_profile.full_name %}{{ user_profile.full_name }}{% elif user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}
+          </div>
+          <div class="text-[10px] text-slate-400 truncate">
+            {% if is_officer %}{{ user_profile.designation|default:"Reviewing Officer" }}{% elif active_business %}{{ active_business.company_name }}{% else %}Industrial Entrepreneur{% endif %}
+          </div>
+        </div>
+      </div>
+
+      <a href="{% url 'accounts:logout' %}" class="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors" title="Log Out">
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+      </a>
+
+    </div>
+  </div>
+
+</aside>
+
+<!-- Mobile Overlay Backdrop -->
+<div id="mobile-sidebar-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-30 hidden lg:hidden"></div>

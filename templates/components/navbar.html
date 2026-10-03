@@ -1,0 +1,101 @@
+{% load static %}
+<nav class="sticky top-0 z-40 w-full glass-nav transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Brand Logo -->
+      <a href="{% url 'home' %}" class="flex items-center gap-3.5 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 p-0.5 shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform duration-300">
+          <div class="w-full h-full bg-[#0B1F3A] rounded-[10px] flex items-center justify-center">
+            <i data-lucide="building-2" class="w-6 h-6 text-cyan-400"></i>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-1.5">
+            ANUMATI<span class="text-cyan-400">SETU</span>
+          </span>
+          <span class="text-[10px] tracking-wider font-semibold text-blue-200/80 uppercase">
+            Govt. of Maharashtra Orchestration
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <div class="hidden lg:flex items-center gap-1 xl:gap-2">
+        <a href="{% url 'home' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if request.path == '/' %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+          Home
+        </a>
+        <a href="{% url 'how_it_works' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/how-it-works' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+          How It Works
+        </a>
+        <a href="{% url 'approvals:discovery' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/approvals' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+          Approvals
+        </a>
+        <a href="{% url 'compliance:calendar' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/compliance' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+          Compliance
+        </a>
+        <a href="{% url 'schemes:list' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/schemes' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+          Schemes
+        </a>
+        <a href="{% url 'location_intelligence' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/location' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+          Location Intelligence
+        </a>
+        <a href="{% url 'about' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/about' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+          About
+        </a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hidden sm:flex items-center gap-3">
+        {% if user.is_authenticated %}
+          <a href="{% url 'dashboard_redirect' %}" class="px-4 py-2 text-sm font-medium text-white bg-blue-600/80 hover:bg-blue-600 border border-blue-400/40 rounded-xl transition-all shadow-md flex items-center gap-2">
+            <i data-lucide="layout-dashboard" class="w-4 h-4 text-cyan-300"></i>
+            <span>Dashboard</span>
+          </a>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="px-4 py-2 text-sm font-semibold text-white hover:text-cyan-300 transition-colors">
+            Login
+          </a>
+          <a href="{% url 'accounts:register' %}" class="px-5 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+            <span>Start Application</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="lg:hidden flex items-center">
+        <button id="public-mobile-toggle" type="button" class="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 focus:outline-none">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="public-mobile-menu" class="hidden lg:hidden border-t border-white/10 bg-[#0B1F3A]/95 px-4 pt-3 pb-6 space-y-2">
+    <a href="{% url 'home' %}" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Home</a>
+    <a href="{% url 'how_it_works' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">How It Works</a>
+    <a href="{% url 'approvals:discovery' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">Approvals</a>
+    <a href="{% url 'compliance:calendar' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">Compliance</a>
+    <a href="{% url 'schemes:list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">Schemes</a>
+    <a href="{% url 'location_intelligence' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">Location Intelligence</a>
+    <a href="{% url 'about' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">About</a>
+    
+    <div class="pt-4 border-t border-white/10 flex flex-col gap-2">
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard_redirect' %}" class="w-full text-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium">Dashboard</a>
+      {% else %}
+        <a href="{% url 'accounts:login' %}" class="w-full text-center px-4 py-2 rounded-lg text-white border border-white/20 font-medium">Login</a>
+        <a href="{% url 'accounts:register' %}" class="w-full text-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold">Start Application</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.getElementById('public-mobile-toggle')?.addEventListener('click', function() {
+    document.getElementById('public-mobile-menu')?.classList.toggle('hidden');
+  });
+</script>

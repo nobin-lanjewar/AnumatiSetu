@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: anumatisetu
+    runtime: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn config.wsgi:application -c gunicorn.conf.py
+    plan: free
+    healthCheckPath: /health/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: DISABLE_SERVER_SIDE_CURSORS
+        value: "True"
+      - key: DB_SSLMODE
+        value: "require"
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: "llama-3.3-70b-versatile"
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: GUNICORN_THREADS
+        value: "2"

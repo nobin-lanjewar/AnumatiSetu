@@ -1,0 +1,45 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+
+# Database files & backups
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3.backup
+*.backup
+*.dump
+*.sql
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Static and Media
+staticfiles/
+media/
+!media/.gitkeep
+
+# Logs
+logs/*
+!logs/.gitkeep
+*.log
+
+# Operating System & IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace

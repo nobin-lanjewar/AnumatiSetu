@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Track Application {{ application.application_id }} — AnumatiSetu{% endblock %}
+{% block header_title %}Application Tracking & Timeline{% endblock %}
+{% block header_subtitle %}{{ application.application_id }} • {{ application.approval.name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto space-y-8">
+  
+  <!-- Back Link -->
+  <div class="flex items-center justify-between">
+    <a href="{% url 'applications:list' %}" class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 transition-colors">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      <span>Back to Applications</span>
+    </a>
+    <span class="text-xs font-mono font-bold text-slate-400">RTS Ref: {{ application.application_id }}</span>
+  </div>
+
+  <!-- Application Summary Card -->
+  <div class="p-8 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-6">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-100 text-blue-800">
+            {{ application.application_id }}
+          </span>
+          <span class="badge-status {% if application.current_stage == 'Approved' %}badge-approved{% elif application.current_stage == 'Under Review' %}badge-review{% elif application.current_stage == 'Clarification Required' %}badge-clarification{% elif application.current_stage == 'Inspection Scheduled' %}badge-inspection{% else %}badge-submitted{% endif %}">
+            {{ application.current_stage }}
+          </span>
+        </div>
+        <h1 class="text-2xl font-black text-slate-900 mt-2">{{ application.approval.name }}</h1>
+        <p class="text-xs text-slate-500">{{ application.current_department }} • Applicant: <strong class="text-slate-800">{{ application.business.company_name }}</strong></p>
+      </div>
+
+      <!-- SLA Gauge -->
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 min-w-[220px]">
+        <div class="flex items-center justify-between text-xs font-bold mb-1">
+          <span class="text-slate-500 uppercase tracking-wider">RTS SLA Countdown</span>
+          <span class="{% if is_delayed %}text-red-600{% elif application.sla_days_remaining <= 3 %}text-amber-600{% else %}text-blue-600{% endif %}">
+            {% if is_delayed %}Delayed{% else %}{{ application.sla_days_remaining }} Days Remaining{% endif %}
+          </span>
+        </div>
+        <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden mt-1.5">
+          <div class="h-full {% if is_delayed %}bg-red-500{% elif application.sla_days_remaining <= 3 %}bg-amber-500{% else %}bg-blue-600{% endif %}" style="width: {{ application.progress_percent }}%"></div>
+        </div>
+        <div class="flex justify-between text-[10px] text-slate-400 mt-1.5">
+          <span>Submitted: {{ application.submission_date|date:"d M Y" }}</span>
+          <span>Max SLA: {{ application.sla_days_total }}d</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         PREMIUM INTERACTIVE TIMELINE (Section 22)
+         Application Submitted ✓ -> Documents Verified ✓ -> Department Review ✓
+         -> Clarification Required ! -> Inspection Scheduled ○ -> Final Decision ○
+         ============================================================ -->
+    <div class="space-y-4">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Clearance Lifecycle Milestones</h2>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
+        
+        <!-- 1. Submitted -->
+        <div class="p-3.5 rounded-2xl border transition-all {% if stage_index >= 0 %}bg-emerald-50 border-emerald-300{% else %}bg-slate-50 border-slate-200 opacity-60{% endif %}">
+          <div class="w-7 h-7 mx-auto rounded-full flex items-center justify-center font-bold text-xs mb-1.5 {% if stage_index >= 0 %}bg-emerald-600 text-white{% else %}bg-slate-200 text-slate-600{% endif %}">
+            ✓
+          </div>
+          <span class="text-xs font-bold block text-slate-900">Submitted</span>
+          <span class="text-[10px] text-slate-400 block mt-0.5">Portal Ingest</span>
+        </div>
+
+        <!-- 2. Documents Verified -->
+        <div class="p-3.5 rounded-2xl border transition-all {% if stage_index >= 1 %}bg-emerald-50 border-emerald-300{% else %}bg-slate-50 border-slate-200 opacity-60{% endif %}">
+          <div class="w-7 h-7 mx-auto rounded-full flex items-center justify-center font-bold text-xs mb-1.5 {% if stage_index >= 1 %}bg-emerald-600 text-white{% else %}bg-slate-200 text-slate-600{% endif %}">
+            {% if stage_index >= 1 %}✓{% else %}2{% endif %}
+          </div>
+          <span class="text-xs font-bold block text-slate-900">Docs Verified</span>
+          <span class="text-[10px] text-slate-400 block mt-0.5">Pre-check Passed</span>
+        </div>
+
+        <!-- 3. Department Review -->
+        <div class="p-3.5 rounded-2xl border transition-all {% if stage_index >= 2 %}bg-blue-50 border-blue-400 ring-2 ring-blue-400/20{% else %}bg-slate-50 border-slate-200 opacity-60{% endif %}">
+          <div class="w-7 h-7 mx-auto rounded-full flex items-center justify-center font-bold text-xs mb-1.5 {% if stage_index >= 2 %}bg-blue-600 text-white animate-pulse{% else %}bg-slate-200 text-slate-600{% endif %}">
+            {% if stage_index > 2 %}✓{% else %}3{% endif %}
+          </div>
+          <span class="text-xs font-bold block text-blue-900">Dept. Review</span>
+          <span class="text-[10px] text-blue-600 font-semibold block mt-0.5">Active Scrutiny</span>
+        </div>
+
+        <!-- 4. Clarification Required -->
+        <div class="p-3.5 rounded-2xl border transition-all {% if application.current_stage == 'Clarification Required' %}bg-amber-50 border-amber-400 ring-2 ring-amber-400/30{% elif stage_index >= 3 %}bg-emerald-50 border-emerald-300{% else %}bg-slate-50 border-slate-200 opacity-60{% endif %}">
+          <div class="w-7 h-7 mx-auto rounded-full flex items-center justify-center font-bold text-xs mb-1.5 {% if application.current_stage == 'Clarification Required' %}bg-amber-500 text-white animate-bounce{% elif stage_index >= 3 %}bg-emerald-600 text-white{% else %}bg-slate-200 text-slate-600{% endif %}">
+            {% if application.current_stage == 'Clarification Required' %}!{% elif stage_index >= 3 %}✓{% else %}4{% endif %}
+          </div>
+          <span class="text-xs font-bold block text-slate-900">Clarification</span>
+          <span class="text-[10px] text-slate-400 block mt-0.5">Department Query</span>
+        </div>
+
+        <!-- 5. Inspection Scheduled -->
+        <div class="p-3.5 rounded-2xl border transition-all {% if stage_index >= 4 %}bg-teal-50 border-teal-300{% else %}bg-slate-50 border-slate-200 opacity-60{% endif %}">
+          <div class="w-7 h-7 mx-auto rounded-full flex items-center justify-center font-bold text-xs mb-1.5 {% if stage_index >= 4 %}bg-teal-600 text-white{% else %}bg-slate-200 text-slate-600{% endif %}">
+            {% if stage_index >= 4 %}✓{% else %}5{% endif %}
+          </div>
+          <span class="text-xs font-bold block text-slate-900">Inspection</span>
+          <span class="text-[10px] text-slate-400 block mt-0.5">Field Site Audit</span>
+        </div>
+
+        <!-- 6. Final Decision -->
+        <div class="p-3.5 rounded-2xl border transition-all {% if application.current_stage == 'Approved' %}bg-emerald-100 border-emerald-400 text-emerald-950 font-bold{% else %}bg-slate-50 border-slate-200 opacity-60{% endif %}">
+          <div class="w-7 h-7 mx-auto rounded-full flex items-center justify-center font-bold text-xs mb-1.5 {% if application.current_stage == 'Approved' %}bg-emerald-600 text-white{% else %}bg-slate-200 text-slate-600{% endif %}">
+            {% if application.current_stage == 'Approved' %}✓{% else %}6{% endif %}
+          </div>
+          <span class="text-xs font-bold block text-slate-900">Final Decision</span>
+          <span class="text-[10px] text-slate-400 block mt-0.5">By Authority</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================
+       DEPARTMENT QUERIES & CLARIFICATIONS (Interactive Response)
+       ============================================================ -->
+  {% if queries %}
+  <div class="bg-white rounded-3xl border border-amber-300 p-6 shadow-sm space-y-4">
+    <div class="flex items-center justify-between border-b border-amber-200 pb-3">
+      <div class="flex items-center gap-2">
+        <i data-lucide="message-square" class="w-5 h-5 text-amber-600"></i>
+        <h2 class="text-sm font-bold text-amber-950">Department Clarification Notice</h2>
+      </div>
+      <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">Official Notice</span>
+    </div>
+
+    {% for q in queries %}
+    <div class="space-y-3 bg-amber-50/50 p-4 rounded-2xl border border-amber-200">
+      <div class="flex justify-between items-start">
+        <span class="text-xs font-bold text-amber-900">{{ q.title }}</span>
+        <span class="text-[10px] text-slate-400 font-mono">{{ q.created_at|date:"d M Y, H:i" }}</span>
+      </div>
+      <p class="text-xs text-slate-700 leading-relaxed">{{ q.query_text }}</p>
+
+      {% if q.response_text %}
+      <div class="mt-3 pt-3 border-t border-amber-200 text-xs text-slate-600 bg-white p-3 rounded-xl">
+        <strong class="text-slate-900 block mb-1">Your Submitted Response:</strong>
+        {{ q.response_text }}
+      </div>
+      {% else %}
+      <form method="POST" action="{% url 'applications:respond_query' query_id=q.id %}" class="mt-3 pt-3 border-t border-amber-200 space-y-2">
+        {% csrf_token %}
+        <label class="block text-xs font-bold text-slate-800">Submit Clarification Response to Department:</label>
+        <textarea name="response_text" rows="3" required placeholder="Provide technical clarification or upload reference..."
+                  class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none"></textarea>
+        <button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-xs transition-colors">
+          Send Clarification to Reviewing Officer
+        </button>
+      </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+
+  <!-- ============================================================
+       APPLICATION STATUS HISTORY AUDIT LOG (Section 23)
+       Store: Application, Previous Status, New Status, Changed By, Timestamp, Remarks
+       ============================================================ -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+      <div>
+        <h2 class="text-base font-bold text-slate-900">Application Audit Trail & History Log</h2>
+        <p class="text-xs text-slate-500">Immutable chronological record of regulatory status transitions (Section 23)</p>
+      </div>
+      <span class="text-xs font-mono font-bold text-slate-400">{{ history.count }} Log Entries</span>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-semibold">
+          <tr>
+            <th class="p-3">Timestamp</th>
+            <th class="p-3">Status Transition</th>
+            <th class="p-3">Action By</th>
+            <th class="p-3">Departmental Remarks</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-slate-700">
+          {% for h in history %}
+          <tr class="hover:bg-slate-50/70 transition-colors">
+            <td class="p-3 text-slate-500 font-mono whitespace-nowrap">
+              {{ h.timestamp|date:"d M Y, H:i" }}
+            </td>
+            <td class="p-3">
+              <span class="font-bold text-slate-800">{{ h.previous_status }}</span>
+              <span class="text-slate-400 mx-1">→</span>
+              <span class="font-bold text-blue-700">{{ h.new_status }}</span>
+            </td>
+            <td class="p-3 font-medium text-slate-900">
+              {{ h.changed_by.get_full_name|default:h.changed_by.username|default:"System Engine" }}
+            </td>
+            <td class="p-3 text-slate-600">
+              {{ h.remarks|default:"Automated lifecycle status progression." }}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="p-4 text-center text-slate-400">Initial submission record in process.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       ATTACHED APPLICATION DOCUMENTS
+       ============================================================ -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <h2 class="text-base font-bold text-slate-900">Application Documents & Annexures</h2>
+      <span class="text-xs text-slate-500">Automated Pre-validation Status</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {% for d in documents %}
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start justify-between text-xs">
+        <div>
+          <div class="font-bold text-slate-900">{{ d.doc_name }}</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Format: {{ d.file_type }} • {{ d.officer_feedback }}</div>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap {% if d.status == 'Verified' %}bg-emerald-100 text-emerald-800{% elif d.status == 'Action Required' %}bg-amber-100 text-amber-800{% else %}bg-slate-200 text-slate-700{% endif %}">
+          {{ d.status }}
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}
