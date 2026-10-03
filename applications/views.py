@@ -201,7 +201,27 @@ def officer_update_status(request, app_id):
         new_status = request.POST.get('status')
         remarks = request.POST.get('remarks', '').strip()
 
+        VALID_TRANSITIONS = {
+            'Draft': ['Submitted'],
+            'Submitted': ['Documents Verified', 'Under Review', 'Clarification Required', 'Rejected'],
+            'Documents Verified': ['Under Review', 'Clarification Required', 'Rejected'],
+            'Under Review': ['Clarification Required', 'Inspection Scheduled', 'Approved', 'Rejected'],
+            'Clarification Required': ['Under Review', 'Rejected'],
+            'Inspection Scheduled': ['Inspection Completed', 'Under Review', 'Rejected'],
+            'Inspection Completed': ['Approved', 'Rejected', 'Under Review'],
+            'Approved': [],
+            'Rejected': [],
+        }
+
         if new_status and new_status != application.current_stage:
+            allowed = VALID_TRANSITIONS.get(application.current_stage, [])
+            if allowed and new_status not in allowed:
+                messages.error(request, f"Invalid state transition: Cannot change status from '{application.current_stage}' to '{new_status}'.")
+                return redirect('applications:officer_review', app_id=app_id)
+            elif not allowed and application.current_stage in ['Approved', 'Rejected']:
+                messages.error(request, f"Application {application.application_id} is in final terminal state '{application.current_stage}' and cannot be modified.")
+                return redirect('applications:officer_review', app_id=app_id)
+
             prev_status = application.current_stage
             application.current_stage = new_status
             application.officer_remarks = remarks
@@ -228,6 +248,25 @@ def officer_update_status(request, app_id):
                 changed_by=request.user,
                 remarks=remarks or f"Status transitioned to {new_status} by reviewing officer."
             )
+
+            # Automatically create Compliance record upon official approval
+            if new_status == 'Approved':
+                from compliance.models import Compliance
+                due_date = timezone.now().date() + timedelta(days=365)
+                ref = f"{application.approval.code.upper()}-{application.application_id}"
+                Compliance.objects.get_or_create(
+                    business=application.business,
+                    approval=application.approval,
+                    defaults={
+                        'title': f"{application.approval.name} Licence",
+                        'department': application.current_department,
+                        'approval_ref': ref,
+                        'due_date': due_date,
+                        'status': 'Compliant',
+                        'annual_fee': application.approval.fee_structure,
+                        'remarks': f"Formal clearance granted under single-window application {application.application_id}.",
+                    }
+                )
 
             messages.success(request, f"Application {application.application_id} updated to '{new_status}'. Audit entry recorded in database.")
 

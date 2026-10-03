@@ -75,9 +75,30 @@ def entrepreneur_dashboard_view(request):
 
     # Metrics
     apps_count = applications.count()
+    apps_draft_count = applications.filter(current_stage='Draft').count()
+    apps_submitted_count = applications.filter(current_stage='Submitted').count()
+    apps_pending_count = applications.exclude(current_stage__in=['Approved', 'Rejected', 'Draft']).count()
+    apps_approved_count = applications.filter(current_stage='Approved').count()
+    apps_rejected_count = applications.filter(current_stage='Rejected').count()
+    sla_alerts_count = applications.filter(sla_days_remaining__lte=5).exclude(current_stage__in=['Approved', 'Rejected']).count()
+
     docs_valid_count = documents.filter(status='Pre-validated').count()
     inspections_count = inspections.filter(status='Scheduled').count()
-    pending_compliances = compliances.filter(status__in=['Approaching', 'Urgent']).count()
+    pending_compliances = compliances.filter(status__in=['Approaching', 'Urgent', 'Overdue']).count()
+
+    # Profile completion score
+    profile_fields = [
+        business.company_name, business.business_type, business.industry_sector,
+        business.district, business.location, business.address,
+        business.pan_number, business.gst_number, business.investment_cr,
+        business.employees_count
+    ]
+    filled_fields = sum(1 for f in profile_fields if f)
+    profile_completion_pct = int((filled_fields / len(profile_fields)) * 100)
+
+    # Recent activity
+    from applications.models import ApplicationStatusHistory
+    recent_activity = ApplicationStatusHistory.objects.filter(application__user=request.user).order_by('-timestamp')[:5]
 
     # Pre-check alert check (Missing environmental document)
     missing_docs = documents.filter(status='Action Required')
@@ -90,6 +111,14 @@ def entrepreneur_dashboard_view(request):
         'compliances': compliances,
         'schemes': schemes,
         'apps_count': apps_count,
+        'apps_draft_count': apps_draft_count,
+        'apps_submitted_count': apps_submitted_count,
+        'apps_pending_count': apps_pending_count,
+        'apps_approved_count': apps_approved_count,
+        'apps_rejected_count': apps_rejected_count,
+        'sla_alerts_count': sla_alerts_count,
+        'profile_completion_pct': profile_completion_pct,
+        'recent_activity': recent_activity,
         'docs_valid_count': docs_valid_count,
         'inspections_count': inspections_count,
         'pending_compliances': pending_compliances,

@@ -53,11 +53,11 @@ class Application(models.Model):
     @classmethod
     def generate_application_id(cls):
         year = timezone.now().year
-        rand = random.randint(1000, 9999)
-        candidate = f"ANM-{year}-{rand}"
+        count = cls.objects.filter(created_at__year=year).count() + 1
+        candidate = f"APP-{year}-{count:05d}"
         while cls.objects.filter(application_id=candidate).exists():
-            rand = random.randint(1000, 9999)
-            candidate = f"ANM-{year}-{rand}"
+            count += 1
+            candidate = f"APP-{year}-{count:05d}"
         return candidate
 
 

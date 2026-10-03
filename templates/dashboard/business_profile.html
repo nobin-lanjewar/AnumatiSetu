@@ -53,13 +53,6 @@
           </select>
         </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Industrial Area / MIDC Complex</label>
-          <input type="text" name="location" value="{{ business.location }}" placeholder="e.g. Satpur MIDC Industrial Area"
-                 class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-        </div>
-
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">District</label>
           <input type="text" name="district" value="{{ business.district }}" required
@@ -67,16 +60,10 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Investment (₹ Crores)</label>
-          <input type="number" step="0.01" name="investment_cr" value="{{ business.investment_cr }}" required
-                 class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Workforce (Employees)</label>
-          <input type="number" name="employees_count" value="{{ business.employees_count }}" required
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Industrial Area / MIDC Complex</label>
+          <input type="text" name="location" value="{{ business.location }}" placeholder="e.g. Satpur MIDC Industrial Area"
                  class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
 
@@ -87,6 +74,20 @@
             <option value="Expansion Unit" {% if business.project_stage == 'Expansion Unit' %}selected{% endif %}>Substantial Expansion</option>
             <option value="Land Acquired" {% if business.project_stage == 'Land Acquired' %}selected{% endif %}>Land Acquired</option>
           </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Investment (₹ Crores)</label>
+          <input type="number" step="0.01" name="investment_cr" value="{{ business.investment_cr }}" required
+                 class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Workforce (Employees)</label>
+          <input type="number" name="employees_count" value="{{ business.employees_count }}" required
+                 class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
       </div>
 

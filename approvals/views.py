@@ -34,6 +34,13 @@ def discovery_view(request):
             Q(why_required__icontains=query)
         )
 
+    # Attach existing application status if entrepreneur is authenticated
+    if request.user.is_authenticated:
+        from applications.models import Application
+        existing_apps = {app.approval_id: app for app in Application.objects.filter(user=request.user)}
+        for a in approvals:
+            a.user_application = existing_apps.get(a.id)
+
     return render(request, 'approvals/discovery.html', {
         'approvals': approvals,
         'business': business,
@@ -52,9 +59,15 @@ def detail_view(request, code):
     approval = get_object_or_404(Approval, code=code)
     requirements = approval.requirements.all()
     
+    user_application = None
+    if request.user.is_authenticated:
+        from applications.models import Application
+        user_application = Application.objects.filter(user=request.user, approval=approval).first()
+
     return render(request, 'approvals/detail.html', {
         'approval': approval,
         'requirements': requirements,
+        'user_application': user_application,
         'is_dashboard': request.user.is_authenticated,
     })
 

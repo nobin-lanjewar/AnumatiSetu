@@ -45,17 +45,69 @@ def register_view(request):
     if request.method == 'POST':
         role = request.POST.get('role', 'entrepreneur').strip()
         full_name = request.POST.get('full_name', '').strip()
-        email = request.POST.get('email', '').strip()
+        email = request.POST.get('email', '').strip().lower()
         phone = request.POST.get('phone', '').strip()
         password = request.POST.get('password', '')
 
+        # Basic mandatory check
         if not email or not password or not full_name:
-            messages.error(request, "Please fill in all mandatory account fields.")
-            return render(request, 'accounts/register.html')
+            messages.error(request, "Please fill in all mandatory account fields (Name, Email, and Password).")
+            return render(request, 'accounts/register.html', {'form_data': request.POST})
 
-        if User.objects.filter(username=email).exists() or User.objects.filter(email=email).exists():
-            messages.error(request, "An account with this email address already exists.")
-            return render(request, 'accounts/register.html')
+        # Email format validation
+        from django.core.validators import validate_email
+        from django.core.exceptions import ValidationError
+        try:
+            validate_email(email)
+        except ValidationError:
+            messages.error(request, "Please provide a valid email address.")
+            return render(request, 'accounts/register.html', {'form_data': request.POST})
+
+        # Duplicate email prevention (case-insensitive)
+        if User.objects.filter(email__iexact=email).exists():
+            messages.error(request, "An account with this email address already exists. Please log in.")
+            return render(request, 'accounts/register.html', {'form_data': request.POST})
+
+        # Phone number validation (at least 10 digits)
+        clean_phone = phone.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
+        if not clean_phone or len(clean_phone.replace('+91', '')) < 10 or not clean_phone.replace('+', '').isdigit():
+            messages.error(request, "Please enter a valid 10-digit mobile number.")
+            return render(request, 'accounts/register.html', {'form_data': request.POST})
+
+        # Password length validation
+        if len(password) < 6:
+            messages.error(request, "Password must be at least 6 characters long.")
+            return render(request, 'accounts/register.html', {'form_data': request.POST})
+
+        # Entrepreneur specific field validations
+        if role == 'entrepreneur':
+            company_name = request.POST.get('company_name', '').strip()
+            if not company_name:
+                messages.error(request, "Please specify your Company / Enterprise Name.")
+                return render(request, 'accounts/register.html', {'form_data': request.POST})
+
+            location = request.POST.get('location', '').strip()
+            if not location:
+                messages.error(request, "Please provide your Factory Location / MIDC Plot address.")
+                return render(request, 'accounts/register.html', {'form_data': request.POST})
+
+            investment = request.POST.get('investment_cr', '').strip()
+            try:
+                inv_val = float(investment)
+                if inv_val <= 0:
+                    raise ValueError
+            except ValueError:
+                messages.error(request, "Projected investment must be a valid positive number in ₹ Crores.")
+                return render(request, 'accounts/register.html', {'form_data': request.POST})
+
+            employees = request.POST.get('employees_count', '').strip()
+            try:
+                emp_val = int(employees)
+                if emp_val < 1:
+                    raise ValueError
+            except ValueError:
+                messages.error(request, "Projected workforce must be at least 1 employee.")
+                return render(request, 'accounts/register.html', {'form_data': request.POST})
 
         # Create User
         username = email.split('@')[0]
@@ -81,7 +133,7 @@ def register_view(request):
         profile, _ = UserProfile.objects.get_or_create(user=user)
         profile.role = 'officer' if role == 'officer' else 'entrepreneur'
         profile.full_name = full_name
-        profile.phone = phone
+        profile.phone = clean_phone
 
         if role == 'officer':
             department = request.POST.get('department', 'Directorate of Industries, Maharashtra').strip()
@@ -100,22 +152,9 @@ def register_view(request):
             return redirect('officer_dashboard')
         else:
             profile.save()
-            company_name = request.POST.get('company_name', '').strip() or f"{full_name} Enterprises"
             business_type = request.POST.get('business_type', 'Pvt Ltd')
             industry_sector = request.POST.get('industry_sector', 'Manufacturing')
-            location = request.POST.get('location', '').strip() or 'Maharashtra Industrial Area'
             district = request.POST.get('district', 'Nashik').strip()
-            investment = request.POST.get('investment_cr', '5.00')
-            employees = request.POST.get('employees_count', '50')
-
-            try:
-                inv_val = float(investment)
-            except ValueError:
-                inv_val = 5.0
-            try:
-                emp_val = int(employees)
-            except ValueError:
-                emp_val = 50
 
             district_code = district[:3].upper() if len(district) >= 3 else 'MAH'
             BusinessProfile.objects.create(

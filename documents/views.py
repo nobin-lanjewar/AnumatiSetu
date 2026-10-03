@@ -1,9 +1,118 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse, Http404
 from .models import Document
 from business.models import BusinessProfile
+import os
+
+DOC_RULES = {
+    'pan': {
+        'detected': 'Income Tax Permanent Account Number (PAN) Card',
+        'required_fields': ['10-digit PAN (Alphanumeric)', 'Full Name / Entity Name', 'Incorporation / Birth Date', 'Income Tax Dept Seal'],
+        'detected_fields': ['10-digit PAN (Alphanumeric)', 'Full Name / Entity Name', 'Income Tax Dept Seal'],
+        'missing_fields': [],
+        'readability': 'High (300+ DPI equivalent, high text contrast)',
+        'suggestions': 'Ensure name matches MCA registration and GSTIN certificate exactly.',
+    },
+    'gst': {
+        'detected': 'Goods and Services Tax Registration Certificate (Form GST REG-06)',
+        'required_fields': ['15-digit GSTIN', 'Legal Entity Name', 'Trade Name', 'Principal Place of Business', 'State Code (27 - Maharashtra)'],
+        'detected_fields': ['15-digit GSTIN', 'Legal Entity Name', 'State Code (27 - Maharashtra)'],
+        'missing_fields': [],
+        'readability': 'High (Digital PDF format verified)',
+        'suggestions': 'Verify that the registered industrial unit address matches the MIDC plot allotment.',
+    },
+    'company_reg': {
+        'detected': 'Certificate of Incorporation (ROC / Ministry of Corporate Affairs)',
+        'required_fields': ['Corporate Identification Number (CIN)', 'Company Name', 'Date of Incorporation', 'ROC Maharashtra Registrar Seal'],
+        'detected_fields': ['Corporate Identification Number (CIN)', 'Company Name', 'Date of Incorporation'],
+        'missing_fields': [],
+        'readability': 'High (Structured legal document)',
+        'suggestions': 'Ensure Board Resolution authorizing managing director is attached in Annexures.',
+    },
+    'land_deed': {
+        'detected': 'MIDC Land Possession Order & Registered Lease Agreement (95 Years)',
+        'required_fields': ['MIDC Industrial Area Name', 'Plot Number & Sector', 'Plot Area (Sq. Meters)', 'Allotment Reference Number', 'Possession Officer Signatures'],
+        'detected_fields': ['MIDC Industrial Area Name', 'Plot Number & Sector', 'Allotment Reference Number'],
+        'missing_fields': [],
+        'readability': 'Good (Scanned legal stamp deed)',
+        'suggestions': 'Cross-check plot dimensions against factory layout ground coverage percentage.',
+    },
+    'factory_plan': {
+        'detected': 'Architectural Factory Layout Plan (Rule 3, Maharashtra Factories Rules)',
+        'required_fields': ['Scale 1:100 or 1:200', 'Plant Machinery Layout', 'Internal Road Width (min 6m)', 'Emergency Exits & Stairways', 'Chartered Architect / Engineer Reg. Seal'],
+        'detected_fields': ['Scale 1:100 or 1:200', 'Plant Machinery Layout', 'Emergency Exits & Stairways'],
+        'missing_fields': [],
+        'readability': 'High (Vector Blueprint CAD Layout)',
+        'suggestions': 'Ensure clear setbacks: minimum 3m side and rear margin from boundary wall.',
+    },
+    'environmental_noc': {
+        'detected': 'Environmental Management Plan & Effluent Treatment Plant (ETP) Specification',
+        'required_fields': ['Daily Effluent Generation (KLD)', 'ETP Flow Scheme Diagram', 'BOD / COD Load Calculation', 'Air Emission Stack Height', 'Hazardous Waste Storage Specs'],
+        'detected_fields': ['Daily Effluent Generation (KLD)', 'ETP Flow Scheme Diagram', 'Hazardous Waste Storage Specs'],
+        'missing_fields': [],
+        'readability': 'High (Technical Environmental Dossier)',
+        'suggestions': 'Include valid calibration certificate of online effluent monitoring equipment for Red Category.',
+    },
+    'fire_layout': {
+        'detected': 'Fire Protection, Hydrant Network & Evacuation Blueprint',
+        'required_fields': ['Static Fire Tank Capacity (Litres)', 'Hydrant Pillar Locations', 'Fire Escape Routes', 'Fire Extinguisher Mapping', 'MIDC Fire Safety Checklist'],
+        'detected_fields': ['Static Fire Tank Capacity (Litres)', 'Hydrant Pillar Locations', 'Fire Escape Routes'],
+        'missing_fields': [],
+        'readability': 'High (Fire Safety CAD Diagram)',
+        'suggestions': 'Ensure static water reservoir capacity conforms to NBC 2016 Part 4 norms.',
+    },
+    'electricity_sld': {
+        'detected': 'MSEDCL Single Line Diagram (SLD) & Substation Load Approval',
+        'required_fields': ['Contract Demand (kVA)', 'Connected Load (kW)', 'Feeder Voltage (11kV / 22kV / 33kV)', 'Transformer Specifications', 'Electrical Inspector Clearance'],
+        'detected_fields': ['Contract Demand (kVA)', 'Connected Load (kW)', 'Transformer Specifications'],
+        'missing_fields': [],
+        'readability': 'High (Electrical Engineering Schematic)',
+        'suggestions': 'Attach captive diesel generator (DG set) electrical inspection approval if above 250 kVA.',
+    },
+}
+
+def analyze_document_content(doc):
+    rule = DOC_RULES.get(doc.doc_type, {
+        'detected': f"Statutory Document ({doc.get_doc_type_display()})",
+        'required_fields': ['Entity Name', 'Registration Number', 'Authorized Signature', 'Date of Issue'],
+        'detected_fields': ['Entity Name', 'Registration Number', 'Date of Issue'],
+        'missing_fields': [],
+        'readability': 'Good',
+        'suggestions': 'Verify all pages are legible and statutory stamp is clearly visible.',
+    })
+
+    file_size_kb = doc.file_size_kb
+    file_name = doc.filename
+    ext = file_name.split('.')[-1].lower() if file_name else ''
+
+    # Readability heuristic
+    if file_size_kb < 10:
+        readability = "Low (File size unusually small, please check if scan is truncated)"
+        confidence = 72.0
+        status = "Action Required"
+        missing = rule['required_fields'][-1:]
+        notes = "File size is very small. Possible missing pages or truncated scan."
+    else:
+        readability = rule['readability']
+        confidence = 96.5
+        status = "Pre-validated"
+        missing = rule['missing_fields']
+        notes = f"Pre-validated by AnumatiSetu intelligent parser. Formats, signatures, and essential headers detected ({len(rule['detected_fields'])}/{len(rule['required_fields'])} fields verified)."
+
+    return {
+        'detected': rule['detected'],
+        'required_fields': rule['required_fields'],
+        'detected_fields': rule['detected_fields'],
+        'missing_fields': missing,
+        'readability': readability,
+        'status': status,
+        'confidence': confidence,
+        'suggestions': rule['suggestions'],
+        'notes': notes,
+    }
+
 
 @login_required
 def precheck_view(request):
@@ -49,12 +158,24 @@ def precheck_view(request):
             'required_for': 'Tax & State Invoicing',
             'doc': user_docs.filter(doc_type='gst').first(),
         },
+        {
+            'key': 'fire_layout',
+            'label': 'Fire Safety & Hydrant Layout',
+            'required_for': 'MIDC Fire Services Provisional NOC',
+            'doc': user_docs.filter(doc_type='fire_layout').first(),
+        },
+        {
+            'key': 'electricity_sld',
+            'label': 'Electrical Single Line Diagram (SLD)',
+            'required_for': 'MSEDCL Industrial Power Feeder',
+            'doc': user_docs.filter(doc_type='electricity_sld').first(),
+        },
     ]
 
     total_required = len(checklist)
     total_valid = sum(1 for item in checklist if item['doc'] and item['doc'].status == 'Pre-validated')
     missing_items = [item for item in checklist if not item['doc'] or item['doc'].status == 'Action Required']
-    readiness_percentage = int((total_valid / total_required) * 100)
+    readiness_percentage = int((total_valid / total_required) * 100) if total_required else 0
 
     return render(request, 'documents/precheck.html', {
         'user_docs': user_docs,
@@ -94,10 +215,7 @@ def upload_document_view(request):
         business = request.user.business_profiles.first()
         size_kb = int(uploaded_file.size / 1024)
 
-        # Intelligent OCR Simulation & algorithmic validation
-        ocr_text = f"ANUMATISETU OCR VALIDATION LOG\nFile: {uploaded_file.name}\nSize: {size_kb} KB\nEntity: {business.company_name if business else 'Applicant'}\nDocument Type: {doc_type}\nChecksum SHA-256 Validated."
-        validation_notes = "Pre-validated by AnumatiSetu intelligent parser. Formats, signatures, and essential headers detected."
-
+        # Temporary dummy doc for analysis
         doc, created = Document.objects.update_or_create(
             user=request.user,
             doc_type=doc_type,
@@ -107,13 +225,26 @@ def upload_document_view(request):
                 'file': uploaded_file,
                 'file_size_kb': size_kb,
                 'mime_type': uploaded_file.content_type,
-                'status': 'Pre-validated',
+                'status': 'Uploaded',
                 'is_ocr_processed': True,
-                'ocr_extracted_text': ocr_text,
-                'ocr_confidence_score': 96.5,
-                'validation_notes': validation_notes,
             }
         )
+
+        analysis = analyze_document_content(doc)
+        doc.status = analysis['status']
+        doc.ocr_confidence_score = analysis['confidence']
+        doc.validation_notes = analysis['notes']
+        doc.ocr_extracted_text = (
+            f"ANUMATISETU PRE-VALIDATION PARSER LOG\n"
+            f"File: {uploaded_file.name}\n"
+            f"Size: {size_kb} KB\n"
+            f"Document Classification: {analysis['detected']}\n"
+            f"Readability: {analysis['readability']}\n"
+            f"Detected Attributes: {', '.join(analysis['detected_fields'])}\n"
+            f"Suggestions: {analysis['suggestions']}\n"
+            f"Disclaimer: [Prototype Simulation] Algorithmic Pre-check Advisory by AnumatiSetu."
+        )
+        doc.save()
 
         messages.success(request, f"Document '{doc.title}' uploaded and successfully pre-validated by AnumatiSetu!")
         return redirect('documents:precheck')
@@ -122,19 +253,65 @@ def upload_document_view(request):
 
 
 @login_required
-def trigger_precheck_api(request, doc_id):
-    """AJAX endpoint to simulate re-running pre-check OCR analysis."""
+def view_document_file(request, doc_id):
+    """Secure document viewing restricted to applicant and reviewing officers."""
+    doc = get_object_or_404(Document, id=doc_id)
+    is_officer = hasattr(request.user, 'profile') and request.user.profile.role == 'officer'
+    if doc.user != request.user and not is_officer:
+        messages.error(request, "Access denied. You cannot view documents belonging to another enterprise.")
+        return redirect('documents:precheck')
+
+    if not doc.file:
+        messages.error(request, "No physical file attached to this document record.")
+        return redirect('documents:precheck')
+
+    try:
+        return FileResponse(doc.file.open('rb'), content_type=doc.mime_type)
+    except Exception as e:
+        messages.error(request, f"File could not be opened: {e}")
+        return redirect('documents:precheck')
+
+
+@login_required
+def delete_document_view(request, doc_id):
+    """Deletes uploaded document and resets checklist status."""
     doc = get_object_or_404(Document, id=doc_id, user=request.user)
+    title = doc.title
+    if doc.file:
+        try:
+            doc.file.delete(save=False)
+        except Exception:
+            pass
+    doc.delete()
+    messages.success(request, f"Document '{title}' deleted successfully. You may upload a replacement.")
+    return redirect('documents:precheck')
+
+
+@login_required
+def trigger_precheck_api(request, doc_id):
+    """AJAX endpoint providing detailed OCR & pre-check inspection results for modal."""
+    doc = get_object_or_404(Document, id=doc_id, user=request.user)
+    analysis = analyze_document_content(doc)
+
     doc.is_ocr_processed = True
-    doc.ocr_confidence_score = 97.2
-    doc.status = 'Pre-validated'
-    doc.validation_notes = "Automated OCR scan completed. All mandatory fields present."
+    doc.ocr_confidence_score = analysis['confidence']
+    doc.status = analysis['status']
+    doc.validation_notes = analysis['notes']
     doc.save()
 
     return JsonResponse({
         'status': 'success',
         'doc_id': doc.id,
-        'doc_status': doc.status,
-        'confidence': doc.ocr_confidence_score,
-        'notes': doc.validation_notes,
+        'doc_title': doc.title,
+        'doc_type': doc.get_doc_type_display(),
+        'detected': analysis['detected'],
+        'required_fields': analysis['required_fields'],
+        'detected_fields': analysis['detected_fields'],
+        'missing_fields': analysis['missing_fields'],
+        'readability': analysis['readability'],
+        'validation_status': analysis['status'],
+        'confidence': analysis['confidence'],
+        'suggestions': analysis['suggestions'],
+        'notes': analysis['notes'],
+        'disclaimer': 'Prototype Advisory: Simulated pre-check analysis based on Maharashtra single-window standards. Does not replace statutory scrutiny.',
     })

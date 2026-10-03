@@ -155,10 +155,17 @@
           </a>
 
           {% if user.is_authenticated %}
-          <a href="{% url 'applications:create' approval_code=app.code %}" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5">
-            <span>Apply Now</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </a>
+            {% if app.user_application %}
+            <a href="{% url 'applications:track' app_id=app.user_application.application_id %}" class="px-3.5 py-2 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100 font-bold text-xs shadow-xs transition-all flex items-center gap-1.5">
+              <span>{{ app.user_application.current_stage }} (Track)</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+            {% else %}
+            <a href="{% url 'applications:create' approval_code=app.code %}" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5">
+              <span>Start Application</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+            {% endif %}
           {% else %}
           <a href="{% url 'accounts:login' %}" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all">
             Login to Apply

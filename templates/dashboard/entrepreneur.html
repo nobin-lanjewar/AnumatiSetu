@@ -17,11 +17,16 @@
     <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
       
       <div class="space-y-3">
-        <div class="flex items-center gap-3">
+        <div class="flex flex-wrap items-center gap-3">
           <span class="px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-300 text-xs font-bold border border-cyan-400/30 uppercase tracking-wide">
             Enterprise Profile Active
           </span>
           <span class="text-xs text-blue-200 font-mono">{{ business.udyam_no|default:"UDYAM PENDING" }}</span>
+          <a href="{% url 'business:profile' %}" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-cyan-200 text-xs font-semibold border border-white/20 flex items-center gap-1.5 transition-colors">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-300"></i>
+            <span>{{ profile_completion_pct }}% Profile Complete</span>
+            <i data-lucide="edit-3" class="w-3 h-3 text-cyan-300"></i>
+          </a>
         </div>
 
         <div>
@@ -135,6 +140,42 @@
       <div class="text-[11px] text-yellow-700 font-semibold mt-1">State & MSME Subsidies</div>
     </a>
 
+  </div>
+
+  <!-- ============================================================
+       APPLICATION STATUS & SLA BREAKDOWN MATRIX (Section 31 & Req 4)
+       ============================================================ -->
+  <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
+    <div class="flex items-center gap-2 text-slate-500 font-bold uppercase tracking-wider text-[11px]">
+      <i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-600"></i>
+      <span>Portfolio Status:</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <a href="{% url 'applications:list' %}" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold transition-colors">
+        Total: <strong>{{ apps_count }}</strong>
+      </a>
+      <a href="{% url 'applications:list' %}?stage=Draft" class="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 font-semibold transition-colors">
+        Drafts: <strong>{{ apps_draft_count }}</strong>
+      </a>
+      <a href="{% url 'applications:list' %}?stage=Submitted" class="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-semibold transition-colors">
+        Submitted: <strong>{{ apps_submitted_count }}</strong>
+      </a>
+      <a href="{% url 'applications:list' %}?stage=Under Review" class="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-semibold transition-colors">
+        Pending Review: <strong>{{ apps_pending_count }}</strong>
+      </a>
+      <a href="{% url 'applications:list' %}?stage=Approved" class="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-semibold transition-colors">
+        Approved: <strong>{{ apps_approved_count }}</strong>
+      </a>
+      <a href="{% url 'applications:list' %}?stage=Rejected" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-semibold transition-colors">
+        Rejected: <strong>{{ apps_rejected_count }}</strong>
+      </a>
+      {% if sla_alerts_count > 0 %}
+      <a href="{% url 'applications:list' %}" class="px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-bold transition-colors animate-pulse flex items-center gap-1">
+        <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-700"></i>
+        <span>SLA Alerts: <strong>{{ sla_alerts_count }}</strong></span>
+      </a>
+      {% endif %}
+    </div>
   </div>
 
 
@@ -336,6 +377,47 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- ============================================================
+       RECENT ACTIVITY & AUDIT TRAIL (Req 4)
+       ============================================================ -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div class="flex items-center gap-2">
+        <i data-lucide="activity" class="w-5 h-5 text-blue-600"></i>
+        <h2 class="text-base font-bold text-slate-900">Recent Orchestration Activity</h2>
+      </div>
+      <span class="text-xs text-slate-400">Chronological Lifecycle Updates</span>
+    </div>
+
+    <div class="divide-y divide-slate-100">
+      {% for act in recent_activity %}
+      <div class="py-3 flex items-start justify-between gap-4 text-xs">
+        <div class="flex items-start gap-3">
+          <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs mt-0.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          </div>
+          <div>
+            <div class="font-bold text-slate-900">
+              <a href="{% url 'applications:track' app_id=act.application.application_id %}" class="hover:text-blue-600">
+                {{ act.application.application_id }} ({{ act.application.approval.name }})
+              </a>
+            </div>
+            <p class="text-slate-600 text-[11px] mt-0.5">
+              Transitioned: <span class="font-semibold text-slate-700">{{ act.previous_status }}</span> → <span class="font-bold text-blue-700">{{ act.new_status }}</span>
+              {% if act.remarks %}• {{ act.remarks }}{% endif %}
+            </p>
+          </div>
+        </div>
+        <div class="text-right text-[11px] text-slate-400 whitespace-nowrap font-mono">
+          {{ act.timestamp|date:"d M Y, H:i" }}
+        </div>
+      </div>
+      {% empty %}
+      <p class="py-4 text-xs text-slate-400 text-center">No recent application lifecycle events.</p>
+      {% endfor %}
+    </div>
   </div>
 
 </div>

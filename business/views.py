@@ -11,9 +11,9 @@ def profile_view(request):
         company_name = request.POST.get('company_name', '').strip()
         industry_sector = request.POST.get('industry_sector')
         business_type = request.POST.get('business_type')
-        location = request.POST.get('location', '').strip() or (business.location if business else '') or district or 'Maharashtra'
+        district = request.POST.get('district', '').strip() or (business.district if business else 'Nashik')
+        location = request.POST.get('location', '').strip() or (business.location if business else '') or district or 'Maharashtra Industrial Area'
         address = request.POST.get('address', '').strip()
-        district = request.POST.get('district', '').strip()
         investment = request.POST.get('investment_cr', '5.0')
         employees = request.POST.get('employees_count', '120')
         project_stage = request.POST.get('project_stage')
@@ -23,23 +23,39 @@ def profile_view(request):
         if not business:
             business = BusinessProfile(user=request.user)
 
-        business.company_name = company_name
-        business.industry_sector = industry_sector
-        business.business_type = business_type
+        if company_name:
+            business.company_name = company_name
+        elif not business.company_name:
+            business.company_name = f"{request.user.first_name or request.user.username} Enterprise"
+
+        if industry_sector:
+            business.industry_sector = industry_sector
+        elif not business.industry_sector:
+            business.industry_sector = 'Manufacturing'
+
+        if business_type:
+            business.business_type = business_type
+        elif not business.business_type:
+            business.business_type = 'Pvt Ltd'
+
+        if project_stage:
+            business.project_stage = project_stage
+        elif not business.project_stage:
+            business.project_stage = 'New Greenfield Unit'
+
         business.location = location
         business.address = address
         business.district = district
-        business.project_stage = project_stage
         business.pan_number = pan_number
         business.gst_number = gst_number
         
         try:
             business.investment_cr = float(investment)
-        except ValueError:
+        except (ValueError, TypeError):
             pass
         try:
             business.employees_count = int(employees)
-        except ValueError:
+        except (ValueError, TypeError):
             pass
 
         business.save()
