@@ -16,8 +16,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
+# Create isolated virtual environment in /opt/venv
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Final runtime image
 FROM python:3.12-slim AS runner
@@ -32,9 +36,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy installed wheels and binaries from builder
-COPY --from=builder /root/.local /root/.local
-ENV PATH=/root/.local/bin:$PATH \
+# Copy installed virtual environment from builder (accessible by non-root users)
+COPY --from=builder /opt/venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH" \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PORT=8000
@@ -50,11 +55,15 @@ COPY --chown=appuser:appuser . /app
 # Switch to non-root user
 USER appuser
 
+# Pre-collect static files for WhiteNoise into staticfiles directory
+RUN python manage.py collectstatic --noinput --clear
+
 # Health check using the /health/ endpoint
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-    CMD curl -f http://localhost:8000/health/ || exit 1
+    CMD curl -f http://localhost:${PORT:-8000}/health/ || exit 1
 
 EXPOSE 8000
 
-# Start Gunicorn server
-CMD ["gunicorn", "config.wsgi:application", "-c", "gunicorn.conf.py"]
+# Apply migrations if database is accessible, then start Gunicorn server
+CMD ["sh", "-c", "python manage.py migrate --noinput; gunicorn config.wsgi:application -c gunicorn.conf.py"]
+
