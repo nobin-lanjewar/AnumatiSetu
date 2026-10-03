@@ -19,9 +19,12 @@
           Intelligent Industrial Approval Assistance & Orchestration Platform.
           Empowering entrepreneurs across Maharashtra with automated pre-checks, SLA visibility, and unified departmental tracking.
         </p>
-        <div class="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-blue-200/90 leading-relaxed">
-          <strong class="text-white block mb-0.5 font-semibold">Important Government Positioning:</strong>
-          AnumatiSetu works synergistically alongside MAITRI / MAITRI 2.0. Final approval, rejection, or regulatory decision always remains with the concerned Government Department / Authority.
+        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-blue-200/90 leading-relaxed">
+          <strong class="text-white block mb-0.5 font-semibold flex items-center gap-1.5">
+            <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>Hackathon Prototype & Regulatory Positioning:</span>
+          </strong>
+          AnumatiSetu is an academic concept prototype developed for Smart India Hackathon 2026 (SIH26130). <strong>It is not an official Government of Maharashtra website.</strong> AnumatiSetu functions synergistically alongside MAITRI. Final approval, rejection, or statutory decisions remain solely with concerned Government Authorities.
         </div>
       </div>
 
@@ -38,16 +41,24 @@
         </ul>
       </div>
 
-      <!-- Column 3: Participating Departments -->
+      <!-- Column 3: Governance & Trust -->
       <div>
-        <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Key Departments</h3>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Trust & Governance</h3>
         <ul class="space-y-2.5 text-xs">
-          <li><span class="hover:text-white">Directorate of Industries (DI)</span></li>
-          <li><span class="hover:text-white">Industrial Safety & Health (DISH)</span></li>
-          <li><span class="hover:text-white">Pollution Control Board (MPCB)</span></li>
-          <li><span class="hover:text-white">MIDC Fire Services</span></li>
-          <li><span class="hover:text-white">Electricity Distribution (MSEDCL)</span></li>
-          <li><span class="hover:text-white">Food & Drug Administration (FDA)</span></li>
+          <li><a href="{% url 'privacy' %}" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+            <i data-lucide="lock" class="w-3.5 h-3.5 text-teal-400"></i>
+            <span>Privacy Policy (DPDP Act)</span>
+          </a></li>
+          <li><a href="{% url 'terms' %}" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+            <i data-lucide="scale" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>Terms & Non-Impersonation</span>
+          </a></li>
+          <li><a href="{% url 'contact' %}" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+            <i data-lucide="mail" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>Contact & Support Desk</span>
+          </a></li>
+          <li><a href="{% url 'about' %}" class="hover:text-cyan-400 transition-colors">Technical Architecture</a></li>
+          <li><a href="{% url 'location_intelligence' %}" class="hover:text-cyan-400 transition-colors">25 District DIC Directory</a></li>
         </ul>
       </div>
 
@@ -60,12 +71,26 @@
         </p>
         <div class="space-y-2 text-xs">
           <div class="flex items-center gap-2 text-slate-300">
-            <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i>
+            <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400 shrink-0"></i>
             <span>25 District Industries Centres</span>
           </div>
-          <div class="flex items-center gap-2 text-slate-300">
-            <i data-lucide="phone-call" class="w-4 h-4 text-teal-400"></i>
-            <span>1800-120-8040 (Helpline)</span>
+          <div class="flex items-start gap-2 text-slate-300">
+            <i data-lucide="phone-call" class="w-4 h-4 text-teal-400 shrink-0 mt-0.5"></i>
+            <div>
+              <span class="block font-semibold text-white">1800-120-8040</span>
+              <span class="text-[10px] text-slate-400">Aaple Sarkar / State Citizen Helpline</span>
+            </div>
+          </div>
+          <div class="pt-2">
+            <span class="text-[11px] text-slate-400 block mb-1">Judge Quick Demo:</span>
+            <div class="flex gap-2">
+              <a href="{% url 'accounts:switch_demo' 'entrepreneur' %}" class="px-2 py-1 rounded bg-blue-600/30 hover:bg-blue-600/60 border border-blue-400/30 text-cyan-300 text-[10px] font-semibold">
+                Entrepreneur Demo
+              </a>
+              <a href="{% url 'accounts:switch_demo' 'officer' %}" class="px-2 py-1 rounded bg-indigo-600/30 hover:bg-indigo-600/60 border border-indigo-400/30 text-indigo-300 text-[10px] font-semibold">
+                Officer Demo
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -74,15 +99,17 @@
 
     <!-- Bottom line -->
     <div class="pt-8 mt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-      <div class="text-slate-400">
-        © 2026 Government of Maharashtra. Maharashtra State Innovation Society. Built for Smart India Hackathon 2026.
+      <div class="text-slate-400 text-center sm:text-left">
+        © 2026 AnumatiSetu Project • Built for Smart India Hackathon 2026 (SIH26130). Concept prototype — Not an official Government of Maharashtra portal.
       </div>
-      <div class="flex items-center gap-4 text-slate-400">
-        <a href="{% url 'about' %}" class="hover:text-white transition-colors">Technical Architecture</a>
+      <div class="flex items-center gap-3 text-slate-400">
+        <a href="{% url 'privacy' %}" class="hover:text-white transition-colors">Privacy</a>
         <span>•</span>
-        <a href="{% url 'location_intelligence' %}" class="hover:text-white transition-colors">Location Intelligence</a>
+        <a href="{% url 'terms' %}" class="hover:text-white transition-colors">Terms</a>
         <span>•</span>
-        <span class="text-cyan-400">v2.6 Prototype</span>
+        <a href="{% url 'contact' %}" class="hover:text-white transition-colors">Contact</a>
+        <span>•</span>
+        <span class="text-cyan-400 font-mono">v2.6 Prototype</span>
       </div>
     </div>
   </div>

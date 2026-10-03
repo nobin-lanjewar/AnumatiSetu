@@ -1,12 +1,18 @@
 /**
  * ANUMATISETU — Client-side Interactions
- * Sidebar toggle, Dynamic modals, Lucide Icons, Assistant Chat
+ * Sidebar toggle, Dynamic modals, Lucide Icons, Assistant Chat, Bilingual Engine (EN / MR)
  */
 
 document.addEventListener('DOMContentLoaded', function () {
   // Initialize Lucide icons
   if (window.lucide) {
     window.lucide.createIcons();
+  }
+
+  // Load saved language preference
+  const savedLang = localStorage.getItem('anumati_lang') || 'en';
+  if (savedLang === 'mr') {
+    setLanguage('mr');
   }
 
   // Sidebar Desktop Collapse Toggle
@@ -89,5 +95,36 @@ function closeModal(modalId) {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     document.body.style.overflow = '';
+  }
+}
+
+// Client-side Bilingual Translation Engine (English <-> Marathi)
+function setLanguage(lang) {
+  localStorage.setItem('anumati_lang', lang);
+
+  const enBtn = document.getElementById('lang-btn-en');
+  const mrBtn = document.getElementById('lang-btn-mr');
+
+  if (lang === 'mr') {
+    if (enBtn && mrBtn) {
+      enBtn.className = 'px-2 py-0.5 rounded text-slate-300 hover:text-white transition-all';
+      mrBtn.className = 'px-2 py-0.5 rounded bg-cyan-500 text-slate-900 font-bold transition-all';
+    }
+    document.querySelectorAll('[data-i18n-mr]').forEach(el => {
+      el.innerHTML = el.getAttribute('data-i18n-mr');
+    });
+  } else {
+    if (enBtn && mrBtn) {
+      enBtn.className = 'px-2 py-0.5 rounded bg-cyan-500 text-slate-900 font-bold transition-all';
+      mrBtn.className = 'px-2 py-0.5 rounded text-slate-300 hover:text-white transition-all';
+    }
+    document.querySelectorAll('[data-i18n-en]').forEach(el => {
+      el.innerHTML = el.getAttribute('data-i18n-en');
+    });
+  }
+
+  // Re-render any icons inside translated elements
+  if (window.lucide) {
+    window.lucide.createIcons();
   }
 }

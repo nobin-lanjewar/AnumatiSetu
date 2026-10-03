@@ -14,33 +14,33 @@
           <span class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-1.5">
             ANUMATI<span class="text-cyan-400">SETU</span>
           </span>
-          <span class="text-[10px] tracking-wider font-semibold text-blue-200/80 uppercase">
-            Govt. of Maharashtra Orchestration
+          <span class="text-[10px] tracking-wider font-semibold text-blue-200/80 uppercase" data-i18n-en="SIH 2026 Prototype · Industrial Orchestration" data-i18n-mr="एसआयएच २०२६ प्रोटोटाइप · औद्योगिक समन्वय">
+            SIH 2026 Prototype · Industrial Orchestration
           </span>
         </div>
       </a>
 
       <!-- Desktop Navigation Links -->
       <div class="hidden lg:flex items-center gap-1 xl:gap-2">
-        <a href="{% url 'home' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if request.path == '/' %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+        <a href="{% url 'home' %}" class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if request.path == '/' %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}" data-i18n-en="Home" data-i18n-mr="मुखपृष्ठ">
           Home
         </a>
-        <a href="{% url 'how_it_works' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/how-it-works' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+        <a href="{% url 'how_it_works' %}" class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if '/how-it-works' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}" data-i18n-en="How It Works" data-i18n-mr="प्रक्रिया">
           How It Works
         </a>
-        <a href="{% url 'approvals:discovery' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/approvals' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+        <a href="{% url 'approvals:discovery' %}" class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if '/approvals' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}" data-i18n-en="Approvals" data-i18n-mr="परवानग्या">
           Approvals
         </a>
-        <a href="{% url 'compliance:calendar' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/compliance' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+        <a href="{% url 'compliance:calendar' %}" class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if '/compliance' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}" data-i18n-en="Compliance" data-i18n-mr="अनुपालन">
           Compliance
         </a>
-        <a href="{% url 'schemes:list' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/schemes' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+        <a href="{% url 'schemes:list' %}" class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if '/schemes' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}" data-i18n-en="Schemes" data-i18n-mr="शासकीय योजना">
           Schemes
         </a>
-        <a href="{% url 'location_intelligence' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/location' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
-          Location Intelligence
+        <a href="{% url 'location_intelligence' %}" class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if '/location' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}" data-i18n-en="DIC Directory" data-i18n-mr="डीआयसी नकाशा">
+          DIC Directory
         </a>
-        <a href="{% url 'about' %}" class="px-3.5 py-2 text-sm font-medium rounded-lg transition-colors {% if '/about' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+        <a href="{% url 'about' %}" class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if '/about' in request.path %}text-cyan-400 bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}" data-i18n-en="About" data-i18n-mr="माहिती">
           About
         </a>
         <a href="{% url 'assistant:chat' %}" class="px-3.5 py-1.5 text-xs font-bold rounded-lg border border-cyan-400/40 text-cyan-300 hover:text-white hover:bg-cyan-500/20 transition-all flex items-center gap-1.5">
@@ -54,14 +54,14 @@
         {% if user.is_authenticated %}
           <a href="{% url 'dashboard_redirect' %}" class="px-4 py-2 text-sm font-medium text-white bg-blue-600/80 hover:bg-blue-600 border border-blue-400/40 rounded-xl transition-all shadow-md flex items-center gap-2">
             <i data-lucide="layout-dashboard" class="w-4 h-4 text-cyan-300"></i>
-            <span>Dashboard</span>
+            <span data-i18n-en="Dashboard" data-i18n-mr="डॅशबोर्ड">Dashboard</span>
           </a>
         {% else %}
-          <a href="{% url 'accounts:login' %}" class="px-4 py-2 text-sm font-semibold text-white hover:text-cyan-300 transition-colors">
+          <a href="{% url 'accounts:login' %}" class="px-4 py-2 text-sm font-semibold text-white hover:text-cyan-300 transition-colors" data-i18n-en="Login" data-i18n-mr="लॉगिन">
             Login
           </a>
           <a href="{% url 'accounts:register' %}" class="px-5 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
-            <span>Start Application</span>
+            <span data-i18n-en="Start Application" data-i18n-mr="नवीन अर्ज करा">Start Application</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
         {% endif %}
@@ -86,11 +86,25 @@
     <a href="{% url 'schemes:list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">Schemes</a>
     <a href="{% url 'location_intelligence' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">Location Intelligence</a>
     <a href="{% url 'about' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">About</a>
+    <a href="{% url 'contact' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-white/10 hover:text-white">Contact & Support</a>
     <a href="{% url 'assistant:chat' %}" class="block px-3 py-2 rounded-md text-base font-medium text-cyan-300 hover:bg-white/10 hover:text-white flex items-center gap-2">
       <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
-      <span>Anumati Assistant AI</span>
+      <span>Anumati AI</span>
     </a>
     
+    <!-- Demo Quick Switcher in Mobile -->
+    <div class="p-3 my-2 rounded-xl bg-cyan-950/60 border border-cyan-500/30 text-xs">
+      <span class="text-cyan-300 font-bold block mb-1">Judge / Evaluator Demo Mode:</span>
+      <div class="flex gap-2 mt-2">
+        <a href="{% url 'accounts:switch_demo' 'entrepreneur' %}" class="flex-1 text-center py-1.5 px-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold">
+          Entrepreneur Demo
+        </a>
+        <a href="{% url 'accounts:switch_demo' 'officer' %}" class="flex-1 text-center py-1.5 px-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold">
+          Officer Demo
+        </a>
+      </div>
+    </div>
+
     <div class="pt-4 border-t border-white/10 flex flex-col gap-2">
       {% if user.is_authenticated %}
         <a href="{% url 'dashboard_redirect' %}" class="w-full text-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium">Dashboard</a>

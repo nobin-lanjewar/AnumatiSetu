@@ -41,6 +41,27 @@ def location_intelligence_view(request):
     })
 
 
+def privacy_view(request):
+    """Privacy Policy & DPDP Act 2023 compliance disclosure."""
+    return render(request, 'privacy.html', {
+        'is_dashboard': False,
+    })
+
+
+def terms_view(request):
+    """Terms of Service, non-impersonation disclosure, and MAITRI synergy."""
+    return render(request, 'terms.html', {
+        'is_dashboard': False,
+    })
+
+
+def contact_view(request):
+    """Contact desk, SIH26130 cell, and official state helpline directory."""
+    return render(request, 'contact.html', {
+        'is_dashboard': False,
+    })
+
+
 @login_required
 def dashboard_redirect(request):
     """Role-based automatic redirection."""
