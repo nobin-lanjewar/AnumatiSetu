@@ -21,14 +21,29 @@ def list_view(request):
     else:
         applications = Application.objects.filter(user=request.user)
 
+    total_count = applications.count()
+
     if stage_filter != 'all':
         applications = applications.filter(current_stage=stage_filter)
 
     return render(request, 'applications/list.html', {
         'applications': applications,
+        'total_count': total_count,
         'selected_stage': stage_filter,
         'is_dashboard': True,
     })
+
+
+@login_required
+def create_redirect_view(request):
+    """Gracefully handles /applications/create/ and /applications/create/?approval=..."""
+    approval_code = request.GET.get('approval') or request.GET.get('code')
+    if approval_code and Approval.objects.filter(code=approval_code).exists():
+        return redirect('applications:create', approval_code=approval_code)
+    first_app = Approval.objects.first()
+    if first_app:
+        return redirect('applications:create', approval_code=first_app.code)
+    return redirect('approvals:discovery')
 
 
 @login_required
@@ -105,6 +120,12 @@ def create_view(request, approval_code):
 def track_view(request, app_id):
     """Unified application tracking timeline, SLA monitor, and audit history (Section 22)."""
     application = get_object_or_404(Application, application_id=app_id)
+    
+    # Ownership and role enforcement
+    is_officer = hasattr(request.user, 'profile') and request.user.profile.role == 'officer'
+    if not is_officer and application.user != request.user:
+        messages.error(request, "Access denied. You do not have permission to view this application dossier.")
+        return redirect('applications:list')
     history = application.history.all()
     documents = application.documents_rel.all()
     queries = application.queries.all()
@@ -257,6 +278,9 @@ def officer_raise_query(request, app_id):
 def respond_query(request, query_id):
     """Entrepreneur response to departmental query."""
     query = get_object_or_404(DepartmentQuery, id=query_id)
+    if query.application.user != request.user:
+        messages.error(request, "Unauthorized action. Only the registered applicant can respond to queries.")
+        return redirect('applications:list')
     
     if request.method == 'POST':
         response_text = request.POST.get('response_text', '').strip()

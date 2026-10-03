@@ -79,7 +79,7 @@
           <span class="sidebar-text">Applications</span>
         </div>
         <span class="sidebar-badge px-2 py-0.5 text-[11px] font-bold rounded-full bg-blue-500/30 text-blue-200">
-          {% if is_officer %}14{% else %}4{% endif %}
+          {{ user_applications_count|default:"0" }}
         </span>
       </a>
 

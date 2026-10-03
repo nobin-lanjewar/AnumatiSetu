@@ -66,11 +66,9 @@ def api_chat(request):
         return JsonResponse({'error': 'Empty message'}, status=400)
 
     user_obj = request.user if request.user.is_authenticated else None
+    if not request.session.session_key:
+        request.session.create()
     session_key = request.session.session_key or ''
-    if not session_key and not user_obj:
-        if not request.session.exists(request.session.session_key):
-            request.session.create()
-        session_key = request.session.session_key
 
     # Save user message to database
     ChatMessage.objects.create(
@@ -186,7 +184,7 @@ def api_chat(request):
                 f"• **Legal Mandate:** {matched_approval.why_required[:180]}...\n\n"
                 f"**Key Mandatory Requirements:**\n"
                 f"{req_str}\n\n"
-                f"👉 [Apply for this Approval in 1-Click](/applications/create/?approval={matched_approval.code})"
+                f"👉 [Apply for this Approval in 1-Click](/applications/create/{matched_approval.code}/)"
             )
 
         # Application Tracking / Status

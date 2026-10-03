@@ -5,6 +5,7 @@ app_name = 'applications'
 
 urlpatterns = [
     path('', views.list_view, name='list'),
+    path('create/', views.create_redirect_view, name='create_default'),
     path('create/<slug:approval_code>/', views.create_view, name='create'),
     path('<str:app_id>/', views.track_view, name='track'),
     path('officer/review/<str:app_id>/', views.officer_review_view, name='officer_review'),

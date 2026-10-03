@@ -21,5 +21,12 @@ def user_profile_context(request):
             # Primary business profile if entrepreneur
             if profile.role == 'entrepreneur' and hasattr(request.user, 'business_profiles'):
                 context['active_business'] = request.user.business_profiles.first()
+
+            # Dynamic Application Count
+            if profile.role == 'officer':
+                from applications.models import Application
+                context['user_applications_count'] = Application.objects.count()
+            else:
+                context['user_applications_count'] = request.user.applications.count()
     
     return context

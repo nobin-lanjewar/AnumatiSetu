@@ -200,7 +200,7 @@
               <span class="font-bold text-blue-700">{{ h.new_status }}</span>
             </td>
             <td class="p-3 font-medium text-slate-900">
-              {{ h.changed_by.get_full_name|default:h.changed_by.username|default:"System Engine" }}
+              {% if h.changed_by %}{{ h.changed_by.get_full_name|default:h.changed_by.username }}{% else %}System Engine{% endif %}
             </td>
             <td class="p-3 text-slate-600">
               {{ h.remarks|default:"Automated lifecycle status progression." }}

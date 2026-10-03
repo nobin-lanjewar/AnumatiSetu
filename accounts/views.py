@@ -10,6 +10,8 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('dashboard_redirect')
         
+    next_url = request.POST.get('next') or request.GET.get('next') or ''
+
     if request.method == 'POST':
         username_or_email = request.POST.get('username', '').strip()
         password = request.POST.get('password', '')
@@ -17,20 +19,23 @@ def login_view(request):
         # Allow login by email or username
         user = authenticate(request, username=username_or_email, password=password)
         if not user:
-            try:
-                user_obj = User.objects.get(email=username_or_email)
-                user = authenticate(request, username=user_obj.username, password=password)
-            except User.DoesNotExist:
-                user = None
+            # Check by email safely without MultipleObjectsReturned exception
+            matching_users = User.objects.filter(email__iexact=username_or_email)
+            for candidate in matching_users:
+                user = authenticate(request, username=candidate.username, password=password)
+                if user:
+                    break
 
         if user:
             login(request, user)
             messages.success(request, f"Welcome back, {user.first_name or user.username}!")
+            if next_url and next_url.startswith('/') and not next_url.startswith('//'):
+                return redirect(next_url)
             return redirect('dashboard_redirect')
         else:
             messages.error(request, "Invalid credentials. Please verify your username/email and password.")
 
-    return render(request, 'accounts/login.html')
+    return render(request, 'accounts/login.html', {'next': next_url})
 
 
 def register_view(request):

@@ -25,7 +25,7 @@
   <!-- Stage Filters -->
   <div class="flex flex-wrap items-center gap-2">
     <a href="?stage=all" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_stage == 'all' %}bg-slate-900 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
-      All Applications ({{ applications.count }})
+      All Applications ({{ total_count }})
     </a>
     <a href="?stage=Under Review" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {% if selected_stage == 'Under Review' %}bg-blue-600 text-white shadow-xs{% else %}bg-white border border-slate-200 text-slate-600 hover:bg-slate-50{% endif %}">
       Under Review

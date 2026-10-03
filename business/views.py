@@ -11,7 +11,7 @@ def profile_view(request):
         company_name = request.POST.get('company_name', '').strip()
         industry_sector = request.POST.get('industry_sector')
         business_type = request.POST.get('business_type')
-        location = request.POST.get('location', '').strip()
+        location = request.POST.get('location', '').strip() or (business.location if business else '') or district or 'Maharashtra'
         address = request.POST.get('address', '').strip()
         district = request.POST.get('district', '').strip()
         investment = request.POST.get('investment_cr', '5.0')

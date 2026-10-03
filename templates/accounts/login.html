@@ -22,6 +22,7 @@
     <!-- Login Form -->
     <form class="mt-6 space-y-4" method="POST" action="{% url 'accounts:login' %}">
       {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
       
       <div>
         <label for="username" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Email or Username</label>
@@ -58,6 +59,30 @@
       </div>
 
     </form>
+
+    <!-- 1-Click Presentation Persona Quick Access (SIH 2026) -->
+    <div class="pt-4 border-t border-slate-100 space-y-2">
+      <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 text-center">Instant Evaluation Switcher</span>
+      <div class="grid grid-cols-2 gap-2">
+        <a href="{% url 'accounts:switch_demo' role='entrepreneur' %}" 
+           class="p-2.5 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100 text-emerald-900 text-center transition-all">
+          <div class="text-[11px] font-bold flex items-center justify-center gap-1">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5 text-emerald-600"></i>
+            <span>Entrepreneur</span>
+          </div>
+          <div class="text-[9px] text-emerald-700">Amol Patil (Amol Foods)</div>
+        </a>
+
+        <a href="{% url 'accounts:switch_demo' role='officer' %}" 
+           class="p-2.5 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-100 text-blue-900 text-center transition-all">
+          <div class="text-[11px] font-bold flex items-center justify-center gap-1">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i>
+            <span>Govt. Officer</span>
+          </div>
+          <div class="text-[9px] text-blue-700">Dr. Rajesh Kulkarni (DIC)</div>
+        </a>
+      </div>
+    </div>
 
     <div class="text-center pt-2 border-t border-slate-100">
       <p class="text-xs text-slate-500">

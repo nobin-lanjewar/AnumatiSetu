@@ -56,6 +56,17 @@ def entrepreneur_dashboard_view(request):
         return redirect('officer_dashboard')
 
     business = request.user.business_profiles.first()
+    if not business:
+        name = request.user.first_name or request.user.username
+        business = BusinessProfile.objects.create(
+            user=request.user,
+            company_name=f"{name} Enterprises",
+            industry_sector='Manufacturing',
+            location='Maharashtra Industrial Area',
+            district='Nashik',
+            investment_cr=5.0,
+            employees_count=50,
+        )
     applications = Application.objects.filter(user=request.user)
     documents = Document.objects.filter(user=request.user)
     inspections = Inspection.objects.filter(application__user=request.user)

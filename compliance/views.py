@@ -33,6 +33,10 @@ def calendar_view(request):
 def submit_renewal(request, compliance_id):
     """Submits renewal application and updates compliance record in MySQL."""
     compliance = get_object_or_404(Compliance, id=compliance_id)
+    is_officer = hasattr(request.user, 'profile') and request.user.profile.role == 'officer'
+    if compliance.business and compliance.business.user != request.user and not is_officer:
+        messages.error(request, "Unauthorized action. You can only renew compliances for your own enterprise.")
+        return redirect('compliance:calendar')
 
     if request.method == 'POST':
         remarks = request.POST.get('remarks', 'Renewal fee paid and renewal dossier submitted.')

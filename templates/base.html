@@ -51,6 +51,8 @@
 </head>
 <body class="h-full flex flex-col antialiased selection:bg-cyan-500 selection:text-white">
 
+  <!-- Presentation Demo Persona Bar (SIH 2026) -->
+  {% include 'components/demo_bar.html' %}
 
   <!-- Layout Selection: Dashboard Sidebar vs Public Navbar -->
   {% if is_dashboard and user.is_authenticated %}
@@ -178,7 +180,7 @@
         {% for message in messages %}
         <div class="anumati-toast p-4 rounded-xl flex items-center justify-between text-sm shadow-md border mb-3 {% if message.tags == 'success' %}bg-emerald-50 border-emerald-200 text-emerald-800{% elif message.tags == 'warning' %}bg-amber-50 border-amber-200 text-amber-800{% elif message.tags == 'error' %}bg-red-50 border-red-200 text-red-800{% else %}bg-blue-50 border-blue-200 text-blue-800{% endif %}">
           <div class="flex items-center gap-3">
-            <i data-lucide="check-circle" class="w-5 h-5"></i>
+            <i data-lucide="{% if message.tags == 'success' %}check-circle{% elif message.tags == 'warning' %}alert-triangle{% elif message.tags == 'error' %}alert-octagon{% else %}info{% endif %}" class="w-5 h-5"></i>
             <span>{{ message }}</span>
           </div>
           <button type="button" onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-700">
