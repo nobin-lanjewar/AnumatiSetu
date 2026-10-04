@@ -87,7 +87,58 @@ def analyze_document_content(doc):
     file_name = doc.filename
     ext = file_name.split('.')[-1].lower() if file_name else ''
 
-    # Readability heuristic
+    # Real GST certificate pre-check if file is present
+    if doc.doc_type == 'gst' and doc.file:
+        try:
+            from .precheck import precheck_gst_certificate
+            if os.path.exists(doc.file.path):
+                profile_name = None
+                if doc.business and getattr(doc.business, 'company_name', None):
+                    profile_name = doc.business.company_name
+                elif doc.user and doc.user.business_profiles.exists():
+                    profile_name = doc.user.business_profiles.first().company_name
+
+                gst_result = precheck_gst_certificate(
+                    doc.file.path,
+                    profile_name=profile_name,
+                    expected_state_code="27"
+                )
+
+                status = 'Pre-validated' if gst_result.get('status') == 'Pre-validated' else 'Action Required'
+                score = gst_result.get('score', 96.5)
+                source = gst_result.get('text_source', 'none')
+                readability_map = {
+                    'pdf-text': 'High (Digital PDF text layer parsed)',
+                    'ocr': 'Good (OCR text extraction processed)',
+                    'none': 'Low (No text layer or OCR readable characters detected)'
+                }
+                readability = readability_map.get(source, 'Good')
+                checks = gst_result.get('checks', [])
+
+                passed_fields = [f"{c['name']}: {c['detail']}" for c in checks if c.get('passed')]
+                missing_fields = [f"{c['name']}: {c['detail']}" for c in checks if not c.get('passed')]
+
+                notes = f"Pre-validated via {source}. Score: {score}%. {gst_result.get('advisory', '')}"
+
+                return {
+                    'detected': rule['detected'],
+                    'required_fields': [c['name'] for c in checks],
+                    'detected_fields': passed_fields,
+                    'missing_fields': missing_fields,
+                    'readability': readability,
+                    'status': status,
+                    'confidence': score,
+                    'suggestions': gst_result.get('advisory', rule['suggestions']),
+                    'notes': notes,
+                    'raw_checks': checks,
+                    'gstin': gst_result.get('gstin'),
+                    'legal_name': gst_result.get('legal_name'),
+                    'disclaimer': gst_result.get('disclaimer'),
+                }
+        except Exception:
+            pass
+
+    # Readability heuristic fallback
     if file_size_kb < 10:
         readability = "Low (File size unusually small, please check if scan is truncated)"
         confidence = 72.0
@@ -313,5 +364,8 @@ def trigger_precheck_api(request, doc_id):
         'confidence': analysis['confidence'],
         'suggestions': analysis['suggestions'],
         'notes': analysis['notes'],
-        'disclaimer': 'Prototype Advisory: Simulated pre-check analysis based on Maharashtra single-window standards. Does not replace statutory scrutiny.',
+        'raw_checks': analysis.get('raw_checks', []),
+        'gstin': analysis.get('gstin'),
+        'legal_name': analysis.get('legal_name'),
+        'disclaimer': analysis.get('disclaimer', 'Prototype Advisory: Simulated pre-check analysis based on Maharashtra single-window standards. Does not replace statutory scrutiny.'),
     })
